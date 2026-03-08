@@ -49,8 +49,7 @@ async function loadSupabaseRowsFromRest(env: NodeJS.ProcessEnv): Promise<Supabas
       headers: {
         apikey: config.key,
         Authorization: `Bearer ${config.key}`
-      },
-      cache: "no-store"
+      }
     });
 
     if (!response.ok) {
