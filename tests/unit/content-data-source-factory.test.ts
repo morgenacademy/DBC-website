@@ -1,6 +1,10 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { contentItems } from "@/lib/data/content-items";
-import { createContentDataSourceFromEnv, resolveContentDataSourceMode } from "@/lib/repositories/content-data-source-factory";
+import { createContentDataSourceFromEnv, createContentDataSourceFromEnvSync, resolveContentDataSourceMode } from "@/lib/repositories/content-data-source-factory";
+
+afterEach(() => {
+  vi.restoreAllMocks();
+});
 
 describe("content datasource factory", () => {
   it("gebruikt mock als default mode", () => {
@@ -15,7 +19,7 @@ describe("content datasource factory", () => {
   });
 
   it("valt terug op mock data als supabase mode niet volledig geconfigureerd is", () => {
-    const source = createContentDataSourceFromEnv({
+    const source = createContentDataSourceFromEnvSync({
       CONTENT_DATA_SOURCE: "supabase"
     });
     const items = source.listContentItems();
@@ -60,7 +64,7 @@ describe("content datasource factory", () => {
       }
     ]);
 
-    const source = createContentDataSourceFromEnv({
+    const source = createContentDataSourceFromEnvSync({
       CONTENT_DATA_SOURCE: "supabase",
       SUPABASE_URL: "https://example.supabase.co",
       SUPABASE_ANON_KEY: "anon-key",
@@ -72,5 +76,76 @@ describe("content datasource factory", () => {
     expect(items[0].slug).toBe("supabase-ingested-item");
     expect(items[0].sourcePlatform).toBe("instagram");
     expect(items[0].searchableText).toContain("supabase");
+  });
+
+  it("leest live rows via supabase rest als json-stub ontbreekt", async () => {
+    const mockFetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => [
+        {
+          id: "live-1",
+          slug: "live-row",
+          title: "Live Row",
+          excerpt: "Live excerpt",
+          caption: "Live caption #live",
+          body: ["live body"],
+          source_platform: "instagram",
+          source_permalink: "https://instagram.com/p/live-1",
+          source_id: "178009999",
+          media_type: "image",
+          image: "https://example.com/image.jpg",
+          thumbnail: "https://example.com/thumb.jpg",
+          media_urls: ["https://example.com/image.jpg"],
+          published_at: "2026-03-08T12:00:00.000Z",
+          searchable_text: "live row",
+          content_layer: "fast",
+          categories: ["local-tips"],
+          themes: ["shopping"],
+          moments: ["weekend-in-den-bosch"],
+          tags: ["live"],
+          hashtags: ["live"],
+          manual_tags: [],
+          featured: false,
+          is_featured: false,
+          featured_rank: null,
+          editorial_label: null,
+          hero_variant: null,
+          collection_ids: [],
+          related_ids: [],
+          seo: null
+        }
+      ],
+      text: async () => ""
+    });
+
+    vi.stubGlobal("fetch", mockFetch);
+
+    const source = await createContentDataSourceFromEnv({
+      CONTENT_DATA_SOURCE: "supabase",
+      SUPABASE_URL: "https://example.supabase.co",
+      SUPABASE_ANON_KEY: "anon-key"
+    });
+
+    const items = source.listContentItems();
+    expect(items).toHaveLength(1);
+    expect(items[0].slug).toBe("live-row");
+  });
+
+  it("valt terug op mock als live supabase read faalt", async () => {
+    const mockFetch = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 500,
+      text: async () => "boom"
+    });
+    vi.stubGlobal("fetch", mockFetch);
+
+    const source = await createContentDataSourceFromEnv({
+      CONTENT_DATA_SOURCE: "supabase",
+      SUPABASE_URL: "https://example.supabase.co",
+      SUPABASE_ANON_KEY: "anon-key"
+    });
+
+    const items = source.listContentItems();
+    expect(items.length).toBe(contentItems.length);
   });
 });

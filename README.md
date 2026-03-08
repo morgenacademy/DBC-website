@@ -184,6 +184,9 @@ Voorbereide env vars:
 
 - `SUPABASE_URL` (of `NEXT_PUBLIC_SUPABASE_URL`)
 - `SUPABASE_ANON_KEY` (of `NEXT_PUBLIC_SUPABASE_ANON_KEY`)
+- `SUPABASE_SERVICE_ROLE_KEY` (aanbevolen voor server-side read/backfill)
+- `SUPABASE_CONTENT_TABLE` (default: `content_items`)
+- `SUPABASE_DB_URL` (alleen nodig voor migration-apply script)
 - `SUPABASE_CONTENT_ROWS_JSON` (optioneel, voor de huidige stub)
 
 ### Verwachte Supabase-pad later
@@ -192,8 +195,32 @@ Beoogde stroom (zonder frontend rewrite):
 
 1. Instagram API -> Supabase Edge Function (normalisatie/upsert)
 2. opslag in bijvoorbeeld `public.content_items` met `SupabaseContentRow`-shape
-3. `SupabaseContentDataSource` leest live records (in plaats van `SUPABASE_CONTENT_ROWS_JSON`)
+3. `SupabaseContentDataSource` leest live records via Supabase REST (valt terug op mock bij fouten)
 4. repository/UI blijven ongewijzigd
+
+### Gecontroleerde live-activatie (zonder frontend rewrite)
+
+Volgorde:
+
+0. Lokale env klaarzetten:
+   - de Supabase scripts laden automatisch `.env` / `.env.local`
+   - handig vanuit Netlify: `npx netlify link` en daarna `npx netlify env:pull .env.local`
+1. Config check:
+   - `npm run supabase:verify:config`
+2. Migration toepassen (alleen met bevestigde live toegang):
+   - `npm run supabase:migrate:apply`
+   - optioneel pad: `npm run supabase:migrate:apply -- supabase/migrations/<bestand>.sql`
+3. Eerste backfill:
+   - `npm run supabase:backfill:content`
+4. Read-path valideren:
+   - `npm run supabase:verify:read`
+5. Datasource switch:
+   - zet `CONTENT_DATA_SOURCE=supabase`
+
+Rollback/fallback:
+
+- Bij ontbrekende Supabase envs of read-fouten blijft de site automatisch op mock-content draaien.
+- Terugschakelen kan altijd direct met `CONTENT_DATA_SOURCE=mock`.
 
 ## Ontdek en zoekbaarheid
 

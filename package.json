@@ -9,7 +9,11 @@
     "lint": "next lint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "supabase:verify:config": "tsx scripts/supabase/verify-config.ts",
+    "supabase:migrate:apply": "tsx scripts/supabase/apply-migration.ts",
+    "supabase:backfill:content": "tsx scripts/supabase/backfill-content-items.ts",
+    "supabase:verify:read": "tsx scripts/supabase/verify-read-path.ts"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -32,6 +36,7 @@
     "jsdom": "^26.1.0",
     "postcss": "^8.5.3",
     "tailwindcss": "^3.4.17",
+    "tsx": "^4.20.5",
     "typescript": "^5.8.3",
     "vitest": "^3.1.2"
   }

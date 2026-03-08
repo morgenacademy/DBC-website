@@ -23,43 +23,18 @@ export class SupabaseRecordContentDataSource implements ContentDataSource {
 
 interface SupabaseContentDataSourceOptions {
   fallbackDataSource: ContentDataSource;
-  supabaseUrl?: string;
-  supabaseAnonKey?: string;
-  rowsJson?: string;
+  rows?: SupabaseContentRow[] | null;
+  sourceLabel?: "json" | "live";
 }
 
-// Stage-2 stub: fallback blijft mock, maar de boundary voor Supabase staat al klaar.
+// Supabase datasource met veilige fallback naar mock wanneer rows ontbreken.
 export class SupabaseContentDataSource implements ContentDataSource {
-  private parsedRowsCache: SupabaseContentRow[] | null | undefined;
-
   constructor(private readonly options: SupabaseContentDataSourceOptions) {}
 
-  private get parsedRows(): SupabaseContentRow[] | null {
-    if (this.parsedRowsCache !== undefined) return this.parsedRowsCache;
-
-    if (!this.options.rowsJson) {
-      this.parsedRowsCache = null;
-      return this.parsedRowsCache;
-    }
-
-    try {
-      const parsed = JSON.parse(this.options.rowsJson) as unknown;
-      this.parsedRowsCache = Array.isArray(parsed) ? (parsed as SupabaseContentRow[]) : null;
-    } catch {
-      this.parsedRowsCache = null;
-    }
-
-    return this.parsedRowsCache;
-  }
-
-  private get isSupabaseConfigured(): boolean {
-    return Boolean(this.options.supabaseUrl && this.options.supabaseAnonKey);
-  }
-
   listContentItems(): ContentItem[] {
-    const rows = this.parsedRows;
+    const rows = this.options.rows;
 
-    if (this.isSupabaseConfigured && rows && rows.length > 0) {
+    if (rows && rows.length > 0) {
       return rows.map((row) => mapSupabaseContentRowToContentItem(row));
     }
 

@@ -5,6 +5,7 @@ Dit document beschrijft het voorgestelde Supabase datamodel voor de Instagram-fi
 Ready-to-run (niet uitgevoerd) migration file:
 
 - `supabase/migrations/20260308211000_instagram_content_schema.sql`
+- toepassen via script: `npm run supabase:migrate:apply`
 
 De SQL in dit document en de migration file zijn inhoudelijk gelijk gehouden.
 
@@ -173,6 +174,7 @@ De SQL hierboven is hier direct op afgestemd.
 ### Stap A — DB foundation
 
 1. Maak tabellen/indexes aan in Supabase SQL editor (of migration files)
+   - in deze repo: `npm run supabase:migrate:apply`
 2. Voeg minimaal read policies toe voor public content (later aanscherpen)
 3. Schrijven alleen via service role / Edge Functions
 
@@ -181,11 +183,12 @@ De SQL hierboven is hier direct op afgestemd.
 1. Lees lokale `contentItems`
 2. Zet om met `mapContentItemToSupabaseRow`
 3. Upsert naar `public.content_items`
+   - in deze repo: `npm run supabase:backfill:content`
 
 ### Stap C — Datasource switch activeren
 
 1. Zet `CONTENT_DATA_SOURCE=supabase`
-2. Vervang in `SupabaseContentDataSource` de JSON-stub door echte Supabase query
+2. Verifieer read-path: `npm run supabase:verify:read`
 3. Frontend blijft ongewijzigd; repository contracten blijven gelijk
 
 ### Stap D — Instagram sync live

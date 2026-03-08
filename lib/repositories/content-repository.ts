@@ -15,7 +15,7 @@ function byFeatured(first: ContentItem, second: ContentItem): number {
 }
 
 export class InMemoryContentRepository implements ContentRepository {
-  constructor(private readonly dataSource: ContentDataSource = createContentDataSourceFromEnv()) {}
+  constructor(private readonly dataSource: ContentDataSource) {}
 
   private get items(): ContentItem[] {
     return this.dataSource.listContentItems();
@@ -90,4 +90,6 @@ export class InMemoryContentRepository implements ContentRepository {
   }
 }
 
-export const contentRepository = new InMemoryContentRepository();
+const resolvedContentDataSource = await createContentDataSourceFromEnv();
+
+export const contentRepository = new InMemoryContentRepository(resolvedContentDataSource);
