@@ -36,11 +36,7 @@ export default async function DiscoverPage({ searchParams }: DiscoverPageProps):
   return (
     <div className="mx-auto w-full max-w-6xl space-y-8 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
       <section className="rounded-[2rem] border border-brand-teal/15 bg-white p-6 shadow-card sm:p-8">
-        <SectionHeading
-          eyebrow="Ontdek"
-          title="Instagram-first content, blijvend doorzoekbaar"
-          description="Zoek op termen zoals vegetarian, koningsdag of brunch, filter op thema en vind ook maanden later je favoriete tips terug."
-        />
+        <SectionHeading eyebrow="Ontdek" title="Ontdek Den Bosch" />
 
         <form className="mt-6 grid gap-3 md:grid-cols-4" role="search" aria-label="Zoek en filter Ontdek">
           <label className="md:col-span-2">
