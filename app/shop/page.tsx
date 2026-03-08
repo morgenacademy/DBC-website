@@ -3,27 +3,40 @@ import { ProductCard } from "@/components/cards/product-card";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { buildMetadata } from "@/lib/seo";
 import { commerceProvider } from "@/lib/repositories";
+import { unique } from "@/lib/utils";
 
 export const metadata: Metadata = buildMetadata({
   title: "Shop",
-  description: "Shop shell met featured drops en voorbereide commerce-architectuur voor latere Shopify integratie.",
+  description: "Gecureerde partnerproducten van Den Bosch City met directe doorklik naar partnerwebsites.",
   path: "/shop"
 });
 
 export default function ShopPage(): React.JSX.Element {
   const featured = commerceProvider.listProducts(true);
   const allProducts = commerceProvider.listProducts();
+  const categories = unique(allProducts.map((item) => item.category));
 
   return (
     <div className="mx-auto w-full max-w-6xl space-y-10 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
       <SectionHeading
         eyebrow="Shop"
-        title="Lokale drops en city merchandise"
-        description="V1 shop shell met duidelijke productstructuur, klaar voor toekomstige Shopify of andere commerce provider integratie."
+        title="Gecureerde partnerproducten"
+        description="Den Bosch City verkoopt niet zelf. Je klikt door naar geselecteerde partners. Bij sommige links kunnen we een vergoeding ontvangen."
       />
 
+      <section className="rounded-editorial border border-brand-teal/15 bg-white p-5 shadow-card">
+        <p className="text-xs font-semibold uppercase tracking-[0.15em] text-brand-teal/60">Categorieën</p>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {categories.map((category) => (
+            <span key={category} className="rounded-full bg-brand-sand px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-brand-teal">
+              {category}
+            </span>
+          ))}
+        </div>
+      </section>
+
       <section className="space-y-4">
-        <h2 className="text-2xl font-bold text-brand-teal">Featured</h2>
+        <h2 className="text-2xl font-bold text-brand-teal">Uitgelicht</h2>
         <div className="grid gap-5 md:grid-cols-3">
           {featured.map((product) => (
             <ProductCard key={product.id} product={product} />
@@ -32,7 +45,7 @@ export default function ShopPage(): React.JSX.Element {
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-2xl font-bold text-brand-teal">Alle producten</h2>
+        <h2 className="text-2xl font-bold text-brand-teal">Alle partner picks</h2>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {allProducts.map((product) => (
             <ProductCard key={product.id} product={product} />

@@ -1,15 +1,14 @@
 export const homepageConfig = {
   hero: {
     title: "Den Bosch City",
-    subtitle: "De curated city guide voor weekenden, hotspots en momenten.",
-    ctaPrimary: { label: "Ontdek dit weekend", href: "/weekend-guide" },
-    ctaSecondary: { label: "Browse Discover", href: "/discover" }
+    subtitle: "De city guide voor je weekend, je ontdekkingstocht en je favoriete lokale spots.",
+    ctaPrimary: { label: "Naar Weekend Guide", href: "/weekend-guide" },
+    ctaSecondary: { label: "Naar Ontdek", href: "/discover" }
   },
   sections: {
-    featuredLabel: "Editor's Picks",
-    discoverLabel: "Nieuw in Discover",
-    momentsLabel: "Seizoenen & Moments",
-    collectionsLabel: "Curated Collections",
-    shopLabel: "Shop Highlights"
+    featuredLabel: "Den Bosch City",
+    discoverLabel: "Ontdek",
+    seasonalLabel: "Nu Relevant",
+    shopLabel: "Shop"
   }
 } as const;

@@ -94,13 +94,14 @@ export interface Product {
   id: string;
   slug: string;
   title: string;
-  price: number;
-  currency: "EUR";
+  shortDescription: string;
+  priceDisplay: string;
   image: string;
-  summary: string;
-  featured?: boolean;
-  dropLabel?: string;
-  externalUrl?: string;
+  category: string;
+  partnerName: string;
+  partnerUrl: string;
+  badge?: string;
+  isFeatured: boolean;
 }
 
 export interface ContentFilters {

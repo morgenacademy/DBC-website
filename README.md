@@ -1,58 +1,60 @@
-<<<<<<< HEAD
-# DBC-website
-=======
 # Den Bosch City V1
 
-Instagram-first, editorial city platform for Den Bosch with an owned discovery layer.
+V1 van Den Bosch City met een vereenvoudigde front-end ervaring en een sterke onderliggende contentarchitectuur.
+
+## Kern van de UX
+
+Topnavigatie:
+
+- Home
+- Weekend Guide
+- Ontdek
+- Shop
+
+Doel per pagina:
+
+- **Home**: curated en overzichtelijk, routeert naar de 3 kernervaringen.
+- **Weekend Guide**: direct bruikbare weekendselectie met categorieën.
+- **Ontdek**: centrale instagrid + zoekbare contenthub voor social-first content.
+- **Shop**: gecureerde partnerproducten met externe doorklik (geen checkout op Den Bosch City).
+
+Themes en moments bestaan nog als landingspagina's, maar zijn gedemoteerd uit de primaire navigatie.
+Collections blijven intern/editorial in de contentlaag.
 
 ## Stack
 
 - Next.js (App Router)
 - TypeScript
 - Tailwind CSS
-- In-memory repository layer (mock data, CMS-ready interfaces)
+- Repository-based data layer (mock data, CMS-ready)
 
-## V1 Routes
+## Routes
+
+Publiek primair:
 
 - `/`
 - `/weekend-guide`
-- `/discover`
+- `/discover` (label: Ontdek)
 - `/discover/[slug]`
+- `/shop`
+
+Secundair/support:
+
 - `/theme/[slug]`
 - `/moment/[slug]`
 - `/collection/[slug]`
-- `/shop`
+- `/over`
+- `/contact`
 
-## Brand System
-
-Source: `/Huisstijl` assets.
-
-Implemented tokens:
-
-- `--color-coral: #EA582D`
-- `--color-peach: #F2B484`
-- `--color-sand: #EBDEC6`
-- `--color-aqua: #83B3B6`
-- `--color-teal: #005A5B`
-
-Typography:
-
-- Display: Unica One (local)
-- Body/UI: Work Sans (local)
-
-Note: Codec files in `/Huisstijl/Fonts/codec` are trial/non-commercial and not used.
-
-## Content Architecture
-
-Entity types:
+## Contentmodel (behouden)
 
 - `ContentItem`
 - `WeekendItem`
 - `Theme`
 - `Collection`
-- `Product`
+- `Product` (curated partner-item)
 
-Editorial curation fields on `ContentItem`:
+Belangrijke editorial velden op `ContentItem`:
 
 - `isFeatured`
 - `featuredRank`
@@ -60,7 +62,7 @@ Editorial curation fields on `ContentItem`:
 - `heroVariant`
 - `collectionIds`
 
-Taxonomy is explicit (not blob-based):
+Expliciete taxonomie:
 
 - `categories`
 - `themes`
@@ -68,81 +70,81 @@ Taxonomy is explicit (not blob-based):
 - `tags`
 - `hashtags`
 
-## Repository Interfaces
+## Shop model (partner/affiliate)
+
+Shopitems zijn geen native e-commerce producten met mandje of checkout. Het model ondersteunt:
+
+- `title`
+- `slug`
+- `shortDescription`
+- `priceDisplay`
+- `image`
+- `category`
+- `partnerName`
+- `partnerUrl`
+- `badge` (optioneel)
+- `isFeatured`
+
+WordPress import-shape en normalisatie staan in:
+
+- `lib/adapters/wordpress-shop.ts`
+
+## Repositories
+
+UI is losgekoppeld van data via interfaces en in-memory implementaties:
 
 - `ContentRepository`
-  - `listContent(filters)`
-  - `getContentBySlug(slug)`
-  - `searchContent(query, filters)`
-  - `getRelatedContent(item, limit)`
 - `ThemeRepository`
-  - `listThemes(kind?)`
-  - `getThemeBySlug(slug)`
 - `CollectionRepository`
-  - `listCollections(channel?)`
-  - `getCollectionBySlug(slug)`
 - `WeekendRepository`
-  - `listWeekendItems(dateRange?, category?)`
 - `CommerceProvider`
-  - `listProducts(featuredOnly?)`
-  - `getProductBySlug(slug)`
 
-All interfaces are UI-safe boundaries so data can later move to CMS/API ingestion without rewriting pages.
+Hierdoor kan de data later naar CMS of ingestiepipeline zonder UI-rewrite.
 
-## Search Readiness
+## Ontdek en zoekbaarheid
 
-`lib/search-index.ts` provides normalized index shaping per content item from:
+`/discover` is de hoofdlaag voor:
 
-- title
-- caption
-- excerpt
-- hashtags
-- tags
-- themes
-- categories
-- moments
+- latest social-first content
+- zoekfunctie
+- simpele filters
+- thema/moment-doorverwijzingen
+- archief/terugvindbaarheid
 
-Discover uses URL-driven filters (`q`, `theme`, `moment`, `category`, `type`) for scalable search evolution.
+Zoekindex-shaping gebeurt in `lib/search-index.ts` op basis van title/caption/excerpt/tags/hashtags/themes/categories/moments.
 
-## Home vs Discover UX
+## Brand
 
-- Home: curated, hierarchical, editorial storytelling.
-- Discover: broad, searchable, filter-driven exploration.
+Bronbestanden staan in `Huisstijl/`.
 
-## Configuration-First Setup
+Gebruikte fonts/tokens:
 
-Centralized config/data files:
+- Display: Unica One
+- Body: Work Sans
+- Kleuren: `#EA582D`, `#F2B484`, `#EBDEC6`, `#83B3B6`, `#005A5B`
 
-- `lib/site-config.ts`
-- `lib/config/navigation.ts`
-- `lib/config/homepage.ts`
-- `lib/data/*.ts`
+Codec fonts zijn trial/non-commercial en worden niet gebruikt.
 
-## Local Development
+## Development
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Testing
-
-Unit + component tests:
+## Checks
 
 ```bash
+npm run lint
 npm test
-```
-
-E2E smoke tests:
-
-```bash
 npm run test:e2e
+npm run build
 ```
 
-## Next Integrations
+## Volgende stap
 
-- Replace in-memory repositories with CMS adapters (Sanity/Supabase/Airtable).
-- Add real Instagram ingestion job feeding `normalizeInstagramRecord`.
-- Replace `InMemoryCommerceProvider` with Shopify adapter.
-- Extend search provider to Algolia or Postgres full-text search.
->>>>>>> abb82b2 (Initial Den Bosch City V1)
+Koppel de repositories aan:
+
+1. Instagram ingestie/sync
+2. CMS (Sanity/Supabase/Airtable)
+3. WordPress-shop importadapter en partnerfeed koppeling

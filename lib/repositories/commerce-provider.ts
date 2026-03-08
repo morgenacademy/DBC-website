@@ -6,7 +6,7 @@ export class InMemoryCommerceProvider implements CommerceProvider {
 
   listProducts(featuredOnly = false): Product[] {
     if (!featuredOnly) return this.items;
-    return this.items.filter((item) => item.featured);
+    return this.items.filter((item) => item.isFeatured);
   }
 
   getProductBySlug(slug: string): Product | undefined {

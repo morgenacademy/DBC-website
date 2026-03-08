@@ -8,21 +8,26 @@ export function SiteFooter(): React.JSX.Element {
         <div>
           <p className="font-display text-2xl tracking-wide text-brand-peach">Den Bosch City</p>
           <p className="mt-2 max-w-sm text-sm leading-relaxed text-brand-sand/85">
-            Curated city platform voor locals en bezoekers. Weekend guide, discover stories, themes, moments en shop.
+            Simpel en sterk: Home, Weekend Guide, Ontdek en Shop. Instagram-first content met blijvende vindbaarheid.
           </p>
         </div>
 
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-aqua">Platform</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-aqua">Navigatie</p>
           <ul className="mt-3 space-y-2 text-sm">
             <li>
-              <Link href="/discover" className="hover:text-white">
-                Discover
+              <Link href="/" className="hover:text-white">
+                Home
               </Link>
             </li>
             <li>
               <Link href="/weekend-guide" className="hover:text-white">
                 Weekend Guide
+              </Link>
+            </li>
+            <li>
+              <Link href="/discover" className="hover:text-white">
+                Ontdek
               </Link>
             </li>
             <li>
@@ -34,13 +39,19 @@ export function SiteFooter(): React.JSX.Element {
         </div>
 
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-aqua">Volg Den Bosch City</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-aqua">Meer</p>
           <div className="mt-3 flex flex-col gap-2 text-sm">
-            <a className="hover:text-white" href={siteConfig.social.instagram} target="_blank" rel="noreferrer">
-              Instagram
-            </a>
             <a className="hover:text-white" href={siteConfig.newsletterUrl} target="_blank" rel="noreferrer">
               Nieuwsbrief
+            </a>
+            <Link href="/over" className="hover:text-white">
+              Over
+            </Link>
+            <Link href="/contact" className="hover:text-white">
+              Contact
+            </Link>
+            <a className="hover:text-white" href={siteConfig.social.instagram} target="_blank" rel="noreferrer">
+              Instagram
             </a>
           </div>
         </div>

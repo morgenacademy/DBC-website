@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Den Bosch City",
   description:
-    "Modern stadsplatform voor 's-Hertogenbosch met weekendtips, discover content, thema's, collecties en shop.",
+    "Den Bosch City: Home, Weekend Guide, Ontdek en Shop. Instagram-first content met zoekbare tips en deelbare URL's.",
   domain: "https://denboschcity.nl",
   locale: "nl-NL",
   social: {
