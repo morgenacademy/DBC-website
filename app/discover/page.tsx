@@ -17,6 +17,15 @@ interface DiscoverPageProps {
 }
 
 const categories: WeekendCategory[] = ["food", "events", "culture", "kids", "shopping", "nightlife", "local-tips"];
+const categoryLabels: Record<WeekendCategory, string> = {
+  food: "Eten",
+  events: "Events",
+  culture: "Cultuur",
+  kids: "Kids",
+  shopping: "Winkelen",
+  nightlife: "Uitgaan",
+  "local-tips": "Lokale tips"
+};
 
 export default async function DiscoverPage({ searchParams }: DiscoverPageProps): Promise<React.JSX.Element> {
   const params = await searchParams;
@@ -45,14 +54,14 @@ export default async function DiscoverPage({ searchParams }: DiscoverPageProps):
               type="search"
               name="q"
               defaultValue={params.q}
-              placeholder="bijv. vegetarian, koningsdag, brunch"
-              className="w-full rounded-xl border border-brand-teal/20 bg-white px-3 py-2 text-sm"
+              placeholder="bijv. vegetarisch, koningsdag, brunch"
+              className="h-11 w-full rounded-xl border border-brand-teal/20 bg-white px-3 text-sm"
             />
           </label>
 
           <label>
             <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.16em] text-brand-teal/60">Thema</span>
-            <select name="theme" defaultValue={params.theme ?? ""} className="w-full rounded-xl border border-brand-teal/20 bg-white px-3 py-2 text-sm">
+            <select name="theme" defaultValue={params.theme ?? ""} className="h-11 w-full rounded-xl border border-brand-teal/20 bg-white px-3 text-sm">
               <option value="">Alle</option>
               {themes.map((theme) => (
                 <option key={theme.id} value={theme.slug}>
@@ -67,12 +76,12 @@ export default async function DiscoverPage({ searchParams }: DiscoverPageProps):
             <select
               name="category"
               defaultValue={params.category ?? ""}
-              className="w-full rounded-xl border border-brand-teal/20 bg-white px-3 py-2 text-sm"
+              className="h-11 w-full rounded-xl border border-brand-teal/20 bg-white px-3 text-sm"
             >
               <option value="">Alle</option>
               {categories.map((category) => (
                 <option key={category} value={category}>
-                  {category}
+                  {categoryLabels[category]}
                 </option>
               ))}
             </select>
@@ -80,7 +89,7 @@ export default async function DiscoverPage({ searchParams }: DiscoverPageProps):
 
           <label>
             <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.16em] text-brand-teal/60">Moment</span>
-            <select name="moment" defaultValue={params.moment ?? ""} className="w-full rounded-xl border border-brand-teal/20 bg-white px-3 py-2 text-sm">
+            <select name="moment" defaultValue={params.moment ?? ""} className="h-11 w-full rounded-xl border border-brand-teal/20 bg-white px-3 text-sm">
               <option value="">Alle</option>
               {moments.map((moment) => (
                 <option key={moment.id} value={moment.slug}>

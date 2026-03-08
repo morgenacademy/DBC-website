@@ -12,7 +12,6 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default function ShopPage(): React.JSX.Element {
-  const featured = commerceProvider.listProducts(true);
   const allProducts = commerceProvider.listProducts();
   const categories = unique(allProducts.map((item) => item.category));
 
@@ -20,8 +19,8 @@ export default function ShopPage(): React.JSX.Element {
     <div className="mx-auto w-full max-w-6xl space-y-10 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
       <SectionHeading
         eyebrow="Shop"
-        title="Gecureerde partnerproducten"
-        description="Den Bosch City verkoopt niet zelf. Je klikt door naar geselecteerde partners. Bij sommige links kunnen we een vergoeding ontvangen."
+        title="Den Bosch City Shop"
+        description="Ontdek onze favoriete Bossche producten. Je bestelt direct bij onze partners."
       />
 
       <section className="rounded-editorial border border-brand-teal/15 bg-white p-5 shadow-card">
@@ -36,16 +35,7 @@ export default function ShopPage(): React.JSX.Element {
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-2xl font-bold text-brand-teal">Uitgelicht</h2>
-        <div className="grid gap-5 md:grid-cols-3">
-          {featured.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="text-2xl font-bold text-brand-teal">Alle partner picks</h2>
+        <h2 className="text-2xl font-bold text-brand-teal">Alle producten</h2>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {allProducts.map((product) => (
             <ProductCard key={product.id} product={product} />

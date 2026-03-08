@@ -7,11 +7,20 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps): React.JSX.Element {
+  const upperTitle = product.title.toUpperCase();
+  const orderLabel = upperTitle.includes("HOODIE")
+    ? "Bestel hoodie"
+    : upperTitle.includes("SWEATSHIRT")
+      ? "Bestel sweatshirt"
+      : upperTitle.includes("KERSTTRUI")
+        ? "Bestel kersttrui"
+        : "Bestel nu";
+
   return (
     <article id={product.slug} className="overflow-hidden rounded-editorial border border-brand-teal/15 bg-white shadow-card">
       <a href={product.partnerUrl} target="_blank" rel="sponsored noreferrer" className="block">
-        <div className="relative aspect-[4/3]">
-          <Image src={product.image} alt={product.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
+        <div className="relative aspect-[4/5]">
+          <Image src={product.image} alt={product.title} fill className="object-cover object-top" sizes="(max-width: 768px) 100vw, 33vw" />
         </div>
       </a>
 
@@ -22,6 +31,7 @@ export function ProductCard({ product }: ProductCardProps): React.JSX.Element {
         </div>
 
         <h3 className="text-xl font-bold text-brand-teal">{product.title}</h3>
+        {product.color ? <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-teal/65">Kleur: {product.color}</p> : null}
         <p className="text-sm text-brand-teal/75">{product.shortDescription}</p>
 
         <div className="flex items-center justify-between gap-3">
@@ -34,9 +44,9 @@ export function ProductCard({ product }: ProductCardProps): React.JSX.Element {
             href={product.partnerUrl}
             target="_blank"
             rel="sponsored noreferrer"
-            className="rounded-full border border-brand-teal/25 px-3 py-1.5 text-sm font-semibold text-brand-teal hover:border-brand-coral hover:text-brand-coral"
+            className="rounded-full bg-brand-coral px-4 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-white hover:opacity-90"
           >
-            Ga naar partner ↗
+            {orderLabel}
           </a>
         </div>
       </div>
