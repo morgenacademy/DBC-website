@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ProductCard } from "@/components/cards/product-card";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { buildMetadata } from "@/lib/seo";
@@ -11,9 +12,18 @@ export const metadata: Metadata = buildMetadata({
   path: "/shop"
 });
 
-export default function ShopPage(): React.JSX.Element {
+interface ShopPageProps {
+  searchParams: Promise<{ category?: string }>;
+}
+
+export default async function ShopPage({ searchParams }: ShopPageProps): Promise<React.JSX.Element> {
+  const params = await searchParams;
+  const selectedCategory = params.category ?? "";
   const allProducts = commerceProvider.listProducts();
   const categories = unique(allProducts.map((item) => item.category));
+  const filteredProducts = selectedCategory
+    ? allProducts.filter((item) => item.category === selectedCategory)
+    : allProducts;
 
   return (
     <div className="mx-auto w-full max-w-6xl space-y-10 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
@@ -26,18 +36,32 @@ export default function ShopPage(): React.JSX.Element {
       <section className="rounded-editorial border border-brand-teal/15 bg-white p-5 shadow-card">
         <p className="text-xs font-semibold uppercase tracking-[0.15em] text-brand-teal/60">Categorieën</p>
         <div className="mt-2 flex flex-wrap gap-2">
+          <Link
+            href="/shop"
+            className={`rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-wide transition ${
+              selectedCategory === "" ? "bg-brand-coral text-white" : "bg-brand-sand text-brand-teal hover:bg-brand-peach"
+            }`}
+          >
+            Toon alles
+          </Link>
           {categories.map((category) => (
-            <span key={category} className="rounded-full bg-brand-sand px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-brand-teal">
+            <Link
+              key={category}
+              href={`/shop?category=${encodeURIComponent(category)}`}
+              className={`rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-wide transition ${
+                selectedCategory === category ? "bg-brand-coral text-white" : "bg-brand-sand text-brand-teal hover:bg-brand-peach"
+              }`}
+            >
               {category}
-            </span>
+            </Link>
           ))}
         </div>
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-2xl font-bold text-brand-teal">Alle producten</h2>
+        <h2 className="text-2xl font-bold text-brand-teal">{selectedCategory ? `${selectedCategory}` : "Alle producten"}</h2>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {allProducts.map((product) => (
+          {filteredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>

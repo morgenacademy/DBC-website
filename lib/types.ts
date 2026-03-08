@@ -65,6 +65,37 @@ export interface WeekendItem {
   image: string;
 }
 
+export type WeekendGuideDay = "hele-weekend" | "donderdag" | "vrijdag" | "zaterdag" | "zondag" | "maandag";
+
+export interface WeekendGuideWeather {
+  day: "do" | "vr" | "za" | "zo";
+  temperature: string;
+  icon: "sunny" | "partly-cloudy" | "cloudy";
+}
+
+export interface WeekendGuideEvent {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  venue: string;
+  timeLabel?: string;
+  day: WeekendGuideDay;
+  sourceDateLabel?: string;
+  sourceLink?: string;
+}
+
+export interface WeekendGuideEdition {
+  id: string;
+  slug: string;
+  title: string;
+  periodLabel: string;
+  introTitle: string;
+  introBody: string;
+  weather: WeekendGuideWeather[];
+  events: WeekendGuideEvent[];
+}
+
 export interface Theme {
   id: string;
   slug: string;
@@ -139,6 +170,8 @@ export interface CollectionRepository {
 
 export interface WeekendRepository {
   listWeekendItems(dateRange?: DateRange, category?: WeekendCategory): WeekendItem[];
+  getCurrentGuide(): WeekendGuideEdition;
+  listGuideSections(editionSlug?: string): { day: WeekendGuideDay; label: string; events: WeekendGuideEvent[] }[];
 }
 
 export interface CommerceProvider {
