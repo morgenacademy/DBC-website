@@ -170,6 +170,16 @@ npm install
 npm run dev
 ```
 
+### Mailchimp nieuwsbriefkoppeling
+
+Footer-inschrijving (`naam + e-mail`) loopt via `POST /api/newsletter-subscribe` naar Mailchimp.
+
+Vereiste env vars:
+
+- `MAILCHIMP_API_KEY`
+- `MAILCHIMP_AUDIENCE_ID`
+- `MAILCHIMP_SERVER_PREFIX` (optioneel als je API-key suffix al `-usX` bevat)
+
 ## Checks
 
 ```bash
