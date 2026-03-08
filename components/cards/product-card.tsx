@@ -89,6 +89,7 @@ function splitDescription(product: Product): { lead: string; details: string[] }
 export function ProductCard({ product }: ProductCardProps): React.JSX.Element {
   const orderLabel = "Bestel nu";
   const gallery = product.imageUrls.length > 0 ? product.imageUrls : [product.image];
+  const isChristmasProduct = product.category.toLowerCase().includes("kersttrui");
   const [manualOffset, setManualOffset] = useState(0);
   const synchronizedTick = useSynchronizedCarouselTick();
   const hasMultipleImages = gallery.length > 1;
@@ -116,7 +117,7 @@ export function ProductCard({ product }: ProductCardProps): React.JSX.Element {
   }
 
   return (
-    <article id={product.slug} className="overflow-hidden rounded-editorial border border-brand-teal/15 bg-white shadow-card">
+    <article id={product.slug} className="flex h-full flex-col overflow-hidden rounded-editorial border border-brand-teal/15 bg-white shadow-card">
       <div className="relative">
         <a href={product.partnerUrl} target="_blank" rel="sponsored noreferrer" className="block">
           <div className="relative aspect-[4/5] overflow-hidden">
@@ -174,7 +175,7 @@ export function ProductCard({ product }: ProductCardProps): React.JSX.Element {
         ) : null}
       </div>
 
-      <div className="space-y-3 p-4">
+      <div className="flex flex-1 flex-col space-y-3 p-4">
         <div className="flex flex-wrap items-center gap-2">
           <Pill label={product.category} />
           {product.badge ? <Pill label={product.badge} tone="accent" /> : null}
@@ -191,10 +192,12 @@ export function ProductCard({ product }: ProductCardProps): React.JSX.Element {
           ))}
         </div>
 
-        <div className="space-y-3 pt-1">
+        <div className="mt-auto space-y-3 pt-1">
           <div className="space-y-1">
             {product.priceDisplay ? <p className="text-[1.15rem] font-bold text-brand-coral">{product.priceDisplay}</p> : null}
-            <p className="text-[0.72rem] uppercase tracking-[0.12em] text-brand-teal/58">Partner: {product.partnerName}</p>
+            {!isChristmasProduct ? (
+              <p className="text-[0.72rem] uppercase tracking-[0.12em] text-brand-teal/58">Productie door: {product.partnerName}</p>
+            ) : null}
           </div>
 
           <div className="flex justify-center">

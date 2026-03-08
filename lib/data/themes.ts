@@ -4,7 +4,7 @@ export const themes: Theme[] = [
   {
     id: "t1",
     slug: "vegetarian",
-    title: "Vegetarian",
+    title: "Vegetarisch",
     kind: "theme",
     intro: "Plantaardige hotspots, brunch-adressen en comfort food zonder compromis.",
     heroImage:
@@ -15,7 +15,7 @@ export const themes: Theme[] = [
   {
     id: "t2",
     slug: "terraces",
-    title: "Terraces",
+    title: "Terrassen",
     kind: "theme",
     intro: "De beste terrassen voor lunch, borrel en avondzon in de stad.",
     heroImage:
@@ -26,7 +26,7 @@ export const themes: Theme[] = [
   {
     id: "t3",
     slug: "shopping",
-    title: "Shopping",
+    title: "Winkelen",
     kind: "theme",
     intro: "Lokale boetieks, concept stores en stadsroutes voor style en gifts.",
     heroImage:
@@ -37,7 +37,7 @@ export const themes: Theme[] = [
   {
     id: "t4",
     slug: "culture",
-    title: "Culture",
+    title: "Cultuur",
     kind: "theme",
     intro: "Musea, makers, exposities en lokale verhalen met karakter.",
     heroImage:
@@ -59,7 +59,7 @@ export const themes: Theme[] = [
   {
     id: "m2",
     slug: "carnival",
-    title: "Carnival",
+    title: "Carnaval",
     kind: "moment",
     intro: "Oeteldonk special met route, muziekspots en praktische tips.",
     heroImage:
@@ -81,7 +81,7 @@ export const themes: Theme[] = [
   {
     id: "m4",
     slug: "summer-in-den-bosch",
-    title: "Summer in Den Bosch",
+    title: "Zomer in Den Bosch",
     kind: "moment",
     intro: "Lange avonden, terrassen en rooftops op z'n Bosschs.",
     heroImage:
@@ -92,7 +92,7 @@ export const themes: Theme[] = [
   {
     id: "m5",
     slug: "christmas",
-    title: "Christmas",
+    title: "Kerst",
     kind: "moment",
     intro: "Winterse hotspots, cadeau-routes en knusse plekken in de binnenstad.",
     heroImage:
