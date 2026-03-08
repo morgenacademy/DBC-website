@@ -14,7 +14,7 @@ Topnavigatie:
 Doel per pagina:
 
 - **Home**: curated en overzichtelijk, routeert naar de 3 kernervaringen.
-- **Weekend Guide**: direct bruikbare weekendselectie met categorieën.
+- **Weekend Guide**: fase 1-rebuild van de bestaande publicatie-opzet (Hele weekend + dagblokken), maar data-driven.
 - **Ontdek**: centrale instagrid + zoekbare contenthub voor social-first content.
 - **Shop**: gecureerde partnerproducten met externe doorklik (geen checkout op Den Bosch City).
 
@@ -50,6 +50,8 @@ Secundair/support:
 
 - `ContentItem`
 - `WeekendItem`
+- `WeekendGuideEdition`
+- `WeekendGuideEvent`
 - `Theme`
 - `Collection`
 - `Product` (curated partner-item)
@@ -123,6 +125,31 @@ Hierdoor kan de data later naar CMS of ingestiepipeline zonder UI-rewrite.
 - archief/terugvindbaarheid
 
 Zoekindex-shaping gebeurt in `lib/search-index.ts` op basis van title/caption/excerpt/tags/hashtags/themes/categories/moments.
+
+## Weekend Guide fase 1
+
+Voor de Weekend Guide is eerst bewust gekozen voor een **getrouwe rebuild** van de bestaande werkwijze, vóór verdere vernieuwing.
+
+Wat is vertaald uit de oude GPT/HTML-flow:
+
+- dagindeling blijft identiek: `Hele weekend`, `Donderdag`, `Vrijdag`, `Zaterdag`, `Zondag` (optioneel `Maandag` als er items zijn).
+- events zijn geen losse HTML-blokken meer, maar gestructureerde records met:
+  - `title`
+  - `description`
+  - `venue`
+  - `timeLabel` (optioneel)
+  - `day`
+- broncontent is gebaseerd op de aangeleverde Word/PDF-output en opgeslagen in:
+  - `lib/data/weekend-guide-edition.ts`
+- repository-methodes voor rendering:
+  - `getCurrentGuide()`
+  - `listGuideSections()`
+
+Resultaat:
+
+- geen handmatige HTML-plakflow meer nodig;
+- wel dezelfde herkenbare redactionele structuur voor bezoekers;
+- klaar voor latere ingestie (bijv. Word-parser/CMS-sync) zonder UI-herschrijving.
 
 ## Brand
 
