@@ -20,7 +20,7 @@ export default function ShopPage(): React.JSX.Element {
       <SectionHeading
         eyebrow="Shop"
         title="Den Bosch City Shop"
-        description="Ontdek onze favoriete Bossche producten. Je bestelt direct bij onze partners."
+        description="Omdat we van deze mooie stad houden en dat soms ook graag uitdragen."
       />
 
       <section className="rounded-editorial border border-brand-teal/15 bg-white p-5 shadow-card">
