@@ -64,7 +64,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps): Promise
           <section className="space-y-4">
             <h2 className="text-2xl font-bold text-brand-teal">Alle producten</h2>
             <p className="text-sm leading-relaxed text-brand-teal/75">
-              Geselecteerde items van lokale partners. Je bestelt altijd direct via de partner.
+              In samenwerking met lokale, Bossche partners. Je bestelt direct via de maker.
             </p>
             <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
               {regularProducts.map((product) => (

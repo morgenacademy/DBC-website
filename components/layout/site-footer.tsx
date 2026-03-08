@@ -62,7 +62,7 @@ export function SiteFooter(): React.JSX.Element {
             </li>
           </ul>
 
-          <div className="rounded-editorial border border-brand-sand/15 bg-white/5 p-4">
+          <div id="nieuwsbrief" className="rounded-editorial border border-brand-sand/15 bg-white/5 p-4">
             <p className="text-sm font-semibold uppercase tracking-[0.14em] text-brand-aqua">Inschrijven nieuwsbrief</p>
             <div className="mt-2">
               <NewsletterSignupForm />

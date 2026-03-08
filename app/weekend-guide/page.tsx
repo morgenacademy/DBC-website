@@ -101,12 +101,7 @@ export default function WeekendGuidePage(): React.JSX.Element {
         {sections.map((section) => (
           <section key={section.day} id={section.day} className="scroll-mt-32 space-y-5">
             <div className="rounded-editorial border border-brand-coral/20 bg-brand-peach/50 px-5 py-4 sm:px-7">
-              <div className="flex flex-wrap items-end justify-between gap-3">
-                <h2 className="font-display text-4xl uppercase tracking-[0.1em] text-brand-coral sm:text-5xl">{dayTitles[section.day]}</h2>
-                <span className="inline-flex rounded-full border border-brand-coral/35 bg-white/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-brand-coral">
-                  {section.events.length} {section.events.length === 1 ? "event" : "events"}
-                </span>
-              </div>
+              <h2 className="font-display text-4xl uppercase tracking-[0.1em] text-brand-coral sm:text-5xl">{dayTitles[section.day]}</h2>
             </div>
 
             <div className="space-y-4">
