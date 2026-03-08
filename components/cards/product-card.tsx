@@ -11,12 +11,37 @@ interface ProductCardProps {
 
 const CAROUSEL_SPEED_MS = 4500;
 
+function normalizeDescription(text: string): string {
+  return text.replace(/\s+/g, " ").trim();
+}
+
+function splitDescription(product: Product): { lead: string; details: string[] } {
+  const normalized = normalizeDescription(product.shortDescription);
+  const sentences = normalized.split(/(?<=[.!?])\s+/).filter(Boolean);
+  const withoutPriceSentence = product.priceDisplay
+    ? sentences.filter((sentence) => !/^(sale:\s*)?shop nu voor/i.test(sentence.trim()))
+    : sentences;
+
+  const lead = withoutPriceSentence[0] ?? normalized;
+  const rest = withoutPriceSentence.slice(1).join(" ").trim();
+
+  if (!rest) return { lead, details: [] };
+
+  const details = rest
+    .split(/(?=(?:Gemaakt van|Nu 11%|Verkrijgbaar))/g)
+    .map((part) => part.trim())
+    .filter(Boolean);
+
+  return { lead, details: details.length > 0 ? details : [rest] };
+}
+
 export function ProductCard({ product }: ProductCardProps): React.JSX.Element {
   const orderLabel = "Bestel nu";
   const gallery = product.imageUrls.length > 0 ? product.imageUrls : [product.image];
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const hasMultipleImages = gallery.length > 1;
+  const description = splitDescription(product);
 
   useEffect(() => {
     if (!hasMultipleImages || isPaused) return;
@@ -101,12 +126,19 @@ export function ProductCard({ product }: ProductCardProps): React.JSX.Element {
 
         <h3 className="text-xl font-bold text-brand-teal">{product.title}</h3>
         {product.color ? <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-teal/65">Kleur: {product.color}</p> : null}
-        <p className="whitespace-pre-line text-sm leading-relaxed text-brand-teal/78">{product.shortDescription}</p>
+        <p className="text-[1.05rem] leading-relaxed text-brand-teal/90">{description.lead}</p>
+        <div className="space-y-2">
+          {description.details.map((paragraph, index) => (
+            <p key={`${product.id}-paragraph-${index}`} className="text-[0.95rem] leading-relaxed text-brand-teal/78">
+              {paragraph}
+            </p>
+          ))}
+        </div>
 
         <div className="space-y-3 pt-1">
           <div className="space-y-1">
-            {product.priceDisplay ? <p className="text-sm font-bold text-brand-coral">{product.priceDisplay}</p> : null}
-            <p className="text-sm font-semibold text-brand-teal/75">Partner: {product.partnerName}</p>
+            {product.priceDisplay ? <p className="text-[1.15rem] font-bold text-brand-coral">{product.priceDisplay}</p> : null}
+            <p className="text-[0.72rem] uppercase tracking-[0.12em] text-brand-teal/58">Partner: {product.partnerName}</p>
           </div>
 
           <div className="flex justify-center">

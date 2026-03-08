@@ -10,6 +10,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "denboschcity.com"
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.simpleicons.org"
       }
     ]
   }
