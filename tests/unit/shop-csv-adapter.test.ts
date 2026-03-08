@@ -4,7 +4,7 @@ import { parseShopProductsCsv } from "@/lib/adapters/shop-csv";
 describe("shop csv adapter", () => {
   it("gebruikt eerste image als primary en bewaart volledige gallery", () => {
     const csv = `title,slug,color,short_description,price_display,partner_name,external_url,image_urls,featured,notes
-HOODIE 'S-HERTOGENBOSCH,hoodie-s-hertogenbosch-bordeaux,Bordeaux,De Hoodie van 's-Hertogenbosch,€ 59,95,Studio Mark Jimena,https://studiomarkjimena.com/shop/s-hertogenbosch-hoodie-bordeaux-rood/,https://denboschcity.com/a.jpg | https://denboschcity.com/b.jpg,true,Carousel order provided by user`;
+HOODIE 'S-HERTOGENBOSCH,hoodie-s-hertogenbosch-bordeaux,Bordeaux,"Een echte Bosschenaar, met zachte hoodie.","€ 59,95",Studio Mark Jimena,https://studiomarkjimena.com/shop/s-hertogenbosch-hoodie-bordeaux-rood/,https://denboschcity.com/a.jpg | https://denboschcity.com/b.jpg,true,Carousel order provided by user`;
 
     const [item] = parseShopProductsCsv(csv);
 
