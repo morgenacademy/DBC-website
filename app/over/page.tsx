@@ -26,6 +26,15 @@ export default function OverPage(): React.JSX.Element {
           Achter Den Bosch City staat een compact team van creatievelingen, schrijvers, fotografen en social media-makers. Samen bouwen we aan een
           platform voor en door Bosschenaren: warm, lokaal en altijd in beweging.
         </p>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2">
+          {siteConfig.team.map((member) => (
+            <article key={member.name} className="rounded-2xl border border-brand-teal/12 bg-brand-sand/35 p-4">
+              <h3 className="text-lg font-bold text-brand-teal">{member.name}</h3>
+              <p className="text-sm font-semibold uppercase tracking-[0.1em] text-brand-coral">{member.role}</p>
+              <p className="mt-2 text-sm leading-relaxed text-brand-teal/80">{member.bio}</p>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section className="rounded-editorial border border-brand-teal/15 bg-brand-sand/40 p-6 sm:p-8">

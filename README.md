@@ -160,6 +160,14 @@ Stage 2 (voorbereid, nog niet live gekoppeld):
 
 Hiermee kan de frontend ongewijzigd blijven terwijl de bron later naar Supabase + synclaag gaat.
 
+### Supabase schema (voorstel)
+
+Het concrete schema- en migratievoorstel staat in:
+
+- `docs/supabase-instagram-schema.md`
+
+Dit is bewust een architectuurdocument (geen live migratie in deze fase).
+
 ### Datasource switch (mock vs supabase)
 
 Datasource wordt gestuurd via:

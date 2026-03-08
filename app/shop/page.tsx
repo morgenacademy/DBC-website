@@ -21,9 +21,10 @@ export default async function ShopPage({ searchParams }: ShopPageProps): Promise
   const selectedCategory = params.category ?? "";
   const allProducts = commerceProvider.listProducts();
   const categories = unique(allProducts.map((item) => item.category));
-  const filteredProducts = selectedCategory
-    ? allProducts.filter((item) => item.category === selectedCategory)
-    : allProducts;
+  const filteredProducts = selectedCategory ? allProducts.filter((item) => item.category === selectedCategory) : allProducts;
+  const christmasProducts = filteredProducts.filter((item) => item.category.toLowerCase().includes("kersttrui"));
+  const regularProducts = filteredProducts.filter((item) => !item.category.toLowerCase().includes("kersttrui"));
+  const showSplitLayout = selectedCategory === "" && christmasProducts.length > 0 && regularProducts.length > 0;
 
   return (
     <div className="mx-auto w-full max-w-6xl space-y-10 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
@@ -58,14 +59,38 @@ export default async function ShopPage({ searchParams }: ShopPageProps): Promise
         </div>
       </section>
 
-      <section className="space-y-4">
-        <h2 className="text-2xl font-bold text-brand-teal">{selectedCategory ? `${selectedCategory}` : "Alle producten"}</h2>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {filteredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      </section>
+      {showSplitLayout ? (
+        <>
+          <section className="space-y-4">
+            <h2 className="text-2xl font-bold text-brand-teal">Alle producten</h2>
+            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+              {regularProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          </section>
+
+          <section className="space-y-4 pt-4">
+            <div className="rounded-editorial border border-brand-coral/20 bg-brand-peach/45 px-5 py-3">
+              <h2 className="text-2xl font-bold text-brand-teal">Kersttruien</h2>
+            </div>
+            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+              {christmasProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          </section>
+        </>
+      ) : (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-brand-teal">{selectedCategory ? `${selectedCategory}` : "Alle producten"}</h2>
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {filteredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

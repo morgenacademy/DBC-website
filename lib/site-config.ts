@@ -18,5 +18,27 @@ export const siteConfig = {
     tiktok: "https://www.tiktok.com/@denboschcity?_t=8VeIjuTt1RV&_r=1",
     linkedin: "https://www.linkedin.com/company/denboschcity"
   },
+  team: [
+    {
+      name: "Danielle van den Berg",
+      role: "Strateeg & aanjager",
+      bio: "Eindbaas en creatieve motor van Den Bosch City."
+    },
+    {
+      name: "Samira Racdu",
+      role: "Content & community",
+      bio: "Ontdekt de leukste hotspots en vertaalt die naar sterke lokale verhalen."
+    },
+    {
+      name: "Harmen van Heist",
+      role: "Onderneming & groei",
+      bio: "Verbindt impact, partnerships en schaalbare groei voor het platform."
+    },
+    {
+      name: "Anne op ’t Hoog",
+      role: "Foto & events",
+      bio: "Brengt Den Bosch in beeld op events en in lokale producties."
+    }
+  ],
   newsletterUrl: "https://denboschcity.nl/nieuwsbrief"
 } as const;

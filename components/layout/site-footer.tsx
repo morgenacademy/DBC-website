@@ -1,14 +1,13 @@
-import Image from "next/image";
 import Link from "next/link";
 import { NewsletterSignupForm } from "@/components/forms/newsletter-signup-form";
 import { siteConfig } from "@/lib/site-config";
 
 const socialLinks = [
-  { href: siteConfig.social.instagram, label: "Instagram", iconUrl: "https://cdn.simpleicons.org/instagram/EBDEC6" },
-  { href: siteConfig.social.facebook, label: "Facebook", iconUrl: "https://cdn.simpleicons.org/facebook/EBDEC6" },
-  { href: siteConfig.social.pinterest, label: "Pinterest", iconUrl: "https://cdn.simpleicons.org/pinterest/EBDEC6" },
-  { href: siteConfig.social.tiktok, label: "TikTok", iconUrl: "https://cdn.simpleicons.org/tiktok/EBDEC6" },
-  { href: siteConfig.social.linkedin, label: "LinkedIn", iconUrl: "https://cdn.simpleicons.org/linkedin/EBDEC6" }
+  { href: siteConfig.social.instagram, label: "Instagram", shortLabel: "IG" },
+  { href: siteConfig.social.facebook, label: "Facebook", shortLabel: "F" },
+  { href: siteConfig.social.pinterest, label: "Pinterest", shortLabel: "P" },
+  { href: siteConfig.social.tiktok, label: "TikTok", shortLabel: "T" },
+  { href: siteConfig.social.linkedin, label: "LinkedIn", shortLabel: "in" }
 ] as const;
 
 export function SiteFooter(): React.JSX.Element {
@@ -93,7 +92,7 @@ export function SiteFooter(): React.JSX.Element {
                 title={social.label}
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-brand-sand/45 bg-brand-sand/10 transition hover:border-brand-aqua hover:bg-brand-sand/20"
               >
-                <Image src={social.iconUrl} alt="" aria-hidden="true" width={16} height={16} className="h-4 w-4" />
+                <span className="text-xs font-bold uppercase tracking-[0.08em] text-brand-sand">{social.shortLabel}</span>
                 <span className="sr-only">{social.label}</span>
               </a>
             ))}
