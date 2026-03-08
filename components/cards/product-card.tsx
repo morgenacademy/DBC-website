@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import { Pill } from "@/components/ui/pill";
 import type { Product } from "@/lib/types";
@@ -10,6 +10,57 @@ interface ProductCardProps {
 }
 
 const CAROUSEL_SPEED_MS = 4500;
+let carouselTick = 0;
+let carouselIntervalId: number | null = null;
+const carouselListeners = new Set<() => void>();
+
+function notifyCarouselListeners(): void {
+  carouselListeners.forEach((listener) => listener());
+}
+
+function startCarouselClock(): void {
+  if (carouselIntervalId !== null) return;
+
+  carouselIntervalId = window.setInterval(() => {
+    carouselTick += 1;
+    notifyCarouselListeners();
+  }, CAROUSEL_SPEED_MS);
+}
+
+function stopCarouselClock(): void {
+  if (carouselIntervalId === null) return;
+
+  window.clearInterval(carouselIntervalId);
+  carouselIntervalId = null;
+}
+
+function subscribeCarouselClock(listener: () => void): () => void {
+  carouselListeners.add(listener);
+
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    startCarouselClock();
+  }
+
+  return () => {
+    carouselListeners.delete(listener);
+
+    if (carouselListeners.size === 0) {
+      stopCarouselClock();
+    }
+  };
+}
+
+function getCarouselTickSnapshot(): number {
+  return carouselTick;
+}
+
+function getCarouselTickServerSnapshot(): number {
+  return 0;
+}
+
+function useSynchronizedCarouselTick(): number {
+  return useSyncExternalStore(subscribeCarouselClock, getCarouselTickSnapshot, getCarouselTickServerSnapshot);
+}
 
 function normalizeDescription(text: string): string {
   return text.replace(/\s+/g, " ").trim();
@@ -38,48 +89,53 @@ function splitDescription(product: Product): { lead: string; details: string[] }
 export function ProductCard({ product }: ProductCardProps): React.JSX.Element {
   const orderLabel = "Bestel nu";
   const gallery = product.imageUrls.length > 0 ? product.imageUrls : [product.image];
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
+  const [manualOffset, setManualOffset] = useState(0);
+  const synchronizedTick = useSynchronizedCarouselTick();
   const hasMultipleImages = gallery.length > 1;
   const description = splitDescription(product);
+  const autoIndex = hasMultipleImages ? synchronizedTick % gallery.length : 0;
+  const activeIndex = hasMultipleImages ? (autoIndex + manualOffset + gallery.length * 100) % gallery.length : 0;
 
   useEffect(() => {
-    if (!hasMultipleImages || isPaused) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    const intervalId = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % gallery.length);
-    }, CAROUSEL_SPEED_MS);
-
-    return () => window.clearInterval(intervalId);
-  }, [gallery.length, hasMultipleImages, isPaused]);
+    setManualOffset(0);
+  }, [product.id, gallery.length]);
 
   function showPreviousImage(): void {
-    setActiveIndex((current) => (current - 1 + gallery.length) % gallery.length);
+    if (!hasMultipleImages) return;
+    setManualOffset((current) => current - 1);
   }
 
   function showNextImage(): void {
-    setActiveIndex((current) => (current + 1) % gallery.length);
+    if (!hasMultipleImages) return;
+    setManualOffset((current) => current + 1);
+  }
+
+  function goToImage(index: number): void {
+    if (!hasMultipleImages) return;
+    setManualOffset(index - autoIndex);
   }
 
   return (
     <article id={product.slug} className="overflow-hidden rounded-editorial border border-brand-teal/15 bg-white shadow-card">
-      <div
-        className="relative"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-        onFocus={() => setIsPaused(true)}
-        onBlur={() => setIsPaused(false)}
-      >
+      <div className="relative">
         <a href={product.partnerUrl} target="_blank" rel="sponsored noreferrer" className="block">
-          <div className="relative aspect-[4/5]">
-            <Image
-              src={gallery[activeIndex]}
-              alt={`${product.title} foto ${activeIndex + 1}`}
-              fill
-              className="object-cover object-top"
-              sizes="(max-width: 768px) 100vw, 33vw"
-            />
+          <div className="relative aspect-[4/5] overflow-hidden">
+            <div
+              className="flex h-full w-full transition-transform duration-500 ease-out"
+              style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+            >
+              {gallery.map((imageUrl, index) => (
+                <div key={`${product.id}-image-${index}`} className="relative h-full min-w-full">
+                  <Image
+                    src={imageUrl}
+                    alt={`${product.title} foto ${index + 1}`}
+                    fill
+                    className="object-cover object-top"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </a>
 
@@ -88,7 +144,7 @@ export function ProductCard({ product }: ProductCardProps): React.JSX.Element {
             <button
               type="button"
               onClick={showPreviousImage}
-              className="absolute left-2 top-1/2 h-8 w-8 -translate-y-1/2 rounded-full border border-white/55 bg-white/55 text-lg leading-none text-brand-teal/90 backdrop-blur-sm transition hover:bg-white/80"
+              className="absolute left-2 top-1/2 h-7 w-7 -translate-y-1/2 rounded-full border border-white/45 bg-white/45 text-base leading-none text-brand-teal/80 backdrop-blur-sm transition hover:bg-white/70"
               aria-label="Vorige foto"
             >
               ‹
@@ -96,7 +152,7 @@ export function ProductCard({ product }: ProductCardProps): React.JSX.Element {
             <button
               type="button"
               onClick={showNextImage}
-              className="absolute right-2 top-1/2 h-8 w-8 -translate-y-1/2 rounded-full border border-white/55 bg-white/55 text-lg leading-none text-brand-teal/90 backdrop-blur-sm transition hover:bg-white/80"
+              className="absolute right-2 top-1/2 h-7 w-7 -translate-y-1/2 rounded-full border border-white/45 bg-white/45 text-base leading-none text-brand-teal/80 backdrop-blur-sm transition hover:bg-white/70"
               aria-label="Volgende foto"
             >
               ›
@@ -106,7 +162,7 @@ export function ProductCard({ product }: ProductCardProps): React.JSX.Element {
                 <button
                   key={`${product.id}-dot-${index}`}
                   type="button"
-                  onClick={() => setActiveIndex(index)}
+                  onClick={() => goToImage(index)}
                   aria-label={`Ga naar foto ${index + 1}`}
                   className={`h-1.5 w-1.5 rounded-full transition ${
                     index === activeIndex ? "bg-white" : "bg-white/55 hover:bg-white/80"
