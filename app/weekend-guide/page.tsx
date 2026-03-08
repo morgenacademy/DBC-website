@@ -88,10 +88,16 @@ export default function WeekendGuidePage(): React.JSX.Element {
                 <article key={event.id} className="rounded-editorial border border-brand-teal/15 bg-white p-5 shadow-card sm:p-6">
                   <h3 className="font-display text-3xl uppercase tracking-[0.04em] text-brand-teal">{event.title}</h3>
                   <p className="mt-2 text-base leading-relaxed text-brand-teal/88">{event.description}</p>
-                  <p className="mt-3 text-sm font-bold uppercase tracking-[0.12em] text-brand-teal">
-                    {event.venue}
-                    {event.timeLabel ? ` | ${event.timeLabel}` : ""}
-                  </p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <span className="inline-flex rounded-full border border-brand-teal/20 bg-brand-sand px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-brand-teal">
+                      Locatie: {event.venue}
+                    </span>
+                    {event.timeLabel ? (
+                      <span className="inline-flex rounded-full border border-brand-teal/20 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-brand-teal">
+                        Tijd: {event.timeLabel}
+                      </span>
+                    ) : null}
+                  </div>
                 </article>
               ))}
             </div>

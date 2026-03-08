@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Pill } from "@/components/ui/pill";
+import { getCategoryLabel, getContentLayerLabel } from "@/lib/content-labels";
 import { formatDate } from "@/lib/utils";
 import type { ContentItem } from "@/lib/types";
 
@@ -28,7 +29,7 @@ export function ContentCard({ item, priority = false }: ContentCardProps): React
       <div className="flex flex-col gap-3 p-4">
         <div className="flex flex-wrap items-center gap-2">
           {item.editorialLabel ? <Pill label={item.editorialLabel} tone="accent" /> : null}
-          <Pill label={item.contentLayer} />
+          <Pill label={getContentLayerLabel(item.contentLayer)} />
         </div>
 
         <h3 className="text-lg font-bold leading-tight text-brand-teal">
@@ -41,7 +42,7 @@ export function ContentCard({ item, priority = false }: ContentCardProps): React
 
         <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-brand-teal/55">
           <span>{formatDate(item.publishedAt)}</span>
-          <span>{item.categories[0]}</span>
+          <span>{getCategoryLabel(item.categories[0])}</span>
         </div>
       </div>
     </article>

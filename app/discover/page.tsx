@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ContentCard } from "@/components/cards/content-card";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { getCategoryLabel } from "@/lib/content-labels";
 import { buildMetadata } from "@/lib/seo";
 import { contentRepository, themeRepository } from "@/lib/repositories";
 import type { WeekendCategory } from "@/lib/types";
@@ -17,15 +18,6 @@ interface DiscoverPageProps {
 }
 
 const categories: WeekendCategory[] = ["food", "events", "culture", "kids", "shopping", "nightlife", "local-tips"];
-const categoryLabels: Record<WeekendCategory, string> = {
-  food: "Eten",
-  events: "Events",
-  culture: "Cultuur",
-  kids: "Kids",
-  shopping: "Winkelen",
-  nightlife: "Uitgaan",
-  "local-tips": "Lokale tips"
-};
 
 export default async function DiscoverPage({ searchParams }: DiscoverPageProps): Promise<React.JSX.Element> {
   const params = await searchParams;
@@ -81,7 +73,7 @@ export default async function DiscoverPage({ searchParams }: DiscoverPageProps):
               <option value="">Alle</option>
               {categories.map((category) => (
                 <option key={category} value={category}>
-                  {categoryLabels[category]}
+                  {getCategoryLabel(category)}
                 </option>
               ))}
             </select>
@@ -152,7 +144,9 @@ export default async function DiscoverPage({ searchParams }: DiscoverPageProps):
       <section className="space-y-4">
         <div className="flex items-end justify-between gap-4">
           <h2 className="text-2xl font-bold text-brand-teal">{hasActiveFilters ? "Zoekresultaten" : "Laatste uit Ontdek"}</h2>
-          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-brand-teal/60">{items.length} resultaten</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-brand-teal/60">
+            {items.length} {items.length === 1 ? "resultaat" : "resultaten"}
+          </p>
         </div>
 
         {items.length > 0 ? (

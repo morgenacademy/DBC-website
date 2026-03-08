@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ContentCard } from "@/components/cards/content-card";
 import { Pill } from "@/components/ui/pill";
+import { getCategoryLabel, getContentLayerLabel, getMediaTypeLabel, getSourcePlatformLabel } from "@/lib/content-labels";
 import { buildMetadata } from "@/lib/seo";
 import { contentRepository } from "@/lib/repositories";
 import { formatDate } from "@/lib/utils";
@@ -47,14 +48,14 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
       <header className="space-y-4">
         <div className="flex flex-wrap items-center gap-2">
           {item.editorialLabel ? <Pill label={item.editorialLabel} tone="accent" /> : null}
-          <Pill label={item.contentLayer} />
+          <Pill label={getContentLayerLabel(item.contentLayer)} />
         </div>
         <h1 className="text-balance text-4xl font-bold leading-tight text-brand-teal sm:text-5xl">{item.title}</h1>
         <p className="max-w-3xl text-lg text-brand-teal/75">{item.excerpt}</p>
         <div className="flex flex-wrap gap-4 text-xs font-semibold uppercase tracking-[0.16em] text-brand-teal/55">
           <span>{formatDate(item.publishedAt)}</span>
-          <span>{item.sourcePlatform}</span>
-          <span>{item.mediaType}</span>
+          <span>{getSourcePlatformLabel(item.sourcePlatform)}</span>
+          <span>{getMediaTypeLabel(item.mediaType)}</span>
         </div>
       </header>
 
@@ -69,7 +70,7 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
           ))}
 
           <div className="rounded-editorial border border-brand-teal/15 bg-white p-4">
-            <h2 className="text-lg font-bold text-brand-teal">Caption</h2>
+            <h2 className="text-lg font-bold text-brand-teal">Instagram caption</h2>
             <p className="mt-2 text-sm leading-relaxed text-brand-teal/75">{item.caption}</p>
           </div>
 
@@ -86,16 +87,16 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
         </div>
 
         <aside className="space-y-4 rounded-editorial border border-brand-teal/15 bg-white p-4">
-          <h2 className="text-lg font-bold text-brand-teal">Metadata</h2>
+          <h2 className="text-lg font-bold text-brand-teal">Details</h2>
           <div className="space-y-2 text-sm text-brand-teal/80">
             <p>
-              <span className="font-semibold">Themes:</span> {item.themes.join(", ")}
+              <span className="font-semibold">Thema&apos;s:</span> {item.themes.join(", ")}
             </p>
             <p>
-              <span className="font-semibold">Moments:</span> {item.moments.join(", ")}
+              <span className="font-semibold">Momenten:</span> {item.moments.join(", ")}
             </p>
             <p>
-              <span className="font-semibold">Categories:</span> {item.categories.join(", ")}
+              <span className="font-semibold">Categorieën:</span> {item.categories.map((category) => getCategoryLabel(category)).join(", ")}
             </p>
             <p>
               <span className="font-semibold">Hashtags:</span> {item.hashtags.map((tag) => `#${tag}`).join(" ")}

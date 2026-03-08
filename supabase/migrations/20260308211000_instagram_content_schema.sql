@@ -1,34 +1,8 @@
-# Supabase Schema Proposal: Instagram-First Content Layer
+-- Den Bosch City - Instagram-first content schema foundation
+-- Ready-to-run migration file (not auto-executed by this repo)
+-- Aligned with docs/supabase-instagram-schema.md and SupabaseContentRow mapping.
 
-Dit document beschrijft het voorgestelde Supabase datamodel voor de Instagram-first architectuur, zonder live migraties uit te voeren.
-
-Ready-to-run (niet uitgevoerd) migration file:
-
-- `supabase/migrations/20260308211000_instagram_content_schema.sql`
-
-De SQL in dit document en de migration file zijn inhoudelijk gelijk gehouden.
-
-Doel:
-
-- Instagram als upstream bron
-- Supabase als owned source of truth
-- frontend/repository ongewijzigd laten bij datasource-switch
-- 1-op-1 aansluiting op `ContentItem` en `SupabaseContentRow` in de codebase
-
-## 1) Kernkeuze
-
-Voor fase 1 van live-Supabase houden we `content_items` bewust dicht bij het huidige TypeScript-model:
-
-- arrays blijven arrays (`themes`, `moments`, `tags`, `hashtags`, `collection_ids`, `related_ids`)
-- `seo` blijft `jsonb`
-- `searchable_text` blijft een platte tekstkolom
-
-Dit voorkomt rewrite van de repository/UI-laag.
-
-## 2) Hoofdtabel: `public.content_items`
-
-```sql
--- Optioneel later voor betere zoekindexering
+-- Optional extension for trigram search indexing.
 create extension if not exists pg_trgm;
 
 create table if not exists public.content_items (
@@ -74,7 +48,7 @@ create table if not exists public.content_items (
   updated_at timestamptz not null default now()
 );
 
--- Instagram uniqueness: voorkom dubbele records per platformbron
+-- Avoid duplicates from the same upstream source record.
 create unique index if not exists content_items_source_platform_source_id_unique
   on public.content_items (source_platform, source_id)
   where source_id is not null;
@@ -86,19 +60,9 @@ create index if not exists content_items_themes_gin on public.content_items usin
 create index if not exists content_items_moments_gin on public.content_items using gin (moments);
 create index if not exists content_items_tags_gin on public.content_items using gin (tags);
 create index if not exists content_items_hashtags_gin on public.content_items using gin (hashtags);
-
--- Optioneel als pg_trgm actief is
 create index if not exists content_items_searchable_text_trgm
   on public.content_items using gin (searchable_text gin_trgm_ops);
-```
 
-## 3) Ondersteunende tabellen
-
-Deze tabellen zijn aanbevolen voor sync-operaties en redactionele laag, zonder bestaande frontend-contracten te breken.
-
-### 3.1 `public.instagram_sync_runs`
-
-```sql
 create table if not exists public.instagram_sync_runs (
   id bigint generated always as identity primary key,
   started_at timestamptz not null default now(),
@@ -109,11 +73,7 @@ create table if not exists public.instagram_sync_runs (
   error_count int not null default 0,
   error_details jsonb null
 );
-```
 
-### 3.2 `public.instagram_sync_state`
-
-```sql
 create table if not exists public.instagram_sync_state (
   id int primary key default 1,
   last_successful_sync_at timestamptz null,
@@ -121,13 +81,8 @@ create table if not exists public.instagram_sync_state (
   updated_at timestamptz not null default now(),
   constraint instagram_sync_state_singleton check (id = 1)
 );
-```
 
-### 3.3 `public.themes` en `public.collections` (optioneel maar aanbevolen)
-
-Sluit aan op bestaande `Theme`/`Collection` entities voor landingspagina’s.
-
-```sql
+-- Optional but recommended supporting tables for existing theme/moment and collection entities.
 create table if not exists public.themes (
   id text primary key,
   slug text not null unique,
@@ -156,48 +111,3 @@ create table if not exists public.collections (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
-```
-
-## 4) Mapping naar huidige code
-
-`lib/adapters/instagram.ts` bevat al de contracten:
-
-- `SupabaseContentRow`
-- `mapSupabaseContentRowToContentItem(row)`
-- `mapContentItemToSupabaseRow(item)`
-
-De SQL hierboven is hier direct op afgestemd.
-
-## 5) Migratiepad (zonder live toegang)
-
-### Stap A — DB foundation
-
-1. Maak tabellen/indexes aan in Supabase SQL editor (of migration files)
-2. Voeg minimaal read policies toe voor public content (later aanscherpen)
-3. Schrijven alleen via service role / Edge Functions
-
-### Stap B — Backfill vanuit huidige mock-data
-
-1. Lees lokale `contentItems`
-2. Zet om met `mapContentItemToSupabaseRow`
-3. Upsert naar `public.content_items`
-
-### Stap C — Datasource switch activeren
-
-1. Zet `CONTENT_DATA_SOURCE=supabase`
-2. Vervang in `SupabaseContentDataSource` de JSON-stub door echte Supabase query
-3. Frontend blijft ongewijzigd; repository contracten blijven gelijk
-
-### Stap D — Instagram sync live
-
-1. Edge Function: Instagram ophalen -> `normalizeInstagramPost` -> upsert `content_items`
-2. Sync run loggen in `instagram_sync_runs`
-3. Cursor/timestamp bewaren in `instagram_sync_state`
-4. Plannen via Supabase Cron
-
-## 6) Waarom dit schema nu werkt
-
-- Geen tijdelijke parallelarchitectuur
-- Geen embed-only afhankelijkheid
-- Geen frontend rewrite bij overgang naar live sync
-- Zoek/filter/thema/moment blijven werken op owned records

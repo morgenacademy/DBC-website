@@ -33,7 +33,7 @@ export default function HomePage(): React.JSX.Element {
             <p className="font-display text-sm uppercase tracking-[0.28em] text-brand-peach">{homepageConfig.sections.featuredLabel}</p>
             <h1 className="mt-3 max-w-xl text-balance text-4xl font-bold leading-tight sm:text-5xl">{homepageConfig.hero.subtitle}</h1>
             <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/85">
-              We publiceren social-first content en maken die hier blijvend vindbaar met zoekfunctie, filters en deelbare URL&apos;s.
+              Ontdek wat er speelt in Den Bosch, plan je weekend en shop geselecteerde lokale favorieten.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
@@ -133,7 +133,7 @@ export default function HomePage(): React.JSX.Element {
       <section className="space-y-5">
         <SectionHeading
           eyebrow={homepageConfig.sections.shopLabel}
-          title="Partner picks"
+          title="Shop favorieten"
           description="Gecureerde producten van partners met directe doorklik naar externe webshops."
         />
         <div className="grid gap-5 md:grid-cols-3">
@@ -142,7 +142,7 @@ export default function HomePage(): React.JSX.Element {
           ))}
         </div>
         <Link href="/shop" className="inline-flex text-sm font-semibold text-brand-teal hover:text-brand-coral">
-          Partner Shop →
+          Naar Shop →
         </Link>
       </section>
 

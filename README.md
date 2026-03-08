@@ -165,6 +165,7 @@ Hiermee kan de frontend ongewijzigd blijven terwijl de bron later naar Supabase 
 Het concrete schema- en migratievoorstel staat in:
 
 - `docs/supabase-instagram-schema.md`
+- `supabase/migrations/20260308211000_instagram_content_schema.sql` (ready-to-run, niet uitgevoerd)
 
 Dit is bewust een architectuurdocument (geen live migratie in deze fase).
 
