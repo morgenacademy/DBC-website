@@ -193,11 +193,21 @@ export function ProductCard({ product }: ProductCardProps): React.JSX.Element {
         </div>
 
         <div className="mt-auto space-y-3 pt-1">
-          <div className="space-y-1">
-            {product.priceDisplay ? <p className="text-[1.15rem] font-bold text-brand-coral">{product.priceDisplay}</p> : null}
+          <div className="min-h-[3.8rem] space-y-1">
+            {product.priceDisplay ? (
+              <p className="text-[1.15rem] font-bold text-brand-coral">{product.priceDisplay}</p>
+            ) : (
+              <p aria-hidden className="text-[1.15rem] font-bold text-transparent">
+                &nbsp;
+              </p>
+            )}
             {!isChristmasProduct ? (
               <p className="text-[0.72rem] uppercase tracking-[0.12em] text-brand-teal/58">Productie door: {product.partnerName}</p>
-            ) : null}
+            ) : (
+              <p aria-hidden className="text-[0.72rem] uppercase tracking-[0.12em] text-transparent">
+                &nbsp;
+              </p>
+            )}
           </div>
 
           <div className="flex justify-center">

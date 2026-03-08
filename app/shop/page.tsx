@@ -66,7 +66,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps): Promise
             <p className="text-sm leading-relaxed text-brand-teal/75">
               In samenwerking met lokale, Bossche partners. Je bestelt direct via de maker.
             </p>
-            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-5 md:auto-rows-fr md:grid-cols-2 lg:grid-cols-3">
               {regularProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
@@ -77,7 +77,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps): Promise
             <div className="glass-surface-warm rounded-editorial px-5 py-3">
               <h2 className="text-2xl font-bold text-brand-teal">Kersttruien</h2>
             </div>
-            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-5 md:auto-rows-fr md:grid-cols-2 lg:grid-cols-3">
               {christmasProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
@@ -87,7 +87,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps): Promise
       ) : (
         <section className="space-y-4">
           <h2 className="text-2xl font-bold text-brand-teal">{selectedCategory ? `${selectedCategory}` : "Alle producten"}</h2>
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-5 md:auto-rows-fr md:grid-cols-2 lg:grid-cols-3">
             {filteredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
