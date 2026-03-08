@@ -8,7 +8,7 @@ import { unique } from "@/lib/utils";
 
 export const metadata: Metadata = buildMetadata({
   title: "Shop",
-  description: "Gecureerde partnerproducten van Den Bosch City met directe doorklik naar partnerwebsites.",
+  description: "Shop met Bossche partnerproducten: je bestelt direct via de maker.",
   path: "/shop"
 });
 

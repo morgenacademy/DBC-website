@@ -8,7 +8,7 @@ const contentLayerLabels: Record<ContentLayer, string> = {
 
 const categoryLabels: Record<WeekendCategory, string> = {
   food: "Eten",
-  events: "Events",
+  events: "Evenementen",
   culture: "Cultuur",
   kids: "Kids",
   shopping: "Winkelen",
@@ -23,8 +23,8 @@ const sourcePlatformLabels: Record<SourcePlatform, string> = {
 
 const mediaTypeLabels: Record<MediaType, string> = {
   image: "Foto",
-  carousel: "Carousel",
-  reel: "Reel"
+  carousel: "Carrousel",
+  reel: "Video"
 };
 
 export function getContentLayerLabel(layer: ContentLayer): string {

@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: ThemePageProps): Promise<Meta
   const theme = themeRepository.getThemeBySlug(resolved.slug);
 
   if (!theme || theme.kind !== "theme") {
-    return buildMetadata({ title: "Theme niet gevonden", description: "Theme niet gevonden", path: "/discover", noIndex: true });
+    return buildMetadata({ title: "Thema niet gevonden", description: "Thema niet gevonden", path: "/discover", noIndex: true });
   }
 
   return buildMetadata({
@@ -47,7 +47,7 @@ export default async function ThemePage({ params }: ThemePageProps): Promise<Rea
           <div className="absolute inset-0 bg-brand-teal/55" />
         </div>
         <div className="relative z-10 px-6 py-12 text-white sm:px-10">
-          <p className="font-display text-sm uppercase tracking-[0.26em]">Theme</p>
+          <p className="font-display text-sm uppercase tracking-[0.26em]">Thema</p>
           <h1 className="mt-2 text-4xl font-bold sm:text-5xl">{theme.title}</h1>
           <p className="mt-3 max-w-2xl text-sm text-white/85">{theme.intro}</p>
         </div>

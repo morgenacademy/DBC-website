@@ -53,7 +53,7 @@ export default async function MomentPage({ params }: MomentPageProps): Promise<R
               Naar Ontdek
             </Link>
             <Link href="/collection/nieuwsbrief-weekend-selectie" className="rounded-full border border-brand-teal/20 px-4 py-2 text-sm font-semibold text-brand-teal">
-              Curated collections
+              Selecties
             </Link>
           </div>
         </div>

@@ -49,7 +49,7 @@ export default async function CollectionPage({ params }: CollectionPageProps): P
           <Image src={collection.heroImage} alt={collection.title} fill className="object-cover" sizes="100vw" priority />
           <div className="absolute inset-0 bg-brand-teal/50" />
           <div className="relative z-10 px-6 py-8 text-white sm:px-10 sm:py-10">
-            <p className="font-display text-sm uppercase tracking-[0.25em]">Collection · {collection.channel}</p>
+            <p className="font-display text-sm uppercase tracking-[0.25em]">Collectie · {collection.channel}</p>
             <h1 className="mt-2 text-balance text-4xl font-bold sm:text-5xl">{collection.title}</h1>
             <p className="mt-3 max-w-2xl text-sm text-white/85">{collection.intro}</p>
             {collection.ctaLabel && collection.ctaHref ? (

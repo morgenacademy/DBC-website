@@ -12,7 +12,7 @@ export function NewsletterCta(): React.JSX.Element {
         Geen spam. Wel actuele tips, seizoensmomenten en lokale favorieten die je direct kunt gebruiken.
       </p>
       <div className="mt-6 flex flex-wrap gap-3">
-        <Link href="#nieuwsbrief" className="rounded-full bg-brand-coral px-5 py-2.5 text-sm font-semibold text-white">
+        <Link href="/#nieuwsbrief" className="rounded-full bg-brand-coral px-5 py-2.5 text-sm font-semibold text-white">
           Schrijf me in
         </Link>
         <Link

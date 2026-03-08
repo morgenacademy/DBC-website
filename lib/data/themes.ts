@@ -28,7 +28,7 @@ export const themes: Theme[] = [
     slug: "shopping",
     title: "Winkelen",
     kind: "theme",
-    intro: "Lokale boetieks, concept stores en stadsroutes voor style en gifts.",
+    intro: "Lokale boetieks, conceptstores en stadsroutes voor stijl en cadeaus.",
     heroImage:
       "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=1400&q=80",
     accentColor: "#EA582D",
@@ -50,7 +50,7 @@ export const themes: Theme[] = [
     slug: "koningsdag",
     title: "Koningsdag",
     kind: "moment",
-    intro: "Oranje routes, hotspots en slimme timing voor de beste dag in de stad.",
+    intro: "Oranje hotspots en slimme timing voor de beste dag in de stad.",
     heroImage:
       "https://images.unsplash.com/photo-1468818438311-4bab781ab9b8?auto=format&fit=crop&w=1400&q=80",
     accentColor: "#EA582D",
@@ -72,7 +72,7 @@ export const themes: Theme[] = [
     slug: "weekend-in-den-bosch",
     title: "Weekend in Den Bosch",
     kind: "moment",
-    intro: "Elke week een compacte route voor eten, cultuur en city life.",
+    intro: "Elke week een compacte selectie voor eten, cultuur en gezelligheid in de stad.",
     heroImage:
       "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1400&q=80",
     accentColor: "#83B3B6",
@@ -94,7 +94,7 @@ export const themes: Theme[] = [
     slug: "christmas",
     title: "Kerst",
     kind: "moment",
-    intro: "Winterse hotspots, cadeau-routes en knusse plekken in de binnenstad.",
+    intro: "Winterse hotspots, cadeau-ideeën en knusse plekken in de binnenstad.",
     heroImage:
       "https://images.unsplash.com/photo-1482517967863-00e15c9b44be?auto=format&fit=crop&w=1400&q=80",
     accentColor: "#005A5B",

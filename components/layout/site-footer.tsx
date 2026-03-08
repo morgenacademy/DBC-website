@@ -80,7 +80,7 @@ export function SiteFooter(): React.JSX.Element {
             .
           </p>
 
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-aqua">Love Us On Social</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-aqua">Volg ons op social</p>
           <div className="flex flex-wrap items-center gap-2.5">
             {socialLinks.map((social) => (
               <a

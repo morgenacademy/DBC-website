@@ -33,7 +33,7 @@ export default function HomePage(): React.JSX.Element {
             <p className="font-display text-sm uppercase tracking-[0.28em] text-brand-peach">{homepageConfig.sections.featuredLabel}</p>
             <h1 className="mt-3 max-w-xl text-balance text-4xl font-bold leading-tight sm:text-5xl">{homepageConfig.hero.subtitle}</h1>
             <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/85">
-              Ontdek wat er speelt in Den Bosch, plan je weekend en shop geselecteerde lokale favorieten.
+              Ontdek wat er speelt in Den Bosch, plan je weekend en shop lokale favorieten.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
@@ -134,7 +134,7 @@ export default function HomePage(): React.JSX.Element {
         <SectionHeading
           eyebrow={homepageConfig.sections.shopLabel}
           title="Shop favorieten"
-          description="Gecureerde producten van partners met directe doorklik naar externe webshops."
+          description="In samenwerking met lokale, Bossche partners. Je bestelt direct via de maker."
         />
         <div className="grid gap-5 md:grid-cols-3">
           {products.map((product) => (
