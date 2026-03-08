@@ -1,5 +1,6 @@
 import { createSearchIndexInput, queryMatchesIndex } from "@/lib/search-index";
-import { InMemoryContentDataSource } from "@/lib/repositories/content-data-source";
+import { createContentDataSourceFromEnv } from "@/lib/repositories/content-data-source-factory";
+import type { ContentDataSource } from "@/lib/repositories/content-data-source";
 import type { ContentFilters, ContentItem, ContentRepository } from "@/lib/types";
 
 function byNewest(first: ContentItem, second: ContentItem): number {
@@ -14,7 +15,7 @@ function byFeatured(first: ContentItem, second: ContentItem): number {
 }
 
 export class InMemoryContentRepository implements ContentRepository {
-  constructor(private readonly dataSource: { listContentItems(): ContentItem[] } = new InMemoryContentDataSource()) {}
+  constructor(private readonly dataSource: ContentDataSource = createContentDataSourceFromEnv()) {}
 
   private get items(): ContentItem[] {
     return this.dataSource.listContentItems();

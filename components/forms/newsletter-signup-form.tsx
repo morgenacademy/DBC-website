@@ -3,6 +3,11 @@
 import { useState } from "react";
 
 type SubmitState = "idle" | "loading" | "success" | "error";
+interface NewsletterResponsePayload {
+  ok?: boolean;
+  message?: string;
+  reason?: string;
+}
 
 export function NewsletterSignupForm(): React.JSX.Element {
   const [state, setState] = useState<SubmitState>("idle");
@@ -24,19 +29,26 @@ export function NewsletterSignupForm(): React.JSX.Element {
         body: JSON.stringify({ name, email })
       });
 
-      const payload = (await response.json()) as { ok: boolean; message?: string };
+      const raw = await response.text();
+      let payload: NewsletterResponsePayload = {};
+      try {
+        payload = (raw ? JSON.parse(raw) : {}) as NewsletterResponsePayload;
+      } catch {
+        payload = {};
+      }
+
       if (!response.ok || !payload.ok) {
         setState("error");
-        setMessage(payload.message ?? "Er ging iets mis.");
+        setMessage(payload.message ?? payload.reason ?? "Er ging iets mis.");
         return;
       }
 
       setState("success");
       setMessage(payload.message ?? "Je bent ingeschreven.");
       event.currentTarget.reset();
-    } catch {
+    } catch (error) {
       setState("error");
-      setMessage("Er ging iets mis. Probeer het later opnieuw.");
+      setMessage(error instanceof Error ? error.message : "Er ging iets mis. Probeer het later opnieuw.");
     }
   }
 

@@ -154,9 +154,37 @@ Stage 2 (voorbereid, nog niet live gekoppeld):
   - `mapContentItemToSupabaseRow`
 - datasource boundary in `lib/repositories/content-data-source.ts`:
   - `InMemoryContentDataSource`
+  - `SupabaseContentDataSource` (stub met fallback)
   - `SupabaseRecordContentDataSource`
+- env-based datasource switch in `lib/repositories/content-data-source-factory.ts`
 
 Hiermee kan de frontend ongewijzigd blijven terwijl de bron later naar Supabase + synclaag gaat.
+
+### Datasource switch (mock vs supabase)
+
+Datasource wordt gestuurd via:
+
+- `CONTENT_DATA_SOURCE` (`mock` of `supabase`)
+
+Default/fallback:
+
+- als `CONTENT_DATA_SOURCE` ontbreekt of ongeldig is, draait de app op `mock`.
+- als `CONTENT_DATA_SOURCE=supabase` maar Supabase-config ontbreekt, valt de app veilig terug op `mock`.
+
+Voorbereide env vars:
+
+- `SUPABASE_URL` (of `NEXT_PUBLIC_SUPABASE_URL`)
+- `SUPABASE_ANON_KEY` (of `NEXT_PUBLIC_SUPABASE_ANON_KEY`)
+- `SUPABASE_CONTENT_ROWS_JSON` (optioneel, voor de huidige stub)
+
+### Verwachte Supabase-pad later
+
+Beoogde stroom (zonder frontend rewrite):
+
+1. Instagram API -> Supabase Edge Function (normalisatie/upsert)
+2. opslag in bijvoorbeeld `public.content_items` met `SupabaseContentRow`-shape
+3. `SupabaseContentDataSource` leest live records (in plaats van `SUPABASE_CONTENT_ROWS_JSON`)
+4. repository/UI blijven ongewijzigd
 
 ## Ontdek en zoekbaarheid
 
@@ -222,7 +250,7 @@ Vereiste env vars:
 
 - `MAILCHIMP_API_KEY`
 - `MAILCHIMP_AUDIENCE_ID`
-- `MAILCHIMP_SERVER_PREFIX` (optioneel als je API-key suffix al `-usX` bevat)
+- `MAILCHIMP_SERVER_PREFIX` (optioneel, ondersteunt zowel `usX` als volledige host/URL; wordt automatisch genormaliseerd)
 
 ## Checks
 
@@ -239,5 +267,5 @@ Koppel de repositories aan:
 
 1. Supabase Edge Function voor Instagram-sync (API -> normalize -> upsert)
 2. Supabase Cron/job voor periodieke sync
-3. `SupabaseRecordContentDataSource` voeden vanuit live query i.p.v. mock data
+3. `SupabaseContentDataSource` vervangen van stub/fallback naar live Supabase query
 4. WordPress-shop importadapter en partnerfeed koppeling
