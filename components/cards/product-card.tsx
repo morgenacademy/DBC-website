@@ -117,7 +117,7 @@ export function ProductCard({ product }: ProductCardProps): React.JSX.Element {
   }
 
   return (
-    <article id={product.slug} className="flex h-full flex-col overflow-hidden rounded-editorial border border-brand-teal/15 bg-white shadow-card">
+    <article id={product.slug} className="glass-surface flex h-full flex-col overflow-hidden rounded-editorial shadow-card">
       <div className="relative">
         <a href={product.partnerUrl} target="_blank" rel="sponsored noreferrer" className="block">
           <div className="relative aspect-[4/5] overflow-hidden">

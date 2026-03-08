@@ -34,7 +34,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps): Promise
         description="Omdat we van deze mooie stad houden en dat soms ook graag uitdragen."
       />
 
-      <section className="rounded-editorial border border-brand-teal/15 bg-white p-5 shadow-card">
+      <section className="glass-surface rounded-editorial p-5 shadow-card">
         <p className="text-xs font-semibold uppercase tracking-[0.15em] text-brand-teal/60">Categorieën</p>
         <div className="mt-2 flex flex-wrap gap-2">
           <Link
@@ -74,7 +74,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps): Promise
           </section>
 
           <section className="space-y-4 pt-8">
-            <div className="rounded-editorial border border-brand-coral/20 bg-brand-peach/45 px-5 py-3">
+            <div className="glass-surface-warm rounded-editorial px-5 py-3">
               <h2 className="text-2xl font-bold text-brand-teal">Kersttruien</h2>
             </div>
             <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">

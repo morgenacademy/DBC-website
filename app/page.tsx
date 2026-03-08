@@ -26,7 +26,7 @@ export default function HomePage(): React.JSX.Element {
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-14 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
-      <section className="relative overflow-hidden rounded-[2rem] border border-brand-teal/15 bg-gradient-to-br from-brand-teal to-[#0a7e7f] px-6 py-12 text-white sm:px-10">
+      <section className="glass-hero relative overflow-hidden rounded-[2rem] border border-brand-teal/15 px-6 py-12 text-white sm:px-10">
         <div className="absolute right-0 top-0 h-48 w-48 -translate-y-1/2 translate-x-1/3 rounded-full bg-brand-coral/45 blur-2xl" />
         <div className="grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:items-end">
           <div>
@@ -52,7 +52,7 @@ export default function HomePage(): React.JSX.Element {
           </div>
 
           {heroItem ? (
-            <article className="overflow-hidden rounded-editorial bg-white/95 text-brand-teal shadow-card">
+            <article className="glass-surface overflow-hidden rounded-editorial text-brand-teal shadow-card">
               <div className="relative aspect-[4/3]">
                 <Image src={heroItem.image} alt={heroItem.title} fill className="object-cover" priority sizes="(max-width: 1024px) 100vw, 40vw" />
               </div>
@@ -76,7 +76,7 @@ export default function HomePage(): React.JSX.Element {
         />
         <div className="grid gap-4 md:grid-cols-2">
           {weekend.map((item) => (
-            <article key={item.id} className="rounded-editorial border border-brand-teal/15 bg-white p-5 shadow-card">
+            <article key={item.id} className="glass-surface rounded-editorial p-5 shadow-card">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-coral">{item.category}</p>
               <h3 className="mt-1 text-xl font-bold text-brand-teal">{item.title}</h3>
               <p className="mt-2 text-sm text-brand-teal/75">{item.summary}</p>
@@ -115,7 +115,7 @@ export default function HomePage(): React.JSX.Element {
             description="Thema&apos;s en momenten blijven beschikbaar als landingspagina's binnen Ontdek."
           />
           <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr]">
-            <Link href={`/moment/${seasonalMoment.slug}`} className="rounded-editorial border border-brand-teal/15 bg-white p-5 shadow-card">
+            <Link href={`/moment/${seasonalMoment.slug}`} className="glass-surface rounded-editorial p-5 shadow-card">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-coral">Moment</p>
               <h3 className="mt-1 text-2xl font-bold text-brand-teal">{seasonalMoment.title}</h3>
               <p className="mt-2 text-sm text-brand-teal/75">{seasonalMoment.intro}</p>

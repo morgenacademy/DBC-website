@@ -36,7 +36,7 @@ export default async function DiscoverPage({ searchParams }: DiscoverPageProps):
 
   return (
     <div className="mx-auto w-full max-w-6xl space-y-8 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
-      <section className="rounded-[2rem] border border-brand-teal/15 bg-white p-6 shadow-card sm:p-8">
+      <section className="glass-surface rounded-[2rem] p-6 shadow-card sm:p-8">
         <SectionHeading eyebrow="Ontdek" title="Ontdek Den Bosch" />
 
         <form className="mt-6 grid gap-3 md:grid-cols-4" role="search" aria-label="Zoek en filter Ontdek">
@@ -121,7 +121,7 @@ export default async function DiscoverPage({ searchParams }: DiscoverPageProps):
               <Link
                 key={moment.id}
                 href={`/moment/${moment.slug}`}
-                className="rounded-full border border-brand-teal/25 bg-white px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-brand-teal"
+                className="glass-chip rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-brand-teal"
               >
                 {moment.title}
               </Link>
@@ -156,7 +156,7 @@ export default async function DiscoverPage({ searchParams }: DiscoverPageProps):
             ))}
           </div>
         ) : (
-          <div className="rounded-editorial border border-brand-teal/15 bg-white p-6 text-sm text-brand-teal/75">
+          <div className="glass-surface rounded-editorial p-6 text-sm text-brand-teal/75">
             Geen resultaten gevonden. Probeer een andere zoekterm of reset je filters.
           </div>
         )}

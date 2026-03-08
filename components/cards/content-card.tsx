@@ -12,7 +12,7 @@ interface ContentCardProps {
 
 export function ContentCard({ item, priority = false }: ContentCardProps): React.JSX.Element {
   return (
-    <article className="group overflow-hidden rounded-editorial border border-brand-teal/15 bg-white shadow-card transition hover:-translate-y-0.5">
+    <article className="glass-surface group overflow-hidden rounded-editorial shadow-card transition hover:-translate-y-0.5">
       <Link href={`/discover/${item.slug}`} className="block">
         <div className="relative aspect-[4/3] overflow-hidden">
           <Image
