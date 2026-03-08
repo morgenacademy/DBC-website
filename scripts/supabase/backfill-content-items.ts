@@ -37,4 +37,7 @@ async function run(): Promise<void> {
   console.log("Backfill succesvol afgerond.");
 }
 
-await run();
+run().catch((error) => {
+  console.error(error instanceof Error ? error.message : "Backfill mislukt.");
+  process.exit(1);
+});

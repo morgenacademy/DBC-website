@@ -13,6 +13,9 @@ function run(): void {
   );
   showState("SUPABASE_DB_URL", process.env.SUPABASE_DB_URL);
   showState("SUPABASE_CONTENT_TABLE", process.env.SUPABASE_CONTENT_TABLE);
+  showState("INSTAGRAM_ACCOUNT_ID", process.env.INSTAGRAM_ACCOUNT_ID);
+  showState("INSTAGRAM_ACCESS_TOKEN", process.env.INSTAGRAM_ACCESS_TOKEN);
+  showState("INSTAGRAM_TEST_INGEST_LIMIT", process.env.INSTAGRAM_TEST_INGEST_LIMIT);
 
   try {
     const rest = getSupabaseRestConfig(process.env);

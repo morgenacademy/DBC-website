@@ -160,6 +160,29 @@ Stage 2 (voorbereid, nog niet live gekoppeld):
 
 Hiermee kan de frontend ongewijzigd blijven terwijl de bron later naar Supabase + synclaag gaat.
 
+Stage 3 (proof-of-ingestion, beperkte live ingestie):
+
+- live bron ophalen via Instagram Graph API (geen embeds als primaire laag)
+- normalisatie via bestaande adapter: `normalizeInstagramPost(...)`
+- opslag als owned records in `content_items` (Supabase)
+- beperkte, gecontroleerde ingestie via:
+  - `npm run supabase:ingest:instagram:test`
+- sync-run metadata wordt weggeschreven naar:
+  - `instagram_sync_runs`
+  - `instagram_sync_state`
+
+Dit is bewust nog geen volledige productiesync met scheduling/cursors.
+Test-ingest scope:
+
+- handmatig gestart via npm script
+- ingestie van kleine set (default 5, max 20)
+- bedoeld voor validatie van API -> normalisatie -> Supabase pad
+
+Productie-scope later:
+
+- geautomatiseerde sync-runs (Edge Function + cron)
+- cursorbeheer en robuuste retry/error-afhandeling
+
 ### Supabase schema (voorstel)
 
 Het concrete schema- en migratievoorstel staat in:
@@ -188,6 +211,12 @@ Voorbereide env vars:
 - `SUPABASE_CONTENT_TABLE` (default: `content_items`)
 - `SUPABASE_DB_URL` (alleen nodig voor migration-apply script)
 - `SUPABASE_CONTENT_ROWS_JSON` (optioneel, voor de huidige stub)
+- `INSTAGRAM_ACCOUNT_ID` (Instagram business account id)
+- `INSTAGRAM_ACCESS_TOKEN` (Graph API token)
+- `INSTAGRAM_GRAPH_VERSION` (default: `v23.0`)
+- `INSTAGRAM_GRAPH_API_BASE_URL` (optioneel override)
+- `INSTAGRAM_TEST_INGEST_LIMIT` (default: `5`, max `20`)
+- `INSTAGRAM_TEST_SOURCE_IDS` (optioneel: comma-separated ids)
 
 ### Verwachte Supabase-pad later
 
@@ -216,11 +245,16 @@ Volgorde:
    - `npm run supabase:verify:read`
 5. Datasource switch:
    - zet `CONTENT_DATA_SOURCE=supabase`
+6. Proof-of-ingestion (beperkte live set):
+   - `npm run supabase:ingest:instagram:test`
+7. Read-path opnieuw valideren:
+   - `npm run supabase:verify:read`
 
 Rollback/fallback:
 
 - Bij ontbrekende Supabase envs of read-fouten blijft de site automatisch op mock-content draaien.
 - Terugschakelen kan altijd direct met `CONTENT_DATA_SOURCE=mock`.
+- Bij ingest-fouten blijft bestaande Supabase-content intact door upsert + beperkte test-limit.
 
 ## Ontdek en zoekbaarheid
 

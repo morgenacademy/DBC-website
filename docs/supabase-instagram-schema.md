@@ -193,10 +193,16 @@ De SQL hierboven is hier direct op afgestemd.
 
 ### Stap D — Instagram sync live
 
-1. Edge Function: Instagram ophalen -> `normalizeInstagramPost` -> upsert `content_items`
-2. Sync run loggen in `instagram_sync_runs`
-3. Cursor/timestamp bewaren in `instagram_sync_state`
-4. Plannen via Supabase Cron
+1. Proof-of-ingestion (beperkt, handmatig):
+   - `npm run supabase:ingest:instagram:test`
+   - haalt een beperkte set op uit Instagram Graph API
+   - normaliseert via `normalizeInstagramPost`
+   - upsert naar `content_items`
+   - logt test-run in `instagram_sync_runs` en `instagram_sync_state`
+2. Volledige productiesync later:
+   - Edge Function: Instagram ophalen -> `normalizeInstagramPost` -> upsert `content_items`
+   - cursor/timestamp slim beheren in `instagram_sync_state`
+   - plannen via Supabase Cron
 
 ## 6) Waarom dit schema nu werkt
 

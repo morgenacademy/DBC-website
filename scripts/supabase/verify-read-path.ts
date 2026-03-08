@@ -38,4 +38,7 @@ async function run(): Promise<void> {
   console.log(`Voorbeeld slug(s): ${items.slice(0, 5).map((item) => item.slug).join(", ")}`);
 }
 
-await run();
+run().catch((error) => {
+  console.error(error instanceof Error ? error.message : "Read-path verificatie mislukt.");
+  process.exit(1);
+});
