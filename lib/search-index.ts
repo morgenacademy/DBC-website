@@ -18,6 +18,7 @@ export function createSearchIndexInput(item: ContentItem): string {
     item.excerpt,
     ...item.hashtags.map((tag) => `#${tag.replace(/^#/, "")}`),
     ...item.tags,
+    ...(item.manualTags ?? []),
     ...item.themes,
     ...item.categories,
     ...item.moments

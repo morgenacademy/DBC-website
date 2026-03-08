@@ -16,8 +16,9 @@ test("ontdek search vegetarian", async ({ page }) => {
   await expect(page.getByText(/11 vegetarische restaurants/i)).toBeVisible();
 });
 
-test("weekend guide category filter", async ({ page }) => {
+test("weekend guide dagnavigatie", async ({ page }) => {
   await page.goto("/weekend-guide");
-  await page.getByRole("button", { name: "food" }).click();
-  await expect(page).toHaveURL(/category=food/);
+  await page.getByRole("link", { name: "Vrijdag" }).click();
+  await expect(page).toHaveURL(/#vrijdag$/);
+  await expect(page.getByRole("heading", { name: "Vrijdag" })).toBeVisible();
 });

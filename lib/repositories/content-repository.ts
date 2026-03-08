@@ -1,5 +1,5 @@
-import { contentItems } from "@/lib/data/content-items";
 import { createSearchIndexInput, queryMatchesIndex } from "@/lib/search-index";
+import { InMemoryContentDataSource } from "@/lib/repositories/content-data-source";
 import type { ContentFilters, ContentItem, ContentRepository } from "@/lib/types";
 
 function byNewest(first: ContentItem, second: ContentItem): number {
@@ -14,7 +14,11 @@ function byFeatured(first: ContentItem, second: ContentItem): number {
 }
 
 export class InMemoryContentRepository implements ContentRepository {
-  private items = contentItems;
+  constructor(private readonly dataSource: { listContentItems(): ContentItem[] } = new InMemoryContentDataSource()) {}
+
+  private get items(): ContentItem[] {
+    return this.dataSource.listContentItems();
+  }
 
   listContent(filters: ContentFilters = {}): ContentItem[] {
     const filtered = this.items.filter((item) => {
@@ -35,7 +39,7 @@ export class InMemoryContentRepository implements ContentRepository {
       }
 
       if (filters.q) {
-        const indexInput = createSearchIndexInput(item);
+        const indexInput = item.searchableText || createSearchIndexInput(item);
         return queryMatchesIndex(indexInput, filters.q);
       }
 

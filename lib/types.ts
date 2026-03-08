@@ -35,13 +35,18 @@ export interface ContentItem {
   sourceId?: string;
   mediaType: MediaType;
   image: string;
+  thumbnail: string;
+  mediaUrls: string[];
   publishedAt: string;
+  searchableText: string;
   contentLayer: ContentLayer;
   categories: WeekendCategory[];
   themes: string[];
   moments: string[];
   tags: string[];
   hashtags: string[];
+  manualTags?: string[];
+  featured?: boolean;
   isFeatured: boolean;
   featuredRank?: number;
   editorialLabel?: string;
@@ -50,6 +55,14 @@ export interface ContentItem {
   relatedIds: string[];
   seo?: SeoFields;
 }
+
+export type ContentItemDraft = Omit<ContentItem, "thumbnail" | "mediaUrls" | "searchableText" | "manualTags" | "featured"> & {
+  thumbnail?: string;
+  mediaUrls?: string[];
+  searchableText?: string;
+  manualTags?: string[];
+  featured?: boolean;
+};
 
 export interface WeekendItem {
   id: string;
@@ -185,5 +198,36 @@ export interface InstagramRawRecord {
   caption: string;
   media_type: "IMAGE" | "CAROUSEL_ALBUM" | "VIDEO";
   media_url: string;
+  media_urls?: string[];
+  thumbnail_url?: string;
   timestamp: string;
+  slug?: string;
+}
+
+export interface InstagramPostOverride {
+  internalId?: string;
+  slug?: string;
+  title?: string;
+  excerpt?: string;
+  body?: string[];
+  contentLayer?: ContentLayer;
+  categories?: WeekendCategory[];
+  themes?: string[];
+  moments?: string[];
+  tags?: string[];
+  manualTags?: string[];
+  isFeatured?: boolean;
+  featured?: boolean;
+  featuredRank?: number;
+  editorialLabel?: string;
+  heroVariant?: HeroVariant;
+  collectionIds?: string[];
+  relatedIds?: string[];
+  seo?: SeoFields;
+  thumbnail?: string;
+  mediaUrls?: string[];
+}
+
+export interface InstagramIngestionAdapter {
+  normalizeInstagramPost(rawPost: InstagramRawRecord, override?: InstagramPostOverride): ContentItem;
 }

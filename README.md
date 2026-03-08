@@ -72,6 +72,21 @@ Expliciete taxonomie:
 - `tags`
 - `hashtags`
 
+Instagram-ready velden op `ContentItem`:
+
+- `sourceId`
+- `sourcePlatform`
+- `sourcePermalink`
+- `caption`
+- `publishedAt`
+- `mediaType`
+- `thumbnail`
+- `mediaUrls`
+- `slug`
+- `searchableText`
+- `manualTags` (optioneel)
+- `featured` / `isFeatured`
+
 ## Shop model (partner/affiliate)
 
 Shopitems zijn geen native e-commerce producten met mandje of checkout. Het model ondersteunt:
@@ -113,6 +128,35 @@ UI is losgekoppeld van data via interfaces en in-memory implementaties:
 - `CommerceProvider`
 
 Hierdoor kan de data later naar CMS of ingestiepipeline zonder UI-rewrite.
+
+## Instagram-first contentlaag
+
+Stage 1 (nu geïmplementeerd):
+
+- mock upstream records: `lib/data/instagram-raw-posts.ts`
+- normalisatie: `normalizeInstagramPost(raw, override)` in `lib/adapters/instagram.ts`
+- redactionele verrijking per post: `lib/data/instagram-post-overrides.ts`
+- mock ingestiepad: `lib/ingestion/instagram-mock-ingestion.ts`
+- samengestelde contentfeed: `lib/data/content-items.ts` (Instagram ingestie + editorials)
+
+Dit simuleert de beoogde workflow:
+
+1. publiceren op Instagram (upstream)
+2. normaliseren naar eigen `ContentItem`
+3. verrijken met interne taxonomie/editorial velden
+4. tonen op `/discover` en `/discover/[slug]`
+5. doorzoekbaar maken via `searchableText`
+
+Stage 2 (voorbereid, nog niet live gekoppeld):
+
+- `SupabaseContentRow` mappings in `lib/adapters/instagram.ts`:
+  - `mapSupabaseContentRowToContentItem`
+  - `mapContentItemToSupabaseRow`
+- datasource boundary in `lib/repositories/content-data-source.ts`:
+  - `InMemoryContentDataSource`
+  - `SupabaseRecordContentDataSource`
+
+Hiermee kan de frontend ongewijzigd blijven terwijl de bron later naar Supabase + synclaag gaat.
 
 ## Ontdek en zoekbaarheid
 
@@ -193,6 +237,7 @@ npm run build
 
 Koppel de repositories aan:
 
-1. Instagram ingestie/sync
-2. CMS (Sanity/Supabase/Airtable)
-3. WordPress-shop importadapter en partnerfeed koppeling
+1. Supabase Edge Function voor Instagram-sync (API -> normalize -> upsert)
+2. Supabase Cron/job voor periodieke sync
+3. `SupabaseRecordContentDataSource` voeden vanuit live query i.p.v. mock data
+4. WordPress-shop importadapter en partnerfeed koppeling
