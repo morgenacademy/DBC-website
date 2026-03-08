@@ -46,6 +46,10 @@ export function normalizeWordPressShopProduct(raw: WordPressShopProductRecord): 
   const title = raw.name ?? raw.title ?? "Partner product";
   const shortDescription = stripHtml(raw.short_description) || stripHtml(raw.description) || "Bekijk dit partnerproduct op de externe website.";
   const partnerUrl = raw.affiliate_url ?? raw.external_url ?? "https://example.com";
+  const imageUrls =
+    raw.images
+      ?.map((image) => image.src?.trim() ?? "")
+      .filter(Boolean) ?? [];
 
   return {
     id: `wp-${raw.id}`,
@@ -53,7 +57,8 @@ export function normalizeWordPressShopProduct(raw: WordPressShopProductRecord): 
     title,
     shortDescription,
     priceDisplay: parsePriceDisplay(raw),
-    image: raw.images?.[0]?.src ?? "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1000&q=80",
+    image: imageUrls[0] ?? "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1000&q=80",
+    imageUrls,
     category: raw.categories?.[0]?.name ?? "Partnerdeal",
     partnerName: raw.partner_name ?? "Externe partner",
     partnerUrl,

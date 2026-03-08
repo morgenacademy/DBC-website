@@ -95,13 +95,16 @@ export interface Product {
   slug: string;
   title: string;
   shortDescription: string;
-  priceDisplay: string;
+  priceDisplay?: string;
   image: string;
+  imageUrls: string[];
   category: string;
+  color?: string;
   partnerName: string;
   partnerUrl: string;
   badge?: string;
   isFeatured: boolean;
+  notes?: string;
 }
 
 export interface ContentFilters {

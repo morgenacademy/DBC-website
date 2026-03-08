@@ -26,7 +26,7 @@ export function ProductCard({ product }: ProductCardProps): React.JSX.Element {
 
         <div className="flex items-center justify-between gap-3">
           <div>
-            <p className="text-sm font-bold text-brand-coral">{product.priceDisplay}</p>
+            {product.priceDisplay ? <p className="text-sm font-bold text-brand-coral">{product.priceDisplay}</p> : null}
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-teal/60">Partner: {product.partnerName}</p>
           </div>
 

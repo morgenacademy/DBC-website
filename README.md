@@ -77,13 +77,24 @@ Shopitems zijn geen native e-commerce producten met mandje of checkout. Het mode
 - `title`
 - `slug`
 - `shortDescription`
-- `priceDisplay`
+- `priceDisplay` (optioneel)
 - `image`
+- `imageUrls` (volledige galerij)
 - `category`
+- `color` (optioneel)
 - `partnerName`
 - `partnerUrl`
 - `badge` (optioneel)
 - `isFeatured`
+- `notes` (optioneel)
+
+Bron van waarheid:
+
+- `shop-products.csv` in de repo-root.
+- `lib/data/products.ts` leest dit CSV-bestand in bij build/runtime.
+- `lib/adapters/shop-csv.ts` normaliseert records.
+- `image_urls` gebruikt ` | ` als scheiding; eerste URL wordt listing-afbeelding, hele lijst blijft beschikbaar in `imageUrls`.
+- Lege `price_display` wordt als `undefined` opgeslagen en niet gerenderd in de card.
 
 WordPress import-shape en normalisatie staan in:
 
