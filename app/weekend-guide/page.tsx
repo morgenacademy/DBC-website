@@ -39,22 +39,36 @@ export default function WeekendGuidePage(): React.JSX.Element {
 
   return (
     <div className="mx-auto w-full max-w-6xl space-y-8 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
-      <section className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
-        <div className="rounded-editorial border border-brand-teal/15 bg-white p-6 shadow-card sm:p-8">
-          <p className="font-display text-sm uppercase tracking-[0.22em] text-brand-coral">Weekend Guide</p>
-          <h1 className="mt-2 font-display text-5xl uppercase tracking-[0.08em] text-brand-teal sm:text-6xl">{guide.introTitle}</h1>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-brand-teal/80 sm:text-lg">{guide.introBody}</p>
+      <section className="grid gap-6 overflow-hidden rounded-[2rem] border border-brand-teal/20 bg-brand-teal p-6 shadow-card lg:grid-cols-[1.1fr_0.9fr] lg:items-start sm:p-8">
+        <div className="text-white">
+          <p className="font-display text-sm uppercase tracking-[0.22em] text-brand-sand">Weekend Guide</p>
+          <h1 className="mt-2 font-sans text-4xl font-bold leading-[1.05] text-white sm:text-5xl">{guide.introTitle}</h1>
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">{guide.introBody}</p>
           <div className="mt-5 flex flex-wrap gap-2">
-            <span className="inline-flex rounded-full border border-brand-teal/20 bg-brand-sand px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-brand-teal">
+            <span className="inline-flex rounded-full border border-white/35 bg-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-white">
               {guide.periodLabel}
             </span>
-            <span className="inline-flex rounded-full border border-brand-teal/20 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-brand-teal">
+            <span className="inline-flex rounded-full border border-white/35 bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-white">
               {totalEvents} events
             </span>
           </div>
+          <div className="mt-6 flex flex-wrap gap-2">
+            <Link
+              href="#vrijdag"
+              className="rounded-full bg-brand-coral px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90"
+            >
+              Naar vrijdag
+            </Link>
+            <Link
+              href="#zaterdag"
+              className="rounded-full border border-white/40 bg-white/15 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/25"
+            >
+              Naar zaterdag
+            </Link>
+          </div>
         </div>
 
-        <aside className="rounded-editorial border border-brand-teal/15 bg-brand-peach/45 p-6 text-center shadow-card sm:p-8">
+        <aside className="rounded-editorial border border-white/35 bg-white/88 p-6 text-center shadow-card sm:p-8">
           <p className="font-display text-4xl uppercase tracking-[0.12em] text-brand-coral">Weekend Guide</p>
           <p className="mt-1 font-display text-2xl uppercase tracking-[0.08em] text-brand-coral">{guide.periodLabel}</p>
           <div className="mt-7 grid grid-cols-4 gap-3 rounded-2xl border border-brand-coral/20 bg-white/60 p-3">
@@ -75,7 +89,7 @@ export default function WeekendGuidePage(): React.JSX.Element {
             <Link
               key={section.day}
               href={`#${section.day}`}
-              className="rounded-full border border-brand-teal/20 bg-brand-sand px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-brand-teal transition hover:border-brand-coral hover:text-brand-coral"
+              className="rounded-full border border-brand-teal/20 bg-brand-sand px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-brand-teal transition hover:border-brand-coral hover:bg-brand-peach/60 hover:text-brand-coral"
             >
               {section.label}
             </Link>
