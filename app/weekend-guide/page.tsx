@@ -46,12 +46,12 @@ export default function WeekendGuidePage(): React.JSX.Element {
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">{guide.introBody}</p>
         </div>
 
-        <aside className="glass-surface rounded-editorial p-6 text-center sm:p-8">
+        <aside className="rounded-editorial bg-white/72 p-6 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] sm:p-8">
           <p className="font-display text-4xl uppercase tracking-[0.12em] text-brand-coral">Weekend Guide</p>
           <p className="mt-1 font-display text-2xl uppercase tracking-[0.08em] text-brand-coral">{guide.periodLabel}</p>
-          <div className="glass-chip mt-7 grid grid-cols-4 gap-3 rounded-2xl p-3">
+          <div className="mt-7 grid grid-cols-4 gap-3">
             {guide.weather.map((item) => (
-              <div key={item.day} className="space-y-1 rounded-xl py-1">
+              <div key={item.day} className="space-y-1 py-1">
                 <p className="font-display text-2xl tracking-[0.08em] text-brand-teal sm:text-3xl">{dayShort[item.day]}</p>
                 <p className="text-xl text-brand-coral sm:text-2xl">{weatherIcon(item.icon)}</p>
                 <p className="font-display text-2xl tracking-[0.04em] text-brand-teal sm:text-3xl">{item.temperature}</p>
@@ -96,6 +96,13 @@ export default function WeekendGuidePage(): React.JSX.Element {
 
                   <h3 className="font-display text-3xl uppercase tracking-[0.04em] text-brand-teal">{event.title}</h3>
                   <p className="mt-2 text-base leading-relaxed text-brand-teal/88">{event.description}</p>
+                  {event.detailsList && event.detailsList.length > 0 ? (
+                    <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-brand-teal/82">
+                      {event.detailsList.map((item) => (
+                        <li key={`${event.id}-${item}`}>{item}</li>
+                      ))}
+                    </ul>
+                  ) : null}
                 </article>
               ))}
             </div>

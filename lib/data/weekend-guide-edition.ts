@@ -190,7 +190,25 @@ export const weekendGuideEdition: WeekendGuideEdition = {
       id: "wg-2026-03-020",
       slug: "tribute-around-town",
       title: "TRIBUTE AROUND TOWN",
-      description: "De stad staat deze avond volledig in het teken van legendarische muziek tijdens Tribute Around Town. Verspreid over de binnenstad brengen talloze bands een eerbetoon aan de grootste iconen uit de muziekgeschiedenis. Veel artiesten treden twee of drie keer op tijdens de volgende tijdblokken: Aretha Franklin (Dolce di Sione): 19:00-19:30 & 20:00-20:30 Classic Rock (Het Veulen): 19:30-20:10, 20:40-21:20 & 21:50-22:30 Nederpop (’t Pantoffeltje): 20:20-20:50 & 21:20-21:50 Queen (Reinders): 20:30-21:00 & 21:30-22:00 André Hazes (Tante Ted): 21:00-21:30 & 22:00-22:30 Beyoncé (Banier): 21:10-21:40 & 22:10-22:40 Top 2000 (De Basiliek): 21:20-21:50 & 22:20-22:50 Rolling Stones (Onder De Moriaan): 22:00-22:40, 23:10-23:50 & 00:20-01:00 Doe Maar (Taveerne): 22:10-22:40 & 23:10-23:40 Bruce Springsteen (De Smidse): 22:20-22:50 & 23:20-23:50 Guus Meeuwis (De Uilenburg): 22:30-23:00 & 23:30-00:00 Elvis Presley (De Druif): 20:40 & 22:40-23:10, 23:40-00:10 Coldplay (Plaats Royaal): 22:50-23:20 & 23:50-00:20 Soul & Disco (Bar Le Duc): 23:10-23:40 & 00:10-00:40 ABBA (De Carrousel): 23:30-00:00 & 00:30-01:00",
+      description:
+        "De stad staat deze avond volledig in het teken van legendarische muziek tijdens Tribute Around Town. Verspreid over de binnenstad brengen bands een eerbetoon aan de grootste iconen uit de muziekgeschiedenis.",
+      detailsList: [
+        "Aretha Franklin (Dolce di Sione): 19:00-19:30 & 20:00-20:30",
+        "Classic Rock (Het Veulen): 19:30-20:10, 20:40-21:20 & 21:50-22:30",
+        "Nederpop (’t Pantoffeltje): 20:20-20:50 & 21:20-21:50",
+        "Queen (Reinders): 20:30-21:00 & 21:30-22:00",
+        "André Hazes (Tante Ted): 21:00-21:30 & 22:00-22:30",
+        "Beyoncé (Banier): 21:10-21:40 & 22:10-22:40",
+        "Top 2000 (De Basiliek): 21:20-21:50 & 22:20-22:50",
+        "Rolling Stones (Onder De Moriaan): 22:00-22:40, 23:10-23:50 & 00:20-01:00",
+        "Doe Maar (Taveerne): 22:10-22:40 & 23:10-23:40",
+        "Bruce Springsteen (De Smidse): 22:20-22:50 & 23:20-23:50",
+        "Guus Meeuwis (De Uilenburg): 22:30-23:00 & 23:30-00:00",
+        "Elvis Presley (De Druif): 20:40 & 22:40-23:10, 23:40-00:10",
+        "Coldplay (Plaats Royaal): 22:50-23:20 & 23:50-00:20",
+        "Soul & Disco (Bar Le Duc): 23:10-23:40 & 00:10-00:40",
+        "ABBA (De Carrousel): 23:30-00:00 & 00:30-01:00"
+      ],
       venue: "Diverse locaties",
       timeLabel: "19:00",
       day: "vrijdag"

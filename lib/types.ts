@@ -93,6 +93,7 @@ export interface WeekendGuideEvent {
   description: string;
   venue: string;
   timeLabel?: string;
+  detailsList?: string[];
   day: WeekendGuideDay;
   sourceDateLabel?: string;
   sourceLink?: string;

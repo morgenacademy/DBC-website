@@ -50,7 +50,7 @@ export default async function MomentPage({ params }: MomentPageProps): Promise<R
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-brand-teal/75">{moment.intro}</p>
           <div className="mt-6 flex gap-3">
             <Link href="/discover" className="rounded-full bg-brand-coral px-4 py-2 text-sm font-semibold text-white">
-              Naar Ontdek
+              Ontdek Den Bosch
             </Link>
             <Link href="/collection/nieuwsbrief-weekend-selectie" className="rounded-full border border-brand-teal/20 px-4 py-2 text-sm font-semibold text-brand-teal">
               Selecties

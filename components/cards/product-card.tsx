@@ -83,7 +83,21 @@ function splitDescription(product: Product): { lead: string; details: string[] }
     .map((part) => part.trim())
     .filter(Boolean);
 
-  return { lead, details: details.length > 0 ? details : [rest] };
+  const normalizedDetails = details.length > 0 ? details : [rest];
+
+  if (product.category.toLowerCase().includes("kersttrui")) {
+    const availabilityIndex = normalizedDetails.findIndex((part) => /^Verkrijgbaar\b/i.test(part));
+    const discountIndex = normalizedDetails.findIndex((part) => /^Nu\s*11%\s*KORTING\b/i.test(part));
+
+    if (availabilityIndex !== -1 && discountIndex !== -1 && availabilityIndex > discountIndex) {
+      const reordered = [...normalizedDetails];
+      const [availability] = reordered.splice(availabilityIndex, 1);
+      reordered.splice(discountIndex, 0, availability);
+      return { lead, details: reordered };
+    }
+  }
+
+  return { lead, details: normalizedDetails };
 }
 
 export function ProductCard({ product }: ProductCardProps): React.JSX.Element {
@@ -94,6 +108,12 @@ export function ProductCard({ product }: ProductCardProps): React.JSX.Element {
   const synchronizedTick = useSynchronizedCarouselTick();
   const hasMultipleImages = gallery.length > 1;
   const description = splitDescription(product);
+  const christmasTitleMatch = isChristmasProduct ? product.title.match(/^(.*\bKERSTTRUI)\s+([A-Z]+)$/i) : null;
+  const christmasTitleMain = christmasTitleMatch?.[1] ?? product.title;
+  const christmasTitleColor = christmasTitleMatch?.[2];
+  const citySuffixTitleMatch = !isChristmasProduct ? product.title.match(/^(.*)\s('S-HERTOGENBOSCH)$/i) : null;
+  const citySuffixTitleMain = citySuffixTitleMatch?.[1] ?? product.title;
+  const citySuffixTitle = citySuffixTitleMatch?.[2];
   const autoIndex = hasMultipleImages ? synchronizedTick % gallery.length : 0;
   const activeIndex = hasMultipleImages ? (autoIndex + manualOffset + gallery.length * 100) % gallery.length : 0;
 
@@ -181,12 +201,32 @@ export function ProductCard({ product }: ProductCardProps): React.JSX.Element {
           {product.badge ? <Pill label={product.badge} tone="accent" /> : null}
         </div>
 
-        <h3 className="text-xl font-bold text-brand-teal">{product.title}</h3>
+        <h3 className="text-xl font-bold text-brand-teal">
+          {christmasTitleColor ? (
+            <>
+              {christmasTitleMain}
+              <br />
+              {christmasTitleColor}
+            </>
+          ) : citySuffixTitle ? (
+            <>
+              {citySuffixTitleMain}
+              <br />
+              <span className="whitespace-nowrap">{citySuffixTitle}</span>
+            </>
+          ) : null}
+          {!christmasTitleColor && !citySuffixTitle ? product.title : null}
+        </h3>
         {product.color ? <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-teal/65">Kleur: {product.color}</p> : null}
         <p className="text-[1.05rem] leading-relaxed text-brand-teal/90">{description.lead}</p>
         <div className="space-y-2">
           {description.details.map((paragraph, index) => (
-            <p key={`${product.id}-paragraph-${index}`} className="text-[0.95rem] leading-relaxed text-brand-teal/78">
+            <p
+              key={`${product.id}-paragraph-${index}`}
+              className={`leading-relaxed ${
+                /^Verkrijgbaar\b/i.test(paragraph) ? "text-[0.84rem] text-brand-teal/68" : "text-[0.95rem] text-brand-teal/78"
+              }`}
+            >
               {paragraph}
             </p>
           ))}
@@ -202,9 +242,9 @@ export function ProductCard({ product }: ProductCardProps): React.JSX.Element {
               </p>
             )}
             {!isChristmasProduct ? (
-              <p className="text-[0.72rem] uppercase tracking-[0.12em] text-brand-teal/58">Productie door: {product.partnerName}</p>
+              <p className="text-[0.66rem] uppercase tracking-[0.14em] text-brand-teal/56">Productie door: {product.partnerName}</p>
             ) : (
-              <p aria-hidden className="text-[0.72rem] uppercase tracking-[0.12em] text-transparent">
+              <p aria-hidden className="text-[0.66rem] uppercase tracking-[0.14em] text-transparent">
                 &nbsp;
               </p>
             )}

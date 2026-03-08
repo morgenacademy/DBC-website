@@ -4,7 +4,7 @@ import { navigation } from "@/lib/config/navigation";
 
 export function SiteHeader(): React.JSX.Element {
   return (
-    <header className="sticky top-0 z-50 border-b border-brand-teal/15 bg-white/70 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-brand-teal/15 bg-brand-sand/90 backdrop-blur">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-6 px-4 py-3 sm:px-6 lg:px-8">
         <Link href="/" className="inline-flex items-center gap-3" aria-label="Den Bosch City home">
           <Image src="/brand/logo-dbc.svg" alt="Den Bosch City" width={140} height={61} priority className="h-auto w-28 sm:w-32" />

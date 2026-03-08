@@ -14,10 +14,45 @@ export const metadata = buildMetadata({
   path: "/"
 });
 
+interface HomeWeekendHighlight {
+  id: string;
+  dayLabel: string;
+  title: string;
+  summary: string;
+  meta: string;
+  ctaHref: string;
+}
+
+function extractLeadSentence(text: string): string {
+  const firstSentence = text.split(/(?<=[.!?])\s+/)[0];
+  return (firstSentence ?? text).trim();
+}
+
+function getHomeWeekendHighlights(): HomeWeekendHighlight[] {
+  const guide = weekendRepository.getCurrentGuide();
+  const sections = weekendRepository.listGuideSections(guide.slug);
+  const orderedSections = sections.filter((section) => section.day !== "hele-weekend");
+  const sourceSections = orderedSections.length > 0 ? orderedSections : sections;
+
+  return sourceSections.slice(0, 2).map((section) => {
+    const event = section.events[0];
+    const meta = [event.timeLabel, event.venue].filter(Boolean).join(" · ");
+
+    return {
+      id: `${section.day}-${event.id}`,
+      dayLabel: section.label,
+      title: event.title,
+      summary: extractLeadSentence(event.description),
+      meta,
+      ctaHref: `/weekend-guide#${section.day}`
+    };
+  });
+}
+
 export default function HomePage(): React.JSX.Element {
   const featured = contentRepository.listFeatured(4);
   const heroItem = featured[0];
-  const weekend = weekendRepository.listWeekendItems().slice(0, 2);
+  const weekendHighlights = getHomeWeekendHighlights();
   const latest = contentRepository.listLatest(6);
   const products = commerceProvider.listProducts(true).slice(0, 3);
 
@@ -72,16 +107,17 @@ export default function HomePage(): React.JSX.Element {
         <SectionHeading
           eyebrow="Weekend Guide"
           title="Snel weten wat je dit weekend doet"
-          description="Twee snelle highlights om direct te plannen, met alle details op de Weekend Guide pagina."
+          description="Twee actuele picks uit de gids van deze week. Open de Weekend Guide voor het complete overzicht per dag."
         />
         <div className="grid gap-4 md:grid-cols-2">
-          {weekend.map((item) => (
-            <article key={item.id} className="glass-surface rounded-editorial p-5 shadow-card">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-coral">{item.category}</p>
-              <h3 className="mt-1 text-xl font-bold text-brand-teal">{item.title}</h3>
-              <p className="mt-2 text-sm text-brand-teal/75">{item.summary}</p>
-              <Link href={item.ctaHref} className="mt-3 inline-flex text-sm font-semibold text-brand-teal hover:text-brand-coral">
-                {item.ctaLabel} →
+          {weekendHighlights.map((highlight) => (
+            <article key={highlight.id} className="glass-surface rounded-editorial p-5 shadow-card">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-coral">{highlight.dayLabel}</p>
+              <h3 className="mt-1 text-xl font-bold text-brand-teal">{highlight.title}</h3>
+              <p className="mt-2 text-sm text-brand-teal/75">{highlight.summary}</p>
+              <p className="mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-brand-teal/60">{highlight.meta}</p>
+              <Link href={highlight.ctaHref} className="mt-3 inline-flex text-sm font-semibold text-brand-teal hover:text-brand-coral">
+                Bekijk dag →
               </Link>
             </article>
           ))}
@@ -103,7 +139,7 @@ export default function HomePage(): React.JSX.Element {
           ))}
         </div>
         <Link href="/discover" className="inline-flex text-sm font-semibold text-brand-teal hover:text-brand-coral">
-          Naar Ontdek →
+          Ontdek Den Bosch →
         </Link>
       </section>
 
