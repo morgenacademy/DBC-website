@@ -38,6 +38,106 @@ export const siteConfig = {
       name: "Anne op ’t Hoog",
       role: "Foto & events",
       bio: "Brengt Den Bosch in beeld op events en in lokale producties."
+    },
+    {
+      name: "Fleur Damoiseaux",
+      role: "Team Den Bosch City",
+      bio: "Onderdeel van het creatieve team van Den Bosch City."
+    },
+    {
+      name: "Mechteld Zink",
+      role: "Team Den Bosch City",
+      bio: "Onderdeel van het creatieve team van Den Bosch City."
+    },
+    {
+      name: "Chrystle van Wijngaarden",
+      role: "Team Den Bosch City",
+      bio: "Onderdeel van het creatieve team van Den Bosch City."
+    },
+    {
+      name: "Lucas van Berkel",
+      role: "Team Den Bosch City",
+      bio: "Onderdeel van het creatieve team van Den Bosch City."
+    },
+    {
+      name: "Floor Verberkt",
+      role: "Team Den Bosch City",
+      bio: "Onderdeel van het creatieve team van Den Bosch City."
+    },
+    {
+      name: "Marlie Schippers",
+      role: "Team Den Bosch City",
+      bio: "Onderdeel van het creatieve team van Den Bosch City."
+    },
+    {
+      name: "Suzan Nievergeld",
+      role: "Team Den Bosch City",
+      bio: "Onderdeel van het creatieve team van Den Bosch City."
+    },
+    {
+      name: "Kaya Skov",
+      role: "Team Den Bosch City",
+      bio: "Onderdeel van het creatieve team van Den Bosch City."
+    },
+    {
+      name: "Sharon Roest",
+      role: "Team Den Bosch City",
+      bio: "Onderdeel van het creatieve team van Den Bosch City."
+    },
+    {
+      name: "Evita Parinussa",
+      role: "Team Den Bosch City",
+      bio: "Onderdeel van het creatieve team van Den Bosch City."
+    },
+    {
+      name: "Sam Arts",
+      role: "Team Den Bosch City",
+      bio: "Onderdeel van het creatieve team van Den Bosch City."
+    },
+    {
+      name: "Rachel Heek",
+      role: "Team Den Bosch City",
+      bio: "Onderdeel van het creatieve team van Den Bosch City."
+    },
+    {
+      name: "Maxine van der Veer",
+      role: "Team Den Bosch City",
+      bio: "Onderdeel van het creatieve team van Den Bosch City."
+    },
+    {
+      name: "Kelly Bakker",
+      role: "Team Den Bosch City",
+      bio: "Onderdeel van het creatieve team van Den Bosch City."
+    },
+    {
+      name: "Mandy Beekwilder",
+      role: "Team Den Bosch City",
+      bio: "Onderdeel van het creatieve team van Den Bosch City."
+    },
+    {
+      name: "Sara Schellekens",
+      role: "Team Den Bosch City",
+      bio: "Onderdeel van het creatieve team van Den Bosch City."
+    },
+    {
+      name: "Claire Crepin",
+      role: "Team Den Bosch City",
+      bio: "Onderdeel van het creatieve team van Den Bosch City."
+    },
+    {
+      name: "Noukje Verhoeven",
+      role: "Team Den Bosch City",
+      bio: "Onderdeel van het creatieve team van Den Bosch City."
+    },
+    {
+      name: "Karin van Doorn",
+      role: "Team Den Bosch City",
+      bio: "Onderdeel van het creatieve team van Den Bosch City."
+    },
+    {
+      name: "Simone Meesters",
+      role: "Team Den Bosch City",
+      bio: "Onderdeel van het creatieve team van Den Bosch City."
     }
   ],
   newsletterUrl: "https://denboschcity.nl/nieuwsbrief"

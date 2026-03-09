@@ -86,16 +86,18 @@ export function NewsletterSignupForm(): React.JSX.Element {
         />
       </label>
 
-      <button
-        type="submit"
-        disabled={state === "loading"}
-        className={`inline-flex min-w-52 justify-center rounded-full px-4 py-2 text-sm font-semibold text-white transition disabled:cursor-not-allowed ${
-          state === "loading" ? "bg-brand-coral/75" : "bg-brand-coral hover:opacity-90"
-        }`}
-        aria-busy={state === "loading"}
-      >
-        {state === "loading" ? "Bezig met inschrijven..." : "Inschrijven nieuwsbrief"}
-      </button>
+      <div className="flex justify-center pt-1">
+        <button
+          type="submit"
+          disabled={state === "loading"}
+          className={`inline-flex min-w-52 justify-center rounded-full px-4 py-2 text-sm font-semibold text-white transition disabled:cursor-not-allowed ${
+            state === "loading" ? "bg-brand-coral/75" : "bg-brand-coral hover:opacity-90"
+          }`}
+          aria-busy={state === "loading"}
+        >
+          {state === "loading" ? "Bezig met inschrijven..." : "Inschrijven nieuwsbrief"}
+        </button>
+      </div>
 
       {state === "loading" ? (
         <p className="text-xs text-brand-sand/80" role="status" aria-live="polite">

@@ -15,13 +15,17 @@ export default function OverPage(): React.JSX.Element {
       <section className="space-y-4">
         <h1 className="text-4xl font-bold text-brand-teal">Over Den Bosch City</h1>
         <p className="text-base leading-relaxed text-brand-teal/80">
-          Den Bosch City is een lokaal lifestyleplatform voor &apos;s-Hertogenbosch. We delen hotspots, events, weekendtips en Bossche producten,
-          zodat je altijd weet wat er speelt in de stad.
+          Den Bosch is een waanzinnig mooie stad met stadswateren waar je doorheen vaart, de imposante Sint-Janskathedraal en natuurlijk Bossche
+          bollen vers van de bakker. Maar daar stopt het niet.
+        </p>
+        <p className="text-base leading-relaxed text-brand-teal/80">
+          Het stikt in de stad van romantische straatjes, leuke eettentjes en boetiekwinkels. Daarnaast is er in het seizoen elke week wel een tof
+          event. Er is altijd wel wat te doen - voor Bosschenaren én voor toeristen. Geloof je ons niet? Kijk maar even mee!
         </p>
       </section>
 
       <section className="rounded-editorial border border-brand-teal/15 bg-white p-6 shadow-card sm:p-8">
-        <h2 className="text-2xl font-bold text-brand-teal">Ons Team</h2>
+        <h2 className="text-2xl font-bold text-brand-teal">Het team</h2>
         <p className="mt-3 text-base leading-relaxed text-brand-teal/80">
           Achter Den Bosch City staat een compact team van creatievelingen, schrijvers, fotografen en social media-makers. Samen bouwen we aan een
           platform voor en door Bosschenaren: warm, lokaal en altijd in beweging.

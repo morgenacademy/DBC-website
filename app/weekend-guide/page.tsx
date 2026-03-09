@@ -46,7 +46,7 @@ export default function WeekendGuidePage(): React.JSX.Element {
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">{guide.introBody}</p>
         </div>
 
-        <aside className="rounded-editorial bg-white/72 p-6 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] sm:p-8">
+        <aside className="rounded-editorial bg-[#d8e8ea] p-6 text-center sm:p-8">
           <p className="font-display text-4xl uppercase tracking-[0.12em] text-brand-coral">Weekend Guide</p>
           <p className="mt-1 font-display text-2xl uppercase tracking-[0.08em] text-brand-coral">{guide.periodLabel}</p>
           <div className="mt-7 grid grid-cols-4 gap-3">
