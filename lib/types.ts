@@ -170,6 +170,8 @@ export interface ContentRepository {
   getContentBySlug(slug: string): ContentItem | undefined;
   searchContent(query: string, filters?: Omit<ContentFilters, "q">): ContentItem[];
   getRelatedContent(item: ContentItem, limit?: number): ContentItem[];
+  listFeatured(limit?: number): ContentItem[];
+  listLatest(limit?: number): ContentItem[];
 }
 
 export interface ThemeRepository {
