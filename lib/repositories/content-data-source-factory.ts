@@ -46,6 +46,7 @@ async function loadSupabaseRowsFromRest(env: NodeJS.ProcessEnv): Promise<Supabas
   try {
     const response = await fetch(endpoint, {
       method: "GET",
+      cache: "no-store",
       headers: {
         apikey: config.key,
         Authorization: `Bearer ${config.key}`

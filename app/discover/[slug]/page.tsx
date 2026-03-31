@@ -6,7 +6,7 @@ import { ContentCard } from "@/components/cards/content-card";
 import { Pill } from "@/components/ui/pill";
 import { getCategoryLabel, getContentLayerLabel, getMediaTypeLabel, getSourcePlatformLabel } from "@/lib/content-labels";
 import { buildMetadata } from "@/lib/seo";
-import { contentRepository } from "@/lib/repositories";
+import { getContentRepository } from "@/lib/repositories";
 import { formatDate } from "@/lib/utils";
 
 interface ContentDetailPageProps {
@@ -14,10 +14,12 @@ interface ContentDetailPageProps {
 }
 
 export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
+  const contentRepository = await getContentRepository();
   return contentRepository.listContent().map((item) => ({ slug: item.slug }));
 }
 
 export async function generateMetadata({ params }: ContentDetailPageProps): Promise<Metadata> {
+  const contentRepository = await getContentRepository();
   const resolved = await params;
   const item = contentRepository.getContentBySlug(resolved.slug);
 
@@ -34,6 +36,7 @@ export async function generateMetadata({ params }: ContentDetailPageProps): Prom
 }
 
 export default async function ContentDetailPage({ params }: ContentDetailPageProps): Promise<React.JSX.Element> {
+  const contentRepository = await getContentRepository();
   const resolved = await params;
   const item = contentRepository.getContentBySlug(resolved.slug);
 

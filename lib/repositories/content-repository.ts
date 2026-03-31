@@ -90,6 +90,11 @@ export class InMemoryContentRepository implements ContentRepository {
   }
 }
 
+export async function getContentRepository(): Promise<ContentRepository> {
+  const resolvedContentDataSource = await createContentDataSourceFromEnv();
+  return new InMemoryContentRepository(resolvedContentDataSource);
+}
+
 const resolvedContentDataSource = await createContentDataSourceFromEnv();
 
 export const contentRepository = new InMemoryContentRepository(resolvedContentDataSource);

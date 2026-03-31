@@ -6,7 +6,7 @@ import { NewsletterCta } from "@/components/sections/newsletter-cta";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { homepageConfig } from "@/lib/config/homepage";
 import { buildMetadata } from "@/lib/seo";
-import { commerceProvider, contentRepository, themeRepository, weekendRepository } from "@/lib/repositories";
+import { commerceProvider, getContentRepository, themeRepository, weekendRepository } from "@/lib/repositories";
 
 export const metadata = buildMetadata({
   title: "Home",
@@ -49,7 +49,8 @@ function getHomeWeekendHighlights(): HomeWeekendHighlight[] {
   });
 }
 
-export default function HomePage(): React.JSX.Element {
+export default async function HomePage(): Promise<React.JSX.Element> {
+  const contentRepository = await getContentRepository();
   const featured = contentRepository.listFeatured(4);
   const heroItem = featured[0];
   const weekendHighlights = getHomeWeekendHighlights();

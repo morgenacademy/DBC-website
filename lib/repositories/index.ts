@@ -1,4 +1,5 @@
 export { contentRepository } from "@/lib/repositories/content-repository";
+export { getContentRepository } from "@/lib/repositories/content-repository";
 export {
   CONTENT_DATA_SOURCE_ENV_KEY,
   DEFAULT_CONTENT_DATA_SOURCE_MODE,

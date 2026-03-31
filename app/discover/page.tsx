@@ -4,7 +4,7 @@ import { ContentCard } from "@/components/cards/content-card";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { getCategoryLabel } from "@/lib/content-labels";
 import { buildMetadata } from "@/lib/seo";
-import { contentRepository, themeRepository } from "@/lib/repositories";
+import { getContentRepository, themeRepository } from "@/lib/repositories";
 import type { WeekendCategory } from "@/lib/types";
 
 export const metadata: Metadata = buildMetadata({
@@ -20,6 +20,7 @@ interface DiscoverPageProps {
 const categories: WeekendCategory[] = ["food", "events", "culture", "kids", "shopping", "nightlife", "local-tips"];
 
 export default async function DiscoverPage({ searchParams }: DiscoverPageProps): Promise<React.JSX.Element> {
+  const contentRepository = await getContentRepository();
   const params = await searchParams;
   const hasActiveFilters = Boolean(params.q || params.theme || params.moment || params.category);
 
