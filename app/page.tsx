@@ -28,6 +28,10 @@ interface HomeWeekendHighlight {
   ctaHref: string;
 }
 
+function normalizeText(value: string): string {
+  return value.replace(/\s+/g, " ").trim().toLowerCase();
+}
+
 function extractLeadSentence(text: string): string {
   const firstSentence = text.split(/(?<=[.!?])\s+/)[0];
   return (firstSentence ?? text).trim();
@@ -110,6 +114,17 @@ export default async function HomePage(): Promise<React.JSX.Element> {
   const heroItem = resolveHomepageFeaturedItem(allItems, latest);
   const highlightedItem = latest.find((item) => item.id !== heroItem?.id);
   const highlightedSupportingItems = latest.filter((item) => item.id !== heroItem?.id && item.id !== highlightedItem?.id).slice(0, 2);
+  const heroExcerpt =
+    heroItem && (() => {
+      const normalizedTitle = normalizeText(heroItem.title);
+      const normalizedExcerpt = normalizeText(heroItem.excerpt);
+
+      if (!normalizedExcerpt) return "";
+      if (normalizedExcerpt === normalizedTitle) return "";
+      if (normalizedExcerpt.startsWith(normalizedTitle)) return "";
+
+      return heroItem.excerpt;
+    })();
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-14 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
@@ -146,7 +161,7 @@ export default async function HomePage(): Promise<React.JSX.Element> {
                 <h2 className="text-2xl font-bold leading-tight">
                   <Link href={`/ontdek/${heroItem.slug}`}>{heroItem.title}</Link>
                 </h2>
-                <p className="text-sm text-brand-teal/75">{heroItem.excerpt}</p>
+                {heroExcerpt ? <p className="text-sm text-brand-teal/75">{heroExcerpt}</p> : null}
               </div>
             </article>
           ) : null}
