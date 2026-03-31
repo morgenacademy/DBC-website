@@ -6,7 +6,7 @@ import type { WeekendGuideDay, WeekendGuideWeather } from "@/lib/types";
 
 export const metadata: Metadata = buildMetadata({
   title: "Weekend Guide",
-  description: "Het complete weekendoverzicht van Den Bosch City, opgebouwd uit gestructureerde eventdata.",
+  description: "De leukste tips voor je weekend in Den Bosch, overzichtelijk per dag.",
   path: "/weekend-guide"
 });
 
@@ -23,7 +23,8 @@ const dayShort: Record<WeekendGuideWeather["day"], string> = {
   do: "DO",
   vr: "VR",
   za: "ZA",
-  zo: "ZO"
+  zo: "ZO",
+  ma: "MA"
 };
 
 function weatherIcon(icon: WeekendGuideWeather["icon"]): string {
@@ -38,7 +39,7 @@ export default function WeekendGuidePage(): React.JSX.Element {
 
   return (
     <div className="mx-auto w-full max-w-6xl space-y-8 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
-      <section className="glass-hero relative grid gap-6 overflow-hidden rounded-[2rem] border border-brand-teal/20 p-6 text-white shadow-card lg:grid-cols-[1.1fr_0.9fr] lg:items-start sm:p-8">
+      <section className="glass-hero relative grid gap-6 overflow-hidden rounded-[2rem] p-6 text-white shadow-card lg:grid-cols-[1.1fr_0.9fr] lg:items-start sm:p-8">
         <div className="pointer-events-none absolute right-0 top-0 h-48 w-48 -translate-y-1/2 translate-x-1/3 rounded-full bg-brand-coral/40 blur-2xl" />
         <div className="text-white">
           <p className="font-display text-sm uppercase tracking-[0.22em] text-brand-sand">Weekend Guide</p>
@@ -46,7 +47,7 @@ export default function WeekendGuidePage(): React.JSX.Element {
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">{guide.introBody}</p>
         </div>
 
-        <aside className="rounded-editorial bg-[#d8e8ea] p-6 text-center sm:p-8">
+        <aside className="rounded-editorial bg-white/72 p-6 text-center shadow-card backdrop-blur-sm sm:p-8">
           <p className="font-display text-4xl uppercase tracking-[0.12em] text-brand-coral">Weekend Guide</p>
           <p className="mt-1 font-display text-2xl uppercase tracking-[0.08em] text-brand-coral">{guide.periodLabel}</p>
           <div className="mt-7 grid grid-cols-4 gap-3">
@@ -85,15 +86,9 @@ export default function WeekendGuidePage(): React.JSX.Element {
             <div className="space-y-4">
               {section.events.map((event) => (
                 <article key={event.id} className="glass-surface rounded-editorial p-5 shadow-card sm:p-6">
-                  <div className="mb-3 flex flex-wrap gap-2">
-                    <span className="inline-flex rounded-full border border-brand-coral/25 bg-brand-coral/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-brand-coral">
-                      {event.timeLabel ?? "Hele dag"}
-                    </span>
-                    <span className="inline-flex rounded-full border border-brand-teal/20 bg-brand-sand/85 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-brand-teal">
-                      {event.venue}
-                    </span>
-                  </div>
-
+                  <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-brand-teal/68">
+                    {event.timeLabel ?? "Hele dag"} · {event.venue}
+                  </p>
                   <h3 className="font-display text-3xl uppercase tracking-[0.04em] text-brand-teal">{event.title}</h3>
                   <p className="mt-2 text-base leading-relaxed text-brand-teal/88">{event.description}</p>
                   {event.detailsList && event.detailsList.length > 0 ? (

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Pill } from "@/components/ui/pill";
-import { getCategoryLabel, getContentLayerLabel } from "@/lib/content-labels";
+import { getCategoryLabel } from "@/lib/content-labels";
 import { formatDate } from "@/lib/utils";
 import type { ContentItem } from "@/lib/types";
 
@@ -27,10 +27,11 @@ export function ContentCard({ item, priority = false }: ContentCardProps): React
       </Link>
 
       <div className="flex flex-col gap-3 p-4">
-        <div className="flex flex-wrap items-center gap-2">
-          {item.editorialLabel ? <Pill label={item.editorialLabel} tone="accent" /> : null}
-          <Pill label={getContentLayerLabel(item.contentLayer)} />
-        </div>
+        {item.editorialLabel ? (
+          <div className="flex flex-wrap items-center gap-2">
+            <Pill label={item.editorialLabel} tone="accent" />
+          </div>
+        ) : null}
 
         <h3 className="text-lg font-bold leading-tight text-brand-teal">
           <Link href={`/discover/${item.slug}`} className="hover:text-brand-coral">

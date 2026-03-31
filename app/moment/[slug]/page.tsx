@@ -6,6 +6,7 @@ import { ContentCard } from "@/components/cards/content-card";
 import { NewsletterCta } from "@/components/sections/newsletter-cta";
 import { buildMetadata } from "@/lib/seo";
 import { contentRepository, themeRepository } from "@/lib/repositories";
+import { resolveThemeHeroImage } from "@/lib/theme-hero-image";
 
 interface MomentPageProps {
   params: Promise<{ slug: string }>;
@@ -23,11 +24,14 @@ export async function generateMetadata({ params }: MomentPageProps): Promise<Met
     return buildMetadata({ title: "Moment niet gevonden", description: "Moment niet gevonden", path: "/discover", noIndex: true });
   }
 
+  const items = contentRepository.listContent({ moment: moment.slug });
+  const heroImage = resolveThemeHeroImage(moment, items);
+
   return buildMetadata({
     title: moment.title,
     description: moment.intro,
     path: `/moment/${moment.slug}`,
-    image: moment.heroImage
+    image: heroImage
   });
 }
 
@@ -40,6 +44,7 @@ export default async function MomentPage({ params }: MomentPageProps): Promise<R
   }
 
   const items = contentRepository.listContent({ moment: moment.slug });
+  const heroImage = resolveThemeHeroImage(moment, items);
 
   return (
     <div className="mx-auto w-full max-w-6xl space-y-8 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
@@ -57,8 +62,11 @@ export default async function MomentPage({ params }: MomentPageProps): Promise<R
             </Link>
           </div>
         </div>
-        <div className="relative min-h-[260px]">
-          <Image src={moment.heroImage} alt={moment.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 40vw" />
+        <div
+          className="relative min-h-[260px]"
+          style={!heroImage ? { background: `linear-gradient(135deg, ${moment.accentColor}, rgba(255, 255, 255, 0.55))` } : undefined}
+        >
+          {heroImage ? <Image src={heroImage} alt={moment.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 40vw" /> : null}
         </div>
       </section>
 

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ContentCard } from "@/components/cards/content-card";
 import { buildMetadata } from "@/lib/seo";
 import { contentRepository, themeRepository } from "@/lib/repositories";
+import { resolveThemeHeroImage } from "@/lib/theme-hero-image";
 
 interface ThemePageProps {
   params: Promise<{ slug: string }>;
@@ -21,11 +22,14 @@ export async function generateMetadata({ params }: ThemePageProps): Promise<Meta
     return buildMetadata({ title: "Thema niet gevonden", description: "Thema niet gevonden", path: "/discover", noIndex: true });
   }
 
+  const items = contentRepository.listContent({ theme: theme.slug });
+  const heroImage = resolveThemeHeroImage(theme, items);
+
   return buildMetadata({
     title: theme.title,
     description: theme.intro,
     path: `/theme/${theme.slug}`,
-    image: theme.heroImage
+    image: heroImage
   });
 }
 
@@ -38,14 +42,17 @@ export default async function ThemePage({ params }: ThemePageProps): Promise<Rea
   }
 
   const items = contentRepository.listContent({ theme: theme.slug });
+  const heroImage = resolveThemeHeroImage(theme, items);
 
   return (
     <div className="mx-auto w-full max-w-6xl space-y-8 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
-      <section className="relative overflow-hidden rounded-[2rem] border border-brand-teal/15">
-        <div className="absolute inset-0">
-          <Image src={theme.heroImage} alt={theme.title} fill className="object-cover" sizes="100vw" priority />
-          <div className="absolute inset-0 bg-brand-teal/55" />
-        </div>
+      <section className="relative overflow-hidden rounded-[2rem] border border-brand-teal/15" style={!heroImage ? { backgroundColor: theme.accentColor } : undefined}>
+        {heroImage ? (
+          <div className="absolute inset-0">
+            <Image src={heroImage} alt={theme.title} fill className="object-cover" sizes="100vw" priority />
+            <div className="absolute inset-0 bg-brand-teal/55" />
+          </div>
+        ) : null}
         <div className="relative z-10 px-6 py-12 text-white sm:px-10">
           <p className="font-display text-sm uppercase tracking-[0.26em]">Thema</p>
           <h1 className="mt-2 text-4xl font-bold sm:text-5xl">{theme.title}</h1>

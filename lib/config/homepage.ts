@@ -3,7 +3,7 @@ export const homepageConfig = {
     title: "Den Bosch City",
     subtitle: "Beleef onze stad Den Bosch door de ogen van locals.",
     ctaPrimary: { label: "Naar Weekend Guide", href: "/weekend-guide" },
-    ctaSecondary: { label: "Naar Ontdek", href: "/discover" }
+    ctaSecondary: { label: "Ontdek Den Bosch", href: "/discover" }
   },
   sections: {
     featuredLabel: "Den Bosch City",

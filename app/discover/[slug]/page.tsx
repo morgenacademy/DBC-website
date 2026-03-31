@@ -73,7 +73,7 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
           ))}
 
           <div className="rounded-editorial border border-brand-teal/15 bg-white p-4">
-            <h2 className="text-lg font-bold text-brand-teal">Instagram caption</h2>
+            <h2 className="text-lg font-bold text-brand-teal">Bijschrift</h2>
             <p className="mt-2 text-sm leading-relaxed text-brand-teal/75">{item.caption}</p>
           </div>
 
@@ -84,7 +84,7 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
               rel="noreferrer"
               className="inline-flex rounded-full border border-brand-teal/25 bg-white px-4 py-2 text-sm font-semibold text-brand-teal"
             >
-              Bekijk originele Instagram post
+              Bekijk originele post
             </a>
           ) : null}
         </div>

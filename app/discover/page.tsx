@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ContentCard } from "@/components/cards/content-card";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { discoverConfig, type DiscoverFeaturedItemConfig } from "@/lib/config/discover";
 import { getCategoryLabel } from "@/lib/content-labels";
 import { buildMetadata } from "@/lib/seo";
 import { getContentRepository, themeRepository } from "@/lib/repositories";
-import type { WeekendCategory } from "@/lib/types";
+import type { ContentItem, ContentRepository, WeekendCategory } from "@/lib/types";
 
 export const metadata: Metadata = buildMetadata({
   title: "Ontdek",
@@ -19,6 +20,21 @@ interface DiscoverPageProps {
 
 const categories: WeekendCategory[] = ["food", "events", "culture", "kids", "shopping", "nightlife", "local-tips"];
 
+function resolveFeaturedItems(contentRepository: ContentRepository): ContentItem[] {
+  const items = contentRepository.listContent();
+
+  return discoverConfig.featuredItems
+    .map((pick: DiscoverFeaturedItemConfig) =>
+      items.find((item) => {
+        if (pick.id) return item.id === pick.id;
+        if (pick.slug) return item.slug === pick.slug;
+        if (pick.sourceId) return item.sourceId === pick.sourceId;
+        return undefined;
+      })
+    )
+    .filter((item): item is ContentItem => Boolean(item));
+}
+
 export default async function DiscoverPage({ searchParams }: DiscoverPageProps): Promise<React.JSX.Element> {
   const contentRepository = await getContentRepository();
   const params = await searchParams;
@@ -31,7 +47,7 @@ export default async function DiscoverPage({ searchParams }: DiscoverPageProps):
     category: params.category
   });
 
-  const featured = contentRepository.listFeatured(3);
+  const featured = resolveFeaturedItems(contentRepository);
   const themes = themeRepository.listThemes("theme").slice(0, 6);
   const moments = themeRepository.listThemes("moment").slice(0, 4);
 
@@ -41,7 +57,7 @@ export default async function DiscoverPage({ searchParams }: DiscoverPageProps):
         <SectionHeading
           eyebrow="Ontdek"
           title="Ontdek Den Bosch"
-          description="Zoek op waar je zin in hebt of blader door de nieuwste tips."
+          description="Zoek op terras, brunch, hotspots of events en vind meteen iets leuks."
         />
 
         <form className="mt-6 grid gap-3 md:grid-cols-4" role="search" aria-label="Zoek en filter Ontdek">
@@ -135,9 +151,12 @@ export default async function DiscoverPage({ searchParams }: DiscoverPageProps):
         </div>
       </section>
 
-      {!hasActiveFilters ? (
+      {!hasActiveFilters && featured.length > 0 ? (
         <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-brand-teal">Populair nu</h2>
+          <div>
+            <h2 className="text-2xl font-bold text-brand-teal">{discoverConfig.sections.featuredTitle}</h2>
+            <p className="mt-1 text-sm text-brand-teal/70">{discoverConfig.sections.featuredDescription}</p>
+          </div>
           <div className="grid gap-5 md:grid-cols-3">
             {featured.map((item, index) => (
               <ContentCard key={item.id} item={item} priority={index < 2} />

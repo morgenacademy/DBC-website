@@ -22,6 +22,9 @@ export default function OverPage(): React.JSX.Element {
           Het stikt in de stad van romantische straatjes, leuke eettentjes en boetiekwinkels. Daarnaast is er in het seizoen elke week wel een tof
           event. Er is altijd wel wat te doen - voor Bosschenaren én voor toeristen. Geloof je ons niet? Kijk maar even mee!
         </p>
+        <p className="text-base leading-relaxed text-brand-teal/80">
+          Den Bosch City laat de stad zien zoals locals haar beleven: warm, levendig en vol adressen die je wilt onthouden.
+        </p>
       </section>
 
       <section className="rounded-editorial border border-brand-teal/15 bg-white p-6 shadow-card sm:p-8">

@@ -81,7 +81,7 @@ export interface WeekendItem {
 export type WeekendGuideDay = "hele-weekend" | "donderdag" | "vrijdag" | "zaterdag" | "zondag" | "maandag";
 
 export interface WeekendGuideWeather {
-  day: "do" | "vr" | "za" | "zo";
+  day: "do" | "vr" | "za" | "zo" | "ma";
   temperature: string;
   icon: "sunny" | "partly-cloudy" | "cloudy";
 }
@@ -116,7 +116,7 @@ export interface Theme {
   title: string;
   kind: "theme" | "moment";
   intro: string;
-  heroImage: string;
+  heroImage?: string;
   accentColor: string;
   featuredContentIds: string[];
   seo?: SeoFields;

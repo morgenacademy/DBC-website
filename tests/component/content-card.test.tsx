@@ -11,4 +11,10 @@ describe("ContentCard", () => {
     expect(screen.getByText(contentItems[0].title)).toBeInTheDocument();
     expect(screen.getByText(contentItems[0].editorialLabel as string)).toBeInTheDocument();
   });
+
+  it("toont geen automatische nieuw-badge zonder editorial label", () => {
+    render(<ContentCard item={{ ...contentItems[0], editorialLabel: undefined, contentLayer: "fast" }} />);
+
+    expect(screen.queryByText("Nieuw")).not.toBeInTheDocument();
+  });
 });

@@ -19,7 +19,7 @@ export const themes: Theme[] = [
     kind: "theme",
     intro: "De beste terrassen voor lunch, borrel en avondzon in de stad.",
     heroImage:
-      "https://images.unsplash.com/photo-1564758568476-4f4f3fd9f9f4?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1400&q=80",
     accentColor: "#F2B484",
     featuredContentIds: ["c2", "c10"]
   },

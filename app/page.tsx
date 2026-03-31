@@ -68,9 +68,7 @@ export default async function HomePage(): Promise<React.JSX.Element> {
           <div>
             <p className="font-display text-sm uppercase tracking-[0.28em] text-brand-peach">{homepageConfig.sections.featuredLabel}</p>
             <h1 className="mt-3 max-w-xl text-balance text-4xl font-bold leading-tight sm:text-5xl">{homepageConfig.hero.subtitle}</h1>
-            <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/85">
-              Ontdek wat er speelt in Den Bosch, plan je weekend en shop lokale favorieten.
-            </p>
+            <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/85">Van fijne adressen en events tot mooie Bossche producten.</p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 href={homepageConfig.hero.ctaPrimary.href}
@@ -179,7 +177,7 @@ export default async function HomePage(): Promise<React.JSX.Element> {
           ))}
         </div>
         <Link href="/shop" className="inline-flex text-sm font-semibold text-brand-teal hover:text-brand-coral">
-          Naar Shop →
+          Bekijk de shop →
         </Link>
       </section>
 
