@@ -17,5 +17,7 @@ export const homepageConfig = {
     highlightedLabel: "Uitgelicht",
     shopLabel: "Shop"
   },
-  featuredItem: undefined as HomepageFeaturedItemConfig | undefined
+  featuredItem: {
+    slug: "twee-bachelorettes-helemaal-ready-voor-de-show-en-nu-nog-de-mannen"
+  } as HomepageFeaturedItemConfig
 } as const;

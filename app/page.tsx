@@ -17,6 +17,8 @@ export const metadata = buildMetadata({
   path: "/"
 });
 
+export const dynamic = "force-dynamic";
+
 interface HomeWeekendHighlight {
   id: string;
   dayLabel: string;
@@ -101,14 +103,13 @@ function resolveHomepageFeaturedItem(items: ContentItem[], fallbackItems: Conten
 
 export default async function HomePage(): Promise<React.JSX.Element> {
   const contentRepository = await getContentRepository();
-  const featured = contentRepository.listFeatured(4);
-  const heroItem = featured[0];
   const weekendHighlights = getHomeWeekendHighlights();
   const allItems = contentRepository.listContent();
   const latest = contentRepository.listLatest(6);
   const products = commerceProvider.listProducts(true).slice(0, 3);
-  const highlightedItem = resolveHomepageFeaturedItem(allItems, latest);
-  const highlightedSupportingItems = latest.filter((item) => item.id !== highlightedItem?.id).slice(0, 2);
+  const heroItem = resolveHomepageFeaturedItem(allItems, latest);
+  const highlightedItem = latest.find((item) => item.id !== heroItem?.id);
+  const highlightedSupportingItems = latest.filter((item) => item.id !== heroItem?.id && item.id !== highlightedItem?.id).slice(0, 2);
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-14 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">

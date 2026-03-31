@@ -14,7 +14,7 @@ export function ContentCard({ item, priority = false }: ContentCardProps): React
   return (
     <article className="glass-surface group overflow-hidden rounded-editorial shadow-card transition hover:-translate-y-0.5">
       <Link href={`/ontdek/${item.slug}`} className="block">
-        <div className="relative aspect-[4/3] overflow-hidden">
+        <div className="relative aspect-square overflow-hidden sm:aspect-[4/5]">
           <Image
             src={item.image}
             alt={item.title}

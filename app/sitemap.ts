@@ -1,9 +1,12 @@
 import type { MetadataRoute } from "next";
-import { collectionRepository, contentRepository, themeRepository } from "@/lib/repositories";
+import { getContentRepository, themeRepository } from "@/lib/repositories";
 import { siteConfig } from "@/lib/site-config";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export const dynamic = "force-dynamic";
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteConfig.domain;
+  const contentRepository = await getContentRepository();
 
   const staticRoutes = ["", "/ontdek", "/weekend-guide", "/shop"].map((path) => ({
     url: `${base}${path}`,
@@ -23,11 +26,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.75
   }));
 
-  const collectionRoutes = collectionRepository.listCollections().map((item) => ({
-    url: `${base}/collection/${item.slug}`,
-    changeFrequency: "weekly" as const,
-    priority: 0.72
-  }));
-
-  return [...staticRoutes, ...contentRoutes, ...themeRoutes, ...collectionRoutes];
+  return [...staticRoutes, ...contentRoutes, ...themeRoutes];
 }

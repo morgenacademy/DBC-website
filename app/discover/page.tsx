@@ -14,6 +14,8 @@ export const metadata: Metadata = buildMetadata({
   path: "/ontdek"
 });
 
+export const dynamic = "force-dynamic";
+
 interface DiscoverPageProps {
   searchParams: Promise<{ q?: string; theme?: string; moment?: string; category?: string }>;
 }

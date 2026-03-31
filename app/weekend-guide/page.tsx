@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
-import { weekendRepository } from "@/lib/repositories";
+import { weekendRepository } from "@/lib/repositories/weekend-repository";
 import type { WeekendGuideDay, WeekendGuideWeather } from "@/lib/types";
 
 export const metadata: Metadata = buildMetadata({
@@ -48,15 +48,17 @@ export default function WeekendGuidePage(): React.JSX.Element {
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">{guide.introBody}</p>
         </div>
 
-        <aside className="rounded-editorial bg-white/72 p-6 text-center shadow-card backdrop-blur-sm sm:p-8">
-          <p className="font-display text-4xl uppercase tracking-[0.12em] text-brand-coral">Weekend Guide</p>
-          <p className="mt-1 font-display text-2xl uppercase tracking-[0.08em] text-brand-coral">{guide.periodLabel}</p>
-          <div className="mt-7 grid grid-cols-4 gap-3">
+        <aside className="rounded-editorial border border-white/55 bg-white/90 p-6 text-center shadow-card backdrop-blur-sm sm:p-8">
+          <p className="font-display text-4xl uppercase tracking-[0.12em] text-brand-coral drop-shadow-[0_1px_0_rgba(255,255,255,0.24)]">
+            Weekend Guide
+          </p>
+          <p className="mt-1 font-display text-2xl uppercase tracking-[0.08em] text-brand-coral/95">{guide.periodLabel}</p>
+          <div className="mt-7 grid grid-cols-5 gap-1.5 sm:gap-3">
             {guide.weather.map((item) => (
               <div key={item.day} className="space-y-1 py-1">
-                <p className="font-display text-2xl tracking-[0.08em] text-brand-teal sm:text-3xl">{dayShort[item.day]}</p>
+                <p className="font-display text-xl tracking-[0.08em] text-brand-teal sm:text-3xl">{dayShort[item.day]}</p>
                 <p className="text-xl text-brand-coral sm:text-2xl">{weatherIcon(item.icon)}</p>
-                <p className="font-display text-2xl tracking-[0.04em] text-brand-teal sm:text-3xl">{item.temperature}</p>
+                <p className="font-display text-xl tracking-[0.04em] text-brand-teal sm:text-3xl">{item.temperature}</p>
               </div>
             ))}
           </div>

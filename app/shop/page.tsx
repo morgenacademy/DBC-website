@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ProductCard } from "@/components/cards/product-card";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { buildMetadata } from "@/lib/seo";
-import { commerceProvider } from "@/lib/repositories";
+import { commerceProvider } from "@/lib/repositories/commerce-provider";
 import { unique } from "@/lib/utils";
 
 export const metadata: Metadata = buildMetadata({
