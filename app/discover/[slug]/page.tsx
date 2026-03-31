@@ -6,7 +6,7 @@ import { ContentCard } from "@/components/cards/content-card";
 import { ContentMediaCarousel } from "@/components/media/content-media-carousel";
 import { resolveContentMediaEntries } from "@/lib/content-media";
 import { Pill } from "@/components/ui/pill";
-import { getCategoryLabel, getContentLayerLabel } from "@/lib/content-labels";
+import { getCategoryLabel } from "@/lib/content-labels";
 import { buildMetadata } from "@/lib/seo";
 import { getContentRepository } from "@/lib/repositories";
 import { formatDate } from "@/lib/utils";
@@ -47,6 +47,7 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
   const mediaItems = resolveContentMediaEntries(item);
   const heroMedia = mediaItems[0];
   const additionalMediaItems = mediaItems.slice(1);
+  const usesPortraitHero = heroMedia?.type !== "video";
   const detailRows = [
     item.themes.length > 0
       ? {
@@ -76,17 +77,38 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
 
   return (
     <article className="mx-auto w-full max-w-5xl space-y-8 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
-      <header className="space-y-4">
-        <div className="flex flex-wrap items-center gap-2">
-          {item.editorialLabel ? <Pill label={item.editorialLabel} tone="accent" /> : null}
-          <Pill label={getContentLayerLabel(item.contentLayer)} />
-        </div>
-        <h1 className="text-balance text-4xl font-bold leading-tight text-brand-teal sm:text-5xl">{item.title}</h1>
-        <p className="max-w-3xl text-lg text-brand-teal/75">{item.excerpt}</p>
-        <div className="flex flex-wrap gap-4 text-xs font-semibold uppercase tracking-[0.16em] text-brand-teal/55">
-          <span>{formatDate(item.publishedAt)}</span>
-        </div>
-      </header>
+      {usesPortraitHero ? (
+        <section className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+          <header className="space-y-4">
+            <h1 className="text-balance text-4xl font-bold leading-tight text-brand-teal sm:text-5xl">{item.title}</h1>
+            <p className="max-w-2xl text-lg text-brand-teal/75">{item.excerpt}</p>
+            <div className="flex flex-wrap gap-4 text-xs font-semibold uppercase tracking-[0.16em] text-brand-teal/55">
+              <span>{formatDate(item.publishedAt)}</span>
+            </div>
+          </header>
+
+          <div className="glass-surface self-start overflow-hidden rounded-[1.8rem] p-3 shadow-card">
+            <div className="relative mx-auto aspect-[4/5] w-full overflow-hidden rounded-[1.3rem] sm:max-w-[32rem]">
+              <Image
+                src={item.image}
+                alt={item.title}
+                fill
+                className="object-cover"
+                priority
+                sizes="(max-width: 1024px) 100vw, 42vw"
+              />
+            </div>
+          </div>
+        </section>
+      ) : (
+        <header className="space-y-4">
+          <h1 className="text-balance text-4xl font-bold leading-tight text-brand-teal sm:text-5xl">{item.title}</h1>
+          <p className="max-w-3xl text-lg text-brand-teal/75">{item.excerpt}</p>
+          <div className="flex flex-wrap gap-4 text-xs font-semibold uppercase tracking-[0.16em] text-brand-teal/55">
+            <span>{formatDate(item.publishedAt)}</span>
+          </div>
+        </header>
+      )}
 
       {heroMedia?.type === "video" ? (
         <div className="mx-auto max-w-md overflow-hidden rounded-[1.8rem] bg-black shadow-card">
@@ -94,15 +116,7 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
             <source src={heroMedia.url} />
           </video>
         </div>
-      ) : item.mediaType === "carousel" ? (
-        <div className="relative aspect-[16/9] overflow-hidden rounded-[1.8rem]">
-          <Image src={item.image} alt={item.title} fill className="object-cover" priority sizes="100vw" />
-        </div>
-      ) : (
-        <div className="relative aspect-[16/9] overflow-hidden rounded-[1.8rem]">
-          <Image src={item.image} alt={item.title} fill className="object-cover" priority sizes="100vw" />
-        </div>
-      )}
+      ) : null}
 
       <section className="grid gap-8 lg:grid-cols-[2fr_1fr]">
         <div className="space-y-4 text-base leading-relaxed text-brand-teal/90">
