@@ -4,8 +4,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ContentCard } from "@/components/cards/content-card";
 import { ContentMediaCarousel } from "@/components/media/content-media-carousel";
+import { buildContentDetailCopy } from "@/lib/content-detail";
 import { resolveContentMediaEntries } from "@/lib/content-media";
-import { Pill } from "@/components/ui/pill";
 import { getCategoryLabel } from "@/lib/content-labels";
 import { buildMetadata } from "@/lib/seo";
 import { getContentRepository } from "@/lib/repositories";
@@ -47,7 +47,11 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
   const mediaItems = resolveContentMediaEntries(item);
   const heroMedia = mediaItems[0];
   const additionalMediaItems = mediaItems.slice(1);
-  const usesPortraitHero = heroMedia?.type !== "video";
+  const { showExcerpt, bodyParagraphs } = buildContentDetailCopy({
+    title: item.title,
+    excerpt: item.excerpt,
+    body: item.body
+  });
   const detailRows = [
     item.themes.length > 0
       ? {
@@ -77,50 +81,50 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
 
   return (
     <article className="mx-auto w-full max-w-5xl space-y-8 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
-      {usesPortraitHero ? (
+      {heroMedia ? (
         <section className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
           <header className="space-y-4">
             <h1 className="text-balance text-4xl font-bold leading-tight text-brand-teal sm:text-5xl">{item.title}</h1>
-            <p className="max-w-2xl text-lg text-brand-teal/75">{item.excerpt}</p>
+            {showExcerpt ? <p className="max-w-2xl text-lg text-brand-teal/75">{item.excerpt}</p> : null}
             <div className="flex flex-wrap gap-4 text-xs font-semibold uppercase tracking-[0.16em] text-brand-teal/55">
               <span>{formatDate(item.publishedAt)}</span>
             </div>
           </header>
 
           <div className="glass-surface self-start overflow-hidden rounded-[1.8rem] p-3 shadow-card">
-            <div className="relative mx-auto aspect-[4/5] w-full overflow-hidden rounded-[1.3rem] sm:max-w-[32rem]">
-              <Image
-                src={item.image}
-                alt={item.title}
-                fill
-                className="object-cover"
-                priority
-                sizes="(max-width: 1024px) 100vw, 42vw"
-              />
-            </div>
+            {heroMedia.type === "video" ? (
+              <div className="mx-auto w-full max-w-md overflow-hidden rounded-[1.3rem] bg-black">
+                <video controls playsInline preload="metadata" poster={heroMedia.poster} className="aspect-[9/16] h-full w-full bg-black object-contain">
+                  <source src={heroMedia.url} />
+                </video>
+              </div>
+            ) : (
+              <div className="relative mx-auto aspect-[4/5] w-full overflow-hidden rounded-[1.3rem] sm:max-w-[32rem]">
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  className="object-cover"
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 42vw"
+                />
+              </div>
+            )}
           </div>
         </section>
       ) : (
         <header className="space-y-4">
           <h1 className="text-balance text-4xl font-bold leading-tight text-brand-teal sm:text-5xl">{item.title}</h1>
-          <p className="max-w-3xl text-lg text-brand-teal/75">{item.excerpt}</p>
+          {showExcerpt ? <p className="max-w-3xl text-lg text-brand-teal/75">{item.excerpt}</p> : null}
           <div className="flex flex-wrap gap-4 text-xs font-semibold uppercase tracking-[0.16em] text-brand-teal/55">
             <span>{formatDate(item.publishedAt)}</span>
           </div>
         </header>
       )}
 
-      {heroMedia?.type === "video" ? (
-        <div className="mx-auto max-w-md overflow-hidden rounded-[1.8rem] bg-black shadow-card">
-          <video controls playsInline preload="metadata" poster={heroMedia.poster} className="aspect-[9/16] h-full w-full bg-black object-contain">
-            <source src={heroMedia.url} />
-          </video>
-        </div>
-      ) : null}
-
-      <section className="grid gap-8 lg:grid-cols-[2fr_1fr]">
+      <section className="grid items-start gap-8 lg:grid-cols-[2fr_1fr]">
         <div className="space-y-4 text-base leading-relaxed text-brand-teal/90">
-          {item.body.map((paragraph) => (
+          {bodyParagraphs.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
 
@@ -139,8 +143,7 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
         </div>
 
         {detailRows.length > 0 || item.themes.length > 0 ? (
-          <aside className="space-y-4 rounded-editorial border border-brand-teal/15 bg-white p-4">
-            <h2 className="text-lg font-bold text-brand-teal">Details</h2>
+          <aside className="self-start space-y-3 rounded-editorial border border-brand-teal/15 bg-white p-4">
             {detailRows.length > 0 ? (
               <div className="space-y-2 text-sm text-brand-teal/80">
                 {detailRows.map((row) => (
@@ -152,7 +155,7 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
             ) : null}
 
             {item.themes.length > 0 ? (
-              <div className="pt-2">
+              <div className="pt-1">
                 {item.themes.slice(0, 2).map((theme) => (
                   <Link key={theme} href={`/theme/${theme}`} className="mr-2 inline-flex rounded-full bg-brand-sand px-3 py-1 text-xs font-semibold uppercase tracking-wide">
                     {theme}

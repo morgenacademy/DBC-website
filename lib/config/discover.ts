@@ -13,7 +13,7 @@ export const discoverConfig: {
 } = {
   sections: {
     featuredTitle: "Uitgelicht",
-    featuredDescription: "Drie handgekozen verhalen voor wie Den Bosch gerichter wil ontdekken."
+    featuredDescription: "Drie tips die je nu niet wilt missen."
   },
   // Pas deze lijst aan om de handmatige redactionele rij op /discover te sturen.
   featuredItems: [

@@ -199,10 +199,10 @@ export default async function HomePage(): Promise<React.JSX.Element> {
             title="Uitgelicht"
             description="Tips die je nu niet wilt missen."
           />
-          <div className="grid items-start gap-5 lg:grid-cols-[1.2fr_1fr]">
-            <article className="glass-surface self-start overflow-hidden rounded-editorial shadow-card">
+          <div className="space-y-5">
+            <article className="glass-surface overflow-hidden rounded-editorial shadow-card lg:grid lg:grid-cols-[1.1fr_0.9fr]">
               <Link href={`/ontdek/${highlightedItem.slug}`} className="block">
-                <div className="relative aspect-[16/10]">
+                <div className="relative aspect-[16/10] h-full lg:aspect-auto lg:min-h-[24rem]">
                   <Image
                     src={highlightedItem.image}
                     alt={highlightedItem.title}
@@ -212,21 +212,29 @@ export default async function HomePage(): Promise<React.JSX.Element> {
                   />
                 </div>
               </Link>
-              <div className="space-y-3 p-5">
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-coral">
-                  {highlightedItem.editorialLabel ?? homepageConfig.sections.highlightedLabel}
-                </p>
-                <h3 className="text-2xl font-bold text-brand-teal">
-                  <Link href={`/ontdek/${highlightedItem.slug}`}>{highlightedItem.title}</Link>
-                </h3>
-                <p className="text-sm text-brand-teal/75">{highlightedItem.excerpt}</p>
-                <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.14em] text-brand-teal/60">
-                  <span>{formatDate(highlightedItem.publishedAt)}</span>
-                  <span>{getCategoryLabel(highlightedItem.categories[0])}</span>
+              <div className="flex flex-col justify-between space-y-4 p-5 sm:p-6">
+                <div className="space-y-3">
+                  <h3 className="text-balance text-2xl font-bold leading-tight text-brand-teal sm:text-3xl">
+                    <Link href={`/ontdek/${highlightedItem.slug}`}>{highlightedItem.title}</Link>
+                  </h3>
+                  <p className="text-sm leading-relaxed text-brand-teal/75 sm:text-base">{highlightedItem.excerpt}</p>
+                </div>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.14em] text-brand-teal/60">
+                    <span>{formatDate(highlightedItem.publishedAt)}</span>
+                    <span>{getCategoryLabel(highlightedItem.categories[0])}</span>
+                  </div>
+                  <Link
+                    href={`/ontdek/${highlightedItem.slug}`}
+                    className="inline-flex text-sm font-semibold text-brand-teal hover:text-brand-coral"
+                  >
+                    Lees verder →
+                  </Link>
                 </div>
               </div>
             </article>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+
+            <div className="grid gap-4 md:grid-cols-2">
               {highlightedSupportingItems.map((item) => (
                 <ContentCard key={item.id} item={item} />
               ))}
