@@ -167,16 +167,25 @@ Stage 3 (proof-of-ingestion, beperkte live ingestie):
 - opslag als owned records in `content_items` (Supabase)
 - beperkte, gecontroleerde ingestie via:
   - `npm run supabase:ingest:instagram:test`
+- herhaalbare sync via:
+  - `npm run supabase:ingest:instagram`
 - sync-run metadata wordt weggeschreven naar:
   - `instagram_sync_runs`
   - `instagram_sync_state`
 
-Dit is bewust nog geen volledige productiesync met scheduling/cursors.
+Dit is bewust nog geen volledige productiesync met scheduling/cursors, maar wel een herbruikbaar handmatig sync-pad.
 Test-ingest scope:
 
 - handmatig gestart via npm script
 - ingestie van kleine set (default 5, max 20)
 - bedoeld voor validatie van API -> normalisatie -> Supabase pad
+
+Herhaalbare full-sync scope:
+
+- zelfde system-user route als default
+- meerdere pagina's ophalen uit Instagram Graph API
+- optioneel begrensd via env voor gecontroleerde reruns
+- upserts op een stabiele Instagram-afgeleide record-id: `ig-<source_id>`
 
 Productie-scope later:
 
@@ -211,12 +220,16 @@ Voorbereide env vars:
 - `SUPABASE_CONTENT_TABLE` (default: `content_items`)
 - `SUPABASE_DB_URL` (alleen nodig voor migration-apply script)
 - `SUPABASE_CONTENT_ROWS_JSON` (optioneel, voor de huidige stub)
+- `META_SYSTEM_USER_ACCESS_TOKEN` (aanbevolen voor live Graph API ingest via system-user route)
+- `FACEBOOK_PAGE_ID` (optioneel, om gekoppeld Instagram business account te verifiëren/op te halen)
 - `INSTAGRAM_ACCOUNT_ID` (Instagram business account id)
-- `INSTAGRAM_ACCESS_TOKEN` (Graph API token)
+- `INSTAGRAM_ACCESS_TOKEN` (legacy/fallback Graph API token)
 - `INSTAGRAM_GRAPH_VERSION` (default: `v23.0`)
 - `INSTAGRAM_GRAPH_API_BASE_URL` (optioneel override)
 - `INSTAGRAM_TEST_INGEST_LIMIT` (default: `5`, max `20`)
 - `INSTAGRAM_TEST_SOURCE_IDS` (optioneel: comma-separated ids)
+- `INSTAGRAM_SYNC_LIMIT` (optioneel: begrens full sync voor gecontroleerde reruns)
+- `INSTAGRAM_SYNC_PAGE_SIZE` (optioneel: page size voor full sync, default `50`)
 
 ### Verwachte Supabase-pad later
 
@@ -228,6 +241,15 @@ Beoogde stroom (zonder frontend rewrite):
 4. repository/UI blijven ongewijzigd
 
 ### Gecontroleerde live-activatie (zonder frontend rewrite)
+
+- test ingest:
+  - `npm run supabase:ingest:instagram:test`
+- full ingest:
+  - `npm run supabase:ingest:instagram`
+  - optioneel begrensd: `INSTAGRAM_SYNC_LIMIT=100 npm run supabase:ingest:instagram`
+- verificatie:
+  - `npm run supabase:verify:config`
+  - `npm run supabase:verify:read`
 
 Volgorde:
 

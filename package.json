@@ -14,6 +14,7 @@
     "supabase:migrate:apply": "tsx scripts/supabase/apply-migration.ts",
     "supabase:backfill:content": "tsx scripts/supabase/backfill-content-items.ts",
     "supabase:verify:read": "tsx scripts/supabase/verify-read-path.ts",
+    "supabase:ingest:instagram": "tsx scripts/supabase/ingest-instagram.ts",
     "supabase:ingest:instagram:test": "tsx scripts/supabase/ingest-instagram-test.ts"
   },
   "dependencies": {

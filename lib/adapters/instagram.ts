@@ -53,18 +53,22 @@ function getPrimaryImage(raw: InstagramRawRecord, override: InstagramPostOverrid
   return override.thumbnail ?? raw.thumbnail_url ?? raw.media_urls?.[0] ?? raw.media_url;
 }
 
+export function truncateText(value: string, maxCharacters: number): string {
+  return Array.from(value).slice(0, maxCharacters).join("");
+}
+
 export function normalizeInstagramPost(raw: InstagramRawRecord, override: InstagramPostOverride = {}): ContentItem {
   const plainCaption = raw.caption.replace(/#[\p{L}\p{N}_]+/gu, "").replace(/\s+/g, " ").trim();
   const hashtags = extractHashtags(raw.caption);
   const primaryImage = getPrimaryImage(raw, override);
   const mediaUrls = override.mediaUrls && override.mediaUrls.length > 0 ? override.mediaUrls : raw.media_urls ?? [primaryImage];
-  const title = override.title ?? (plainCaption.slice(0, 72) || "Instagram item");
+  const title = override.title ?? (truncateText(plainCaption, 72) || "Instagram item");
 
   const draft: ContentItemDraft = {
     id: override.internalId ?? `ig-${raw.id}`,
     slug: override.slug ?? raw.slug ?? slugify(title),
     title,
-    excerpt: override.excerpt ?? plainCaption.slice(0, 160),
+    excerpt: override.excerpt ?? truncateText(plainCaption, 160),
     caption: raw.caption,
     body: override.body ?? [plainCaption],
     sourcePlatform: "instagram",

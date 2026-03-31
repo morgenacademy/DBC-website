@@ -13,9 +13,13 @@ function run(): void {
   );
   showState("SUPABASE_DB_URL", process.env.SUPABASE_DB_URL);
   showState("SUPABASE_CONTENT_TABLE", process.env.SUPABASE_CONTENT_TABLE);
+  showState("FACEBOOK_PAGE_ID", process.env.FACEBOOK_PAGE_ID);
   showState("INSTAGRAM_ACCOUNT_ID", process.env.INSTAGRAM_ACCOUNT_ID);
+  showState("META_SYSTEM_USER_ACCESS_TOKEN", process.env.META_SYSTEM_USER_ACCESS_TOKEN);
   showState("INSTAGRAM_ACCESS_TOKEN", process.env.INSTAGRAM_ACCESS_TOKEN);
   showState("INSTAGRAM_TEST_INGEST_LIMIT", process.env.INSTAGRAM_TEST_INGEST_LIMIT);
+  showState("INSTAGRAM_SYNC_LIMIT", process.env.INSTAGRAM_SYNC_LIMIT);
+  showState("INSTAGRAM_SYNC_PAGE_SIZE", process.env.INSTAGRAM_SYNC_PAGE_SIZE);
 
   try {
     const rest = getSupabaseRestConfig(process.env);
