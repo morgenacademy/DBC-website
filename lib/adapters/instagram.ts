@@ -1,4 +1,5 @@
 import { finalizeContentItem } from "@/lib/content-item-factory";
+import { enrichInstagramTaxonomy } from "@/lib/enrichment/instagram-taxonomy";
 import { slugify } from "@/lib/utils";
 import type {
   ContentItem,
@@ -76,6 +77,7 @@ export function truncateText(value: string, maxCharacters: number): string {
 export function normalizeInstagramPost(raw: InstagramRawRecord, override: InstagramPostOverride = {}): ContentItem {
   const plainCaption = raw.caption.replace(/#[\p{L}\p{N}_]+/gu, "").replace(/\s+/g, " ").trim();
   const hashtags = extractHashtags(raw.caption);
+  const enrichment = enrichInstagramTaxonomy(raw.caption, hashtags);
   const primaryImage = getPrimaryImage(raw, override);
   const mediaUrls = getMediaUrls(raw, override, primaryImage);
   const title = override.title ?? (truncateText(plainCaption, 72) || "Instagram item");
@@ -96,9 +98,9 @@ export function normalizeInstagramPost(raw: InstagramRawRecord, override: Instag
     mediaUrls,
     publishedAt: raw.timestamp,
     contentLayer: override.contentLayer ?? "fast",
-    categories: override.categories ?? ["local-tips"],
-    themes: override.themes ?? [],
-    moments: override.moments ?? [],
+    categories: override.categories ?? enrichment.categories,
+    themes: override.themes ?? enrichment.themes,
+    moments: override.moments ?? enrichment.moments,
     tags: override.tags ?? [],
     hashtags,
     manualTags: override.manualTags ?? [],

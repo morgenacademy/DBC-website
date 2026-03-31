@@ -52,7 +52,9 @@ export default function WeekendGuidePage(): React.JSX.Element {
           <p className="font-display text-4xl uppercase tracking-[0.12em] text-brand-coral drop-shadow-[0_1px_0_rgba(255,255,255,0.24)]">
             Weekend Guide
           </p>
-          <p className="mt-1 font-display text-2xl uppercase tracking-[0.08em] text-brand-coral/95">{guide.periodLabel}</p>
+          <p className="mt-2 font-display text-xl uppercase tracking-[0.06em] text-brand-coral drop-shadow-[0_1px_0_rgba(255,255,255,0.16)] sm:text-2xl">
+            {guide.periodLabel}
+          </p>
           <div className="mt-7 grid grid-cols-5 gap-1.5 sm:gap-3">
             {guide.weather.map((item) => (
               <div key={item.day} className="space-y-1 py-1">
