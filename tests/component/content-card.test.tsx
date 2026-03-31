@@ -21,6 +21,12 @@ describe("ContentCard", () => {
   it("toont een carousel-indicatie voor posts met meerdere afbeeldingen", () => {
     render(<ContentCard item={{ ...contentItems[0], mediaType: "carousel", mediaUrls: ["one.jpg", "two.jpg", "three.jpg"] }} />);
 
-    expect(screen.getByText("3 foto's")).toBeInTheDocument();
+    expect(screen.getByText("3 media")).toBeInTheDocument();
+  });
+
+  it("toont een video-indicatie voor reels", () => {
+    render(<ContentCard item={{ ...contentItems[0], mediaType: "reel", mediaUrls: ["clip.mp4", "poster.jpg"] }} />);
+
+    expect(screen.getByText("Video")).toBeInTheDocument();
   });
 });

@@ -4,8 +4,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ContentCard } from "@/components/cards/content-card";
 import { ContentMediaCarousel } from "@/components/media/content-media-carousel";
+import { resolveContentMediaEntries } from "@/lib/content-media";
 import { Pill } from "@/components/ui/pill";
-import { getCategoryLabel, getContentLayerLabel, getMediaTypeLabel, getSourcePlatformLabel } from "@/lib/content-labels";
+import { getCategoryLabel, getContentLayerLabel } from "@/lib/content-labels";
 import { buildMetadata } from "@/lib/seo";
 import { getContentRepository } from "@/lib/repositories";
 import { formatDate } from "@/lib/utils";
@@ -43,8 +44,35 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
   }
 
   const related = contentRepository.getRelatedContent(item, 3);
-  const hasMultipleMedia = item.mediaType === "carousel" && item.mediaUrls.length > 1;
-  const additionalMediaUrls = hasMultipleMedia ? item.mediaUrls.slice(1) : [];
+  const mediaItems = resolveContentMediaEntries(item);
+  const heroMedia = mediaItems[0];
+  const additionalMediaItems = mediaItems.slice(1);
+  const detailRows = [
+    item.themes.length > 0
+      ? {
+          label: "Thema's",
+          value: item.themes.join(", ")
+        }
+      : null,
+    item.moments.length > 0
+      ? {
+          label: "Momenten",
+          value: item.moments.join(", ")
+        }
+      : null,
+    item.categories.length > 0
+      ? {
+          label: "Categorieën",
+          value: item.categories.map((category) => getCategoryLabel(category)).join(", ")
+        }
+      : null,
+    item.hashtags.length > 0
+      ? {
+          label: "Hashtags",
+          value: item.hashtags.map((tag) => `#${tag}`).join(" ")
+        }
+      : null
+  ].filter(Boolean) as Array<{ label: string; value: string }>;
 
   return (
     <article className="mx-auto w-full max-w-5xl space-y-8 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
@@ -57,13 +85,19 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
         <p className="max-w-3xl text-lg text-brand-teal/75">{item.excerpt}</p>
         <div className="flex flex-wrap gap-4 text-xs font-semibold uppercase tracking-[0.16em] text-brand-teal/55">
           <span>{formatDate(item.publishedAt)}</span>
-          <span>{getSourcePlatformLabel(item.sourcePlatform)}</span>
-          <span>{getMediaTypeLabel(item.mediaType)}</span>
         </div>
       </header>
 
-      {hasMultipleMedia ? (
-        <ContentMediaCarousel title={item.title} mediaUrls={item.mediaUrls} />
+      {heroMedia?.type === "video" ? (
+        <div className="mx-auto max-w-md overflow-hidden rounded-[1.8rem] bg-black shadow-card">
+          <video controls playsInline preload="metadata" poster={heroMedia.poster} className="aspect-[9/16] h-full w-full bg-black object-contain">
+            <source src={heroMedia.url} />
+          </video>
+        </div>
+      ) : item.mediaType === "carousel" ? (
+        <div className="relative aspect-[16/9] overflow-hidden rounded-[1.8rem]">
+          <Image src={item.image} alt={item.title} fill className="object-cover" priority sizes="100vw" />
+        </div>
       ) : (
         <div className="relative aspect-[16/9] overflow-hidden rounded-[1.8rem]">
           <Image src={item.image} alt={item.title} fill className="object-cover" priority sizes="100vw" />
@@ -76,7 +110,7 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
             <p key={paragraph}>{paragraph}</p>
           ))}
 
-          {additionalMediaUrls.length > 0 ? <ContentMediaCarousel title={item.title} mediaUrls={additionalMediaUrls} /> : null}
+          {additionalMediaItems.length > 0 ? <ContentMediaCarousel title={item.title} mediaItems={additionalMediaItems} /> : null}
 
           {item.sourcePermalink ? (
             <a
@@ -90,31 +124,30 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
           ) : null}
         </div>
 
-        <aside className="space-y-4 rounded-editorial border border-brand-teal/15 bg-white p-4">
-          <h2 className="text-lg font-bold text-brand-teal">Details</h2>
-          <div className="space-y-2 text-sm text-brand-teal/80">
-            <p>
-              <span className="font-semibold">Thema&apos;s:</span> {item.themes.join(", ")}
-            </p>
-            <p>
-              <span className="font-semibold">Momenten:</span> {item.moments.join(", ")}
-            </p>
-            <p>
-              <span className="font-semibold">Categorieën:</span> {item.categories.map((category) => getCategoryLabel(category)).join(", ")}
-            </p>
-            <p>
-              <span className="font-semibold">Hashtags:</span> {item.hashtags.map((tag) => `#${tag}`).join(" ")}
-            </p>
-          </div>
+        {detailRows.length > 0 || item.themes.length > 0 ? (
+          <aside className="space-y-4 rounded-editorial border border-brand-teal/15 bg-white p-4">
+            <h2 className="text-lg font-bold text-brand-teal">Details</h2>
+            {detailRows.length > 0 ? (
+              <div className="space-y-2 text-sm text-brand-teal/80">
+                {detailRows.map((row) => (
+                  <p key={row.label}>
+                    <span className="font-semibold">{row.label}:</span> {row.value}
+                  </p>
+                ))}
+              </div>
+            ) : null}
 
-          <div className="pt-2">
-            {item.themes.slice(0, 2).map((theme) => (
-              <Link key={theme} href={`/theme/${theme}`} className="mr-2 inline-flex rounded-full bg-brand-sand px-3 py-1 text-xs font-semibold uppercase tracking-wide">
-                {theme}
-              </Link>
-            ))}
-          </div>
-        </aside>
+            {item.themes.length > 0 ? (
+              <div className="pt-2">
+                {item.themes.slice(0, 2).map((theme) => (
+                  <Link key={theme} href={`/theme/${theme}`} className="mr-2 inline-flex rounded-full bg-brand-sand px-3 py-1 text-xs font-semibold uppercase tracking-wide">
+                    {theme}
+                  </Link>
+                ))}
+              </div>
+            ) : null}
+          </aside>
+        ) : null}
       </section>
 
       <section className="space-y-4">

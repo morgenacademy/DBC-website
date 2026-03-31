@@ -40,6 +40,7 @@ function collectCarouselMediaUrls(node: InstagramGraphMediaNode): string[] {
 export function mapInstagramGraphMediaNodeToRawRecord(node: InstagramGraphMediaNode): InstagramRawRecord | null {
   const carouselMediaUrls = node.media_type === "CAROUSEL_ALBUM" ? collectCarouselMediaUrls(node) : [];
   const primaryMediaUrl = node.media_url ?? node.thumbnail_url ?? carouselMediaUrls[0];
+  const videoMediaUrls = node.media_type === "VIDEO" ? unique([node.media_url, node.thumbnail_url]) : [];
 
   if (!primaryMediaUrl) {
     return null;
@@ -51,7 +52,12 @@ export function mapInstagramGraphMediaNodeToRawRecord(node: InstagramGraphMediaN
     caption: node.caption ?? "",
     media_type: node.media_type,
     media_url: primaryMediaUrl,
-    media_urls: node.media_type === "CAROUSEL_ALBUM" ? unique([primaryMediaUrl, ...carouselMediaUrls]) : undefined,
+    media_urls:
+      node.media_type === "CAROUSEL_ALBUM"
+        ? unique([primaryMediaUrl, ...carouselMediaUrls])
+        : node.media_type === "VIDEO"
+          ? videoMediaUrls
+          : undefined,
     thumbnail_url: node.thumbnail_url,
     timestamp: node.timestamp,
     slug: extractShortcode(node.permalink)

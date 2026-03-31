@@ -53,6 +53,22 @@ function getPrimaryImage(raw: InstagramRawRecord, override: InstagramPostOverrid
   return override.thumbnail ?? raw.thumbnail_url ?? raw.media_urls?.[0] ?? raw.media_url;
 }
 
+function getMediaUrls(raw: InstagramRawRecord, override: InstagramPostOverride, primaryImage: string): string[] {
+  if (override.mediaUrls && override.mediaUrls.length > 0) {
+    return override.mediaUrls;
+  }
+
+  if (raw.media_type === "VIDEO") {
+    return [
+      ...new Set(
+        [raw.media_url, raw.thumbnail_url].filter((value): value is string => Boolean(value))
+      )
+    ];
+  }
+
+  return raw.media_urls ?? [primaryImage];
+}
+
 export function truncateText(value: string, maxCharacters: number): string {
   return Array.from(value).slice(0, maxCharacters).join("");
 }
@@ -61,7 +77,7 @@ export function normalizeInstagramPost(raw: InstagramRawRecord, override: Instag
   const plainCaption = raw.caption.replace(/#[\p{L}\p{N}_]+/gu, "").replace(/\s+/g, " ").trim();
   const hashtags = extractHashtags(raw.caption);
   const primaryImage = getPrimaryImage(raw, override);
-  const mediaUrls = override.mediaUrls && override.mediaUrls.length > 0 ? override.mediaUrls : raw.media_urls ?? [primaryImage];
+  const mediaUrls = getMediaUrls(raw, override, primaryImage);
   const title = override.title ?? (truncateText(plainCaption, 72) || "Instagram item");
 
   const draft: ContentItemDraft = {

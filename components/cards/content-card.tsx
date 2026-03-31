@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Pill } from "@/components/ui/pill";
+import { resolveContentMediaEntries } from "@/lib/content-media";
 import { getCategoryLabel } from "@/lib/content-labels";
 import { formatDate } from "@/lib/utils";
 import type { ContentItem } from "@/lib/types";
@@ -11,7 +12,10 @@ interface ContentCardProps {
 }
 
 export function ContentCard({ item, priority = false }: ContentCardProps): React.JSX.Element {
-  const hasMultipleMedia = item.mediaType === "carousel" && item.mediaUrls.length > 1;
+  const mediaCount = resolveContentMediaEntries(item).length;
+  const hasMultipleMedia = item.mediaType === "carousel" && mediaCount > 1;
+  const isVideoPost = item.mediaType === "reel";
+  const displayTitle = item.title.replace(/(['’]s)-Hertogenbosch/g, "$1‑Hertogenbosch");
 
   return (
     <article className="glass-surface group overflow-hidden rounded-editorial shadow-card transition hover:-translate-y-0.5">
@@ -25,9 +29,14 @@ export function ContentCard({ item, priority = false }: ContentCardProps): React
             sizes="(max-width: 768px) 100vw, 33vw"
             priority={priority}
           />
+          {isVideoPost ? (
+            <div className="absolute right-3 top-3 rounded-full bg-black/45 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-sm">
+              Video
+            </div>
+          ) : null}
           {hasMultipleMedia ? (
             <div className="absolute right-3 top-3 rounded-full bg-black/45 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-sm">
-              {item.mediaUrls.length} foto&apos;s
+              {mediaCount} media
             </div>
           ) : null}
         </div>
@@ -40,9 +49,9 @@ export function ContentCard({ item, priority = false }: ContentCardProps): React
           </div>
         ) : null}
 
-        <h3 className="text-lg font-bold leading-tight text-brand-teal">
+        <h3 className="text-balance text-[1.05rem] font-bold leading-[1.15] text-brand-teal sm:text-lg" style={{ textWrap: "balance" }}>
           <Link href={`/ontdek/${item.slug}`} className="hover:text-brand-coral">
-            {item.title}
+            {displayTitle}
           </Link>
         </h3>
 
