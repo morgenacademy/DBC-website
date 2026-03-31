@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ContentCard } from "@/components/cards/content-card";
+import { ContentMediaCarousel } from "@/components/media/content-media-carousel";
 import { Pill } from "@/components/ui/pill";
 import { getCategoryLabel, getContentLayerLabel, getMediaTypeLabel, getSourcePlatformLabel } from "@/lib/content-labels";
 import { buildMetadata } from "@/lib/seo";
@@ -42,6 +43,8 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
   }
 
   const related = contentRepository.getRelatedContent(item, 3);
+  const hasMultipleMedia = item.mediaType === "carousel" && item.mediaUrls.length > 1;
+  const additionalMediaUrls = hasMultipleMedia ? item.mediaUrls.slice(1) : [];
 
   return (
     <article className="mx-auto w-full max-w-5xl space-y-8 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
@@ -59,15 +62,21 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
         </div>
       </header>
 
-      <div className="relative aspect-[16/9] overflow-hidden rounded-[1.8rem]">
-        <Image src={item.image} alt={item.title} fill className="object-cover" priority sizes="100vw" />
-      </div>
+      {hasMultipleMedia ? (
+        <ContentMediaCarousel title={item.title} mediaUrls={item.mediaUrls} />
+      ) : (
+        <div className="relative aspect-[16/9] overflow-hidden rounded-[1.8rem]">
+          <Image src={item.image} alt={item.title} fill className="object-cover" priority sizes="100vw" />
+        </div>
+      )}
 
       <section className="grid gap-8 lg:grid-cols-[2fr_1fr]">
         <div className="space-y-4 text-base leading-relaxed text-brand-teal/90">
           {item.body.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
+
+          {additionalMediaUrls.length > 0 ? <ContentMediaCarousel title={item.title} mediaUrls={additionalMediaUrls} /> : null}
 
           {item.sourcePermalink ? (
             <a

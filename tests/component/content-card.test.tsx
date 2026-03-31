@@ -17,4 +17,10 @@ describe("ContentCard", () => {
 
     expect(screen.queryByText("Nieuw")).not.toBeInTheDocument();
   });
+
+  it("toont een carousel-indicatie voor posts met meerdere afbeeldingen", () => {
+    render(<ContentCard item={{ ...contentItems[0], mediaType: "carousel", mediaUrls: ["one.jpg", "two.jpg", "three.jpg"] }} />);
+
+    expect(screen.getByText("3 foto's")).toBeInTheDocument();
+  });
 });

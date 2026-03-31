@@ -11,6 +11,8 @@ interface ContentCardProps {
 }
 
 export function ContentCard({ item, priority = false }: ContentCardProps): React.JSX.Element {
+  const hasMultipleMedia = item.mediaType === "carousel" && item.mediaUrls.length > 1;
+
   return (
     <article className="glass-surface group overflow-hidden rounded-editorial shadow-card transition hover:-translate-y-0.5">
       <Link href={`/ontdek/${item.slug}`} className="block">
@@ -23,6 +25,11 @@ export function ContentCard({ item, priority = false }: ContentCardProps): React
             sizes="(max-width: 768px) 100vw, 33vw"
             priority={priority}
           />
+          {hasMultipleMedia ? (
+            <div className="absolute right-3 top-3 rounded-full bg-black/45 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-sm">
+              {item.mediaUrls.length} foto&apos;s
+            </div>
+          ) : null}
         </div>
       </Link>
 
