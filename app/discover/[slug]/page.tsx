@@ -9,13 +9,10 @@ import { buildMetadata } from "@/lib/seo";
 import { getContentRepository } from "@/lib/repositories";
 import { formatDate } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+
 interface ContentDetailPageProps {
   params: Promise<{ slug: string }>;
-}
-
-export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
-  const contentRepository = await getContentRepository();
-  return contentRepository.listContent().map((item) => ({ slug: item.slug }));
 }
 
 export async function generateMetadata({ params }: ContentDetailPageProps): Promise<Metadata> {
@@ -24,13 +21,13 @@ export async function generateMetadata({ params }: ContentDetailPageProps): Prom
   const item = contentRepository.getContentBySlug(resolved.slug);
 
   if (!item) {
-    return buildMetadata({ title: "Niet gevonden", description: "Content niet gevonden.", path: "/discover", noIndex: true });
+    return buildMetadata({ title: "Niet gevonden", description: "Content niet gevonden.", path: "/ontdek", noIndex: true });
   }
 
   return buildMetadata({
     title: item.seo?.title ?? item.title,
     description: item.seo?.description ?? item.excerpt,
-    path: item.seo?.canonicalPath ?? `/discover/${item.slug}`,
+    path: item.seo?.canonicalPath ?? `/ontdek/${item.slug}`,
     image: item.seo?.ogImage ?? item.image
   });
 }
@@ -71,11 +68,6 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
           {item.body.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
-
-          <div className="rounded-editorial border border-brand-teal/15 bg-white p-4">
-            <h2 className="text-lg font-bold text-brand-teal">Bijschrift</h2>
-            <p className="mt-2 text-sm leading-relaxed text-brand-teal/75">{item.caption}</p>
-          </div>
 
           {item.sourcePermalink ? (
             <a

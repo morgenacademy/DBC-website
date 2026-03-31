@@ -36,7 +36,7 @@ export function SiteFooter(): React.JSX.Element {
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-aqua">Snel Naar</p>
           <ul className="space-y-2.5 text-base">
             <li>
-              <Link href="/discover" className="hover:text-white">
+              <Link href="/ontdek" className="hover:text-white">
                 Ontdek Den Bosch
               </Link>
             </li>

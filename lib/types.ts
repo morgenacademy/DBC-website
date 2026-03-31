@@ -83,7 +83,7 @@ export type WeekendGuideDay = "hele-weekend" | "donderdag" | "vrijdag" | "zaterd
 export interface WeekendGuideWeather {
   day: "do" | "vr" | "za" | "zo" | "ma";
   temperature: string;
-  icon: "sunny" | "partly-cloudy" | "cloudy";
+  icon: "sunny" | "partly-cloudy" | "cloudy" | "rainy";
 }
 
 export interface WeekendGuideEvent {

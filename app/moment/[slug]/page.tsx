@@ -5,15 +5,13 @@ import { notFound } from "next/navigation";
 import { ContentCard } from "@/components/cards/content-card";
 import { NewsletterCta } from "@/components/sections/newsletter-cta";
 import { buildMetadata } from "@/lib/seo";
-import { contentRepository, themeRepository } from "@/lib/repositories";
+import { getContentRepository, themeRepository } from "@/lib/repositories";
 import { resolveThemeHeroImage } from "@/lib/theme-hero-image";
+
+export const dynamic = "force-dynamic";
 
 interface MomentPageProps {
   params: Promise<{ slug: string }>;
-}
-
-export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
-  return themeRepository.listThemes("moment").map((item) => ({ slug: item.slug }));
 }
 
 export async function generateMetadata({ params }: MomentPageProps): Promise<Metadata> {
@@ -21,9 +19,10 @@ export async function generateMetadata({ params }: MomentPageProps): Promise<Met
   const moment = themeRepository.getThemeBySlug(resolved.slug);
 
   if (!moment || moment.kind !== "moment") {
-    return buildMetadata({ title: "Moment niet gevonden", description: "Moment niet gevonden", path: "/discover", noIndex: true });
+    return buildMetadata({ title: "Moment niet gevonden", description: "Moment niet gevonden", path: "/ontdek", noIndex: true });
   }
 
+  const contentRepository = await getContentRepository();
   const items = contentRepository.listContent({ moment: moment.slug });
   const heroImage = resolveThemeHeroImage(moment, items);
 
@@ -43,6 +42,7 @@ export default async function MomentPage({ params }: MomentPageProps): Promise<R
     notFound();
   }
 
+  const contentRepository = await getContentRepository();
   const items = contentRepository.listContent({ moment: moment.slug });
   const heroImage = resolveThemeHeroImage(moment, items);
 
@@ -54,7 +54,7 @@ export default async function MomentPage({ params }: MomentPageProps): Promise<R
           <h1 className="mt-2 text-balance text-4xl font-bold text-brand-teal sm:text-5xl">{moment.title}</h1>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-brand-teal/75">{moment.intro}</p>
           <div className="mt-6 flex gap-3">
-            <Link href="/discover" className="rounded-full bg-brand-coral px-4 py-2 text-sm font-semibold text-white">
+            <Link href="/ontdek" className="rounded-full bg-brand-coral px-4 py-2 text-sm font-semibold text-white">
               Ontdek Den Bosch
             </Link>
             <Link href="/collection/nieuwsbrief-weekend-selectie" className="rounded-full border border-brand-teal/20 px-4 py-2 text-sm font-semibold text-brand-teal">

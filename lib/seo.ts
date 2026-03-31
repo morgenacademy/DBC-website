@@ -17,12 +17,14 @@ export function buildMetadata({
   noIndex = false
 }: BuildMetaInput): Metadata {
   const url = new URL(path, siteConfig.domain).toString();
+  const languageAlternates = siteConfig.locale ? { [siteConfig.locale]: url } : undefined;
 
   return {
     title,
     description,
     alternates: {
-      canonical: url
+      canonical: url,
+      languages: languageAlternates
     },
     openGraph: {
       title,

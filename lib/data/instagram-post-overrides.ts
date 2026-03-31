@@ -27,7 +27,7 @@ export const instagramPostOverrides: Record<string, InstagramPostOverride> = {
     seo: {
       title: "11 vegetarische restaurants in Den Bosch | Den Bosch City",
       description: "Ontdek 11 vegetarische hotspots in Den Bosch, van brunch tot diner.",
-      canonicalPath: "/discover/11-vegetarian-restaurants-den-bosch"
+      canonicalPath: "/ontdek/11-vegetarian-restaurants-den-bosch"
     }
   },
   "178000002": {

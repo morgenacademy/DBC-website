@@ -11,7 +11,7 @@ import type { ContentItem, ContentRepository, WeekendCategory } from "@/lib/type
 export const metadata: Metadata = buildMetadata({
   title: "Ontdek",
   description: "Vind de leukste tips, adressen en ideeën voor Den Bosch.",
-  path: "/discover"
+  path: "/ontdek"
 });
 
 interface DiscoverPageProps {
@@ -116,7 +116,7 @@ export default async function DiscoverPage({ searchParams }: DiscoverPageProps):
             <button type="submit" className="rounded-full bg-brand-coral px-4 py-2 text-sm font-semibold text-white">
               Zoek in Ontdek
             </button>
-            <Link href="/discover" className="rounded-full border border-brand-teal/20 bg-white px-4 py-2 text-sm font-semibold text-brand-teal">
+            <Link href="/ontdek" className="rounded-full border border-brand-teal/20 bg-white px-4 py-2 text-sm font-semibold text-brand-teal">
               Reset
             </Link>
           </div>

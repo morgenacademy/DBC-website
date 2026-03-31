@@ -30,6 +30,7 @@ const dayShort: Record<WeekendGuideWeather["day"], string> = {
 function weatherIcon(icon: WeekendGuideWeather["icon"]): string {
   if (icon === "sunny") return "☀";
   if (icon === "partly-cloudy") return "⛅";
+  if (icon === "rainy") return "🌧";
   return "☁";
 }
 

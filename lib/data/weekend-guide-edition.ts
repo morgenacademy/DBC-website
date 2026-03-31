@@ -1,559 +1,480 @@
 import type { WeekendGuideEdition } from "@/lib/types";
 
 export const weekendGuideEdition: WeekendGuideEdition = {
-  id: "weekend-2026-03-05-08",
-  slug: "weekend-5-tm-8-maart-2026",
+  id: "weekend-2026-04-02-06",
+  slug: "weekend-2-tm-6-april-2026",
   title: "Weekend Guide",
-  periodLabel: "5 t/m 8 maart",
-  introTitle: "Hallo weekend!",
+  periodLabel: "2 t/m 6 april",
+  introTitle: "Hallo paasweekend!",
   introBody:
-    "Ja, het is weer (bijna) weekend, en dat betekent leuke, interessante dingen doen in Den Bosch. Het complete overzicht vind je hier in de Weekend Guide.",
+    "Het is weer tijd voor een lang weekend in Den Bosch. Van donderdag tot en met tweede paasdag vind je hier de leukste tips, zodat je in een oogopslag ziet waar je wilt aanschuiven, rondkijken of dansen.",
   weather: [
-    { day: "do", temperature: "16°C", icon: "sunny" },
-    { day: "vr", temperature: "16°C", icon: "partly-cloudy" },
-    { day: "za", temperature: "15°C", icon: "partly-cloudy" },
-    { day: "zo", temperature: "17°C", icon: "sunny" }
+    { day: "do", temperature: "9°C", icon: "rainy" },
+    { day: "vr", temperature: "12°C", icon: "cloudy" },
+    { day: "za", temperature: "16°C", icon: "cloudy" },
+    { day: "zo", temperature: "13°C", icon: "cloudy" },
+    { day: "ma", temperature: "15°C", icon: "sunny" }
   ],
   events: [
     {
-      id: "wg-2026-03-001",
+      id: "wg-2026-04-001",
+      slug: "gratis-instaprondleidingen-van-bauhaus-naar-mekka",
+      title: "GRATIS INSTAPRONDLEIDINGEN VAN BAUHAUS NAAR MEKKA",
+      description:
+        "Maak kennis met de fascinerende architect dr. Mahmoud Bodo Rash. Hij is een van de belangrijkste architecten van de islamitische religieuze wereld, terwijl hij zelf voor veel mensen onbekend bleef. In het Design Museum geven museumdocenten een toegankelijke inleiding op de tentoonstelling Van Bauhaus naar Mekka. Je ontdekt ontwerpen voor de hadj en krijgt daarna de ruimte om de tentoonstelling op eigen tempo verder te verkennen.",
+      venue: "Design Museum",
+      timeLabel: "hele weekend",
+      day: "hele-weekend"
+    },
+    {
+      id: "wg-2026-04-002",
+      slug: "duo-rondleiding-door-van-bauhaus-naar-mekka",
+      title: "DUO-RONDLEIDING DOOR VAN BAUHAUS NAAR MEKKA",
+      description:
+        "Welke rituelen maken de hadj zo bijzonder? En waarom lopen pelgrims precies zeven rondjes rond de Kaäba? Tijdens deze duo-rondleiding in het Design Museum is er ruimte voor al dit soort vragen. De rondleiding helpt je met een frisse blik naar de tentoonstelling Van Bauhaus naar Mekka te kijken en maakt het verhaal achter de ontwerpen toegankelijk voor een breed publiek.",
+      venue: "Design Museum",
+      timeLabel: "hele weekend, 12:00",
+      day: "hele-weekend"
+    },
+    {
+      id: "wg-2026-04-003",
       slug: "doornroos-voorstelling",
       title: "DOORNROOS VOORSTELLING",
-      description: "Kindertheater Pietepaf is een kindertheater voor en met kinderen. Theater voor de allerjongsten onder ons is er wel, maar je moet het vaak even zoeken. Het is echter van groot belang om kinderen op jonge leeftijd al te introduceren met spel, fantasie en verbeelding. Tijdens dit weekend kun je genieten van de voorstelling over Doornroosje. Kom langs en laat de kleinste bezoekers de magie van het theater ontdekken.",
+      description:
+        "Kindertheater Pietepaf is een kindertheater voor en met kinderen. Theater voor de allerjongsten onder ons is er wel, maar je moet het vaak even zoeken. Juist daarom is het zo waardevol om kinderen al vroeg kennis te laten maken met spel, fantasie en verbeelding. Tijdens dit weekend kun je met de kleinsten gaan kijken naar de Doornroos-voorstelling.",
       venue: "Kindertheater Pietepaf",
       timeLabel: "hele weekend, 11:00 & 13:00",
       day: "hele-weekend"
     },
     {
-      id: "wg-2026-03-002",
-      slug: "pop-up-atelier-suki",
-      title: "POP-UP: ATELIER SUKI",
-      description: "Gedurende het hele weekend strijkt Atelier Suki neer in Foyé voor een bijzondere pop-up editie. Het is de ideale gelegenheid om lekker te shoppen en unieke items te ontdekken. Of je nu op zoek bent naar iets nieuws voor jezelf of een origineel cadeau, je bent van harte welkom om rond te neuzen. Laat je verrassen door het aanbod in deze creatieve setting.",
-      venue: "Foyé",
-      timeLabel: "hele weekend",
-      day: "hele-weekend"
-    },
-    {
-      id: "wg-2026-03-003",
+      id: "wg-2026-04-004",
       slug: "bijzondere-expositie-renee-van-leusden",
       title: "BIJZONDERE EXPOSITIE RENEE VAN LEUSDEN",
-      description: "Museum Slager presenteert een bijzondere expositie met werken van de Bossche kunstenares Renee van Leusden. Met haar herkenbare stijl en verbeeldingskracht wist zij ruim vijftig jaar lang vele kunstliefhebbers te raken. Haar beelden vertellen over mensen, het leven zelf en het zoeken naar de balans tussen vrijheid en gebondenheid. Renee overleed onverwacht eind december 2025, waardoor deze tentoonstelling — die zij zelf nog voorbereidde — een bijzonder en laatste eerbetoon vormt. Bezoekers krijgen een unieke kans om haar rijke oeuvre te zien en eventueel een werk te bemachtigen. Meer informatie over haar werk is te vinden op de website.",
+      description:
+        "Museum Slager presenteert tot en met 28 juni een bijzondere expositie met werken van de Bossche kunstenares Renee van Leusden. Meer dan vijftig jaar wist zij met haar herkenbare stijl en verbeeldingskracht kunstliefhebbers te raken. Haar werk reist van persoonlijke thema's als kwetsbaarheid en verlies naar grotere vragen over vrijheid, onmacht en geluk. Omdat Renee eind december 2025 onverwacht overleed, is deze tentoonstelling ook een bijzonder en laatste eerbetoon aan haar kunstenaarschap.",
       venue: "Museum Slager",
       timeLabel: "hele weekend",
       day: "hele-weekend"
     },
     {
-      id: "wg-2026-03-004",
-      slug: "zingen-uit-de-bossche-koorboeken",
-      title: "ZINGEN UIT DE BOSSCHE KOORBOEKEN",
-      description: "Ontdek de collectie muziek van de grootste Franco-Vlaamse componisten uit de vijftiende en zestiende eeuw in de Grote Kerk. Tijdens deze cursus staat muziek van onder andere Jean Mouton en Pierre de la Rue centraal. Het doel is om deze werken zo historisch mogelijk te benaderen door kennis te maken met de basisvaardigheden van een koorzanger uit de renaissance. De muziek wordt gelezen van de oude notatie, die op een groot scherm geprojecteerd wordt voor de deelnemers.",
-      venue: "De Grote Kerk",
-      timeLabel: "hele weekend",
-      day: "hele-weekend"
-    },
-    {
-      id: "wg-2026-03-005",
-      slug: "lunchconcert-quator-romantique",
-      title: "LUNCHCONCERT: QUATOR ROMANTIQUE",
-      description: "Geniet van een sfeervol lunchconcert verzorgd door het Quator Romantique in Podium Azijnfabriek. Het is een ideale manier om je middag muzikaal in te vullen met hoogwaardige kamermuziek. Let op: de kaartverkoop voor dit concert is alleen mogelijk aan de deur, kort voordat de muzikanten het podium betreden. Kom dus op tijd om verzekerd te zijn van een plekje in de zaal.",
-      venue: "Podium Azijnfabriek",
-      timeLabel: "12:30",
-      day: "donderdag"
-    },
-    {
-      id: "wg-2026-03-006",
-      slug: "boekpresentatie-lieve-mensen-winnen-niet",
-      title: "BOEKPRESENTATIE – LIEVE MENSEN WINNEN NIET",
-      description: "In de Maaspoort vindt deze middag de presentatie plaats van het boek “Lieve mensen winnen niet”. Geïnteresseerden zijn welkom om meer te horen over de achtergronden van dit werk. Het belooft een interessante bijeenkomst te worden voor liefhebbers van literatuur en nieuwe verhalen.",
-      venue: "Maaspoort",
-      timeLabel: "16:00",
-      day: "donderdag"
-    },
-    {
-      id: "wg-2026-03-007",
-      slug: "twee-keer-kijken",
-      title: "TWEE KEER KIJKEN",
-      description: "Deze editie van Twee Keer Kijken staat in het teken van Ketahanan en Internationale Vrouwendag. De avond duikt in de geschiedenis en kracht van de Molukse Vrouwenbeweging en de ZMV-beweging uit de jaren ’70. In tegenstelling tot Dolle Mina boden zij stemmen en ervaringen die vaak buiten beeld bleven: meerstemmig en intersectioneel. Iedereen is uitgenodigd om te komen luisteren, kijken en vooral mee te praten over deze thema’s.",
-      venue: "Noordbrabants Museum",
-      timeLabel: "19:00",
-      day: "donderdag"
-    },
-    {
-      id: "wg-2026-03-008",
-      slug: "deja-vu",
-      title: "DEJA VU",
-      description: "Wil je op de hoogte blijven van de nieuwste films en er echt het fijne van weten?. Volg dan de cursus Déjà vu, waar docent Mark Meuldijk vol enthousiasme onder de oppervlakte van diverse premierefilms graaft. Het is een uitgelezen kans om met meer diepgang naar de bioscoop te gaan.",
-      venue: "Verkadefabriek",
-      timeLabel: "19:40",
-      day: "donderdag"
-    },
-    {
-      id: "wg-2026-03-009",
+      id: "wg-2026-04-005",
       slug: "speciaalbieravond",
       title: "SPECIAALBIERAVOND",
-      description: "Elke donderdagavond is het tijd voor de speciaalbieravond bij De Druif. Het is de ideale plek om de werkweek achter je te laten en unieke smaken te ontdekken. Gasten profiteren van maar liefst 40% korting op álle speciaalbieren uit het assortiment. Kom langs en proost samen op de start van het weekend.",
+      description:
+        "Elke donderdagavond vanaf 20:00 uur is het speciaalbieravond bij De Druif. Laat de werkweek achter je en ontdek de unieke smaken van het assortiment met maar liefst 40% korting op alle speciaalbieren. Een makkelijke manier om je weekend ontspannen te beginnen.",
       venue: "De Druif",
       timeLabel: "20:00",
       day: "donderdag"
     },
     {
-      id: "wg-2026-03-010",
-      slug: "voor-het-pensioen",
-      title: "VOOR HET PENSIOEN",
-      description: "Theater aan de Parade presenteert “Voor het pensioen”, een zwarte en grimmige komedie over de Duitse ziel. Het stuk belicht een samenleving die bespookt blijft door haar extreemrechtse verleden. Het is een indringende uitnodiging om na te denken over hoe schaduwen uit het verleden ons blijven achtervolgen in het heden. Een avond vol scherpe maatschappijkritiek verpakt in theater.",
+      id: "wg-2026-04-006",
+      slug: "matthaus-passion",
+      title: "MATTHAUS PASSION",
+      description:
+        "Om het jaar slaan het Orkest van de Achttiende Eeuw en Cappella Amsterdam de handen ineen voor een Passie van Johann Sebastian Bach. Dit jaar staan orkest en koor in Theater aan de Parade onder leiding van dirigent Daniel Reuss. Met solisten uit de internationale top, onder wie Marianne Beate Kielland, Tobias Bernd, Thomas Walker en Berit Norbakken, mag je een sublieme uitvoering van Bachs meesterwerk verwachten.",
       venue: "Theater aan de Parade",
-      timeLabel: "20:00",
+      timeLabel: "19:00",
       day: "donderdag"
     },
     {
-      id: "wg-2026-03-011",
-      slug: "joey-en-dave-stille-oorlog",
-      title: "JOEY & DAVE • STILLE OORLOG",
-      description: "In Perron-3 brengen de broers Joey en Dave hun voorstelling “Stille oorlog”. De twee broers gebruiken humor om heftige gebeurtenissen te verzachten, bespreekbaar te maken of soms zelfs zwaar te ontkennen. Het publiek kan een dynamische avond verwachten waarin de familiebanden op scherp worden gezet.",
-      venue: "Perron-3",
-      timeLabel: "20:00",
-      day: "donderdag"
-    },
-    {
-      id: "wg-2026-03-012",
-      slug: "performance-workshop-met-the-only-royel",
-      title: "PERFORMANCE WORKSHOP MET THE ONLY ROYEL",
-      description: "Bij Het Nest kun je deelnemen aan een inspirerende performance workshop onder leiding van The Only Royel. Daarnaast zijn Lily Moan en Lady Aga aanwezig voor iedereen die wil repeteren, mode wil maken of advies nodig heeft over drag. Het is een open plek voor creativiteit waar je zowel in als uit drag kunt stappen met hulp van experts.",
-      venue: "Het Nest",
-      timeLabel: "20:00",
-      day: "donderdag"
-    },
-    {
-      id: "wg-2026-03-013",
-      slug: "shake-shake-shake",
-      title: "SHAKE SHAKE SHAKE",
-      description: "De succesvoorstelling “Shake Shake Shake” keert terug naar het podium. Dit opzwepende concert ontspoort langzaam maar zeker in een energieke dansvoorstelling. De voorstelling gaat over het gevoel dat je werkelijk leeft in een wereld waarin je nauwelijks nog zelf bepaalt waar je aandacht naartoe gaat. Samen met de performers wordt gezocht naar een eigen, alternatieve richting.",
-      venue: "Theater aan de Parade",
-      timeLabel: "20:30",
-      day: "donderdag"
-    },
-    {
-      id: "wg-2026-03-014",
-      slug: "doe-maar-rustig",
-      title: "DOE MAAR RUSTIG",
-      description: "Kim Schuddeboom staat op het podium van de Verkadefabriek met haar tweede voorstelling “Doe maar rustig”. Ze staat bekend om haar scherpe en ad remme stijl, gecombineerd met een ontwapenende nuchterheid. Een cabaretvoorstelling die je met een nuchtere blik naar de dagelijkse chaos laat kijken.",
+      id: "wg-2026-04-007",
+      slug: "man-co-sorry-not-sorry",
+      title: "MAN || CO",
+      description:
+        "In de theatrale dansvoorstelling Sorry not sorry dompelt MAN || CO je onder in een gesimuleerde wereld. Geinspireerd op het computerspel The Sims 2000 maak je kennis met het ideale gezin. Wat begint als een gecontroleerde werkelijkheid, schuift langzaam op richting iets vervreemdends en scherps. Een interessante avond voor wie zin heeft in vernieuwende podiumkunst.",
       venue: "Verkadefabriek",
-      timeLabel: "20:30",
+      timeLabel: "20:15",
       day: "donderdag"
     },
     {
-      id: "wg-2026-03-015",
-      slug: "peter-beets-new-york-vocal-summit-lucy-yeghiazaryan",
-      title: "PETER BEETS NEW YORK VOCAL SUMMIT – LUCY YEGHIAZARYAN",
-      description: "Pianist Peter Beets brengt een bijzonder internationaal project naar Podium Azijnfabriek. Nadat hij Lucy Yeghiazaryan in Philadelphia zag optreden met haar band vol jazzlegendes, draaide hij haar album een jaar lang grijs. Die ontmoeting liet hem niet los, wat leidde tot deze unieke Europese tour. Verwacht jazz van wereldklasse in een intieme Bossche setting.",
+      id: "wg-2026-04-008",
+      slug: "lunchconcert-passieconcert-kapellmeister",
+      title: "LUNCHCONCERT: PASSIECONCERT KAPELLMEISTER",
+      description:
+        "Podium Azijnfabriek organiseert deze middag een passieconcert in lunchtijd-sfeer. Het is een mooi moment om je dag muzikaal te onderbreken in een intieme setting. Let op: kaartverkoop is alleen mogelijk vlak voor aanvang van het concert.",
       venue: "Podium Azijnfabriek",
-      timeLabel: "20:30",
+      timeLabel: "12:30",
       day: "donderdag"
     },
     {
-      id: "wg-2026-03-016",
-      slug: "stand-up-comedy-in-broken-english",
-      title: "STAND UP COMEDY IN BROKEN ENGLISH",
-      description: "Lach mee met Victor Pãtrãşcan, de comedy-nomade uit Europa die bekend staat als een rebelse comedian-filosoof. Zijn scherpe grappen brachten hem al naar ongeveer zestig verschillende landen en bereikten miljoenen schermen. Hij is zelfs officieel verbannen door de nieuwe Georgische regering omdat hij simpelweg ’te grappig’ zou zijn. Verwacht een avond vol gevatte humor in het Engels die je op een andere manier naar de wereld laat kijken.",
-      venue: "Willem Twee",
+      id: "wg-2026-04-009",
+      slug: "gespreksavond-im-not-your-standard-architect",
+      title: "GESPREKSAVOND | I'M NOT YOUR STANDARD ARCHITECT",
+      description:
+        "Ter afsluiting van de tentoonstelling Van Bauhaus naar Mekka nodigt het Design Museum twee architecten uit die, net als dr. Mahmoud Bodo Rasch, met een nieuwe blik naar hun vak kijken. Wie of wat zijn hun inspiratiebronnen? Hoe ziet hun werkpraktijk eruit? En welke hordes komen zij tegen in hun professionele leven? Die vragen staan centraal tijdens deze gespreksavond.",
+      venue: "Design Museum",
+      timeLabel: "19:00",
+      day: "donderdag"
+    },
+    {
+      id: "wg-2026-04-010",
+      slug: "twee-keer-kijken-intergenerationele-veerkracht",
+      title: "TWEE KEER KIJKEN: INTERGENERATIONELE VEERKRACHT",
+      description:
+        "Op donderdagavond staat Twee Keer Kijken in het Noordbrabants Museum in het teken van intergenerationele veerkracht. Vanuit de tentoonstelling Ketahanan: verhalen van veerkracht wordt verkend hoe verhalen van gedwongen migratie, koloniale geschiedenis, culturele diversiteit en diaspora vandaag nog voelbaar zijn. Wat betekent het om je ergens thuis te voelen? En hoe geef je veerkracht door aan volgende generaties?",
+      venue: "Noordbrabants Museum",
+      timeLabel: "19:00",
+      day: "donderdag"
+    },
+    {
+      id: "wg-2026-04-011",
+      slug: "gratis-salsa-bachata-proefles",
+      title: "GRATIS SALSA & BACHATA PROEFLES",
+      description:
+        "Altijd al Salsa of Bachata willen leren dansen? Dit is je kans. Bij Bank van Lening stap je gratis in een proefles waarin je op een laagdrempelige manier kennismaakt met Latin dans. Ervaring is niet nodig, dus iedereen kan aansluiten.",
+      venue: "Bank van Lening",
+      timeLabel: "19:30",
+      day: "donderdag"
+    },
+    {
+      id: "wg-2026-04-012",
+      slug: "drag-adventure",
+      title: "DRAG ADVENTURE",
+      description:
+        "World Skate Center neemt je in april en mei mee op Drag Adventure. Tijdens deze eerste avond stap je binnen in de wereld van drag met een quiz en een DIY-workshop door Von Prinzenwald. Je kunt een losse workshop meepakken of de hele reeks volgen richting de open stage eind mei. Een speelse en open kennismaking voor iedereen die nieuwsgierig is.",
+      venue: "World Skate Center",
+      timeLabel: "hele avond",
+      day: "donderdag"
+    },
+    {
+      id: "wg-2026-04-013",
+      slug: "kreator-krushers-of-the-world-tour",
+      title: "KREATOR // KRUSHERS OF THE WORLD TOUR",
+      description:
+        "Bereid je voor op een ongekende aanval op je zintuigen wanneer de Krushers of the World Tour neerdaalt bij Mainstage. Vier legendarische bands, elk met hun eigen verpletterende legacy, bundelen hun krachten voor een avond pure chaos. Een stevige vrijdagavond voor liefhebbers van het hardere werk.",
+      venue: "Mainstage",
       timeLabel: "18:00",
       day: "vrijdag"
     },
     {
-      id: "wg-2026-03-017",
-      slug: "jazz-night-met-oa-frits-landesbergen",
-      title: "JAZZ NIGHT MET O.A. FRITS LANDESBERGEN",
-      description: "Bij Brasserie Cé kun je deze vrijdagavond genieten van een sfeervolle Jazz night. Het is de ideale setting voor een ontspannen begin van je weekend.",
-      venue: "Brasserie Cé",
-      timeLabel: "18:30",
-      day: "vrijdag"
-    },
-    {
-      id: "wg-2026-03-018",
-      slug: "welkom-in-de-middeleeuwen-8",
-      title: "WELKOM IN DE MIDDELEEUWEN (8+)",
-      description: "Ben je klaar voor ridders, heksen en de schandpaal?. De populaire NTR-serie “Welkom in de Middeleeuwen” komt nu live naar het theater in Den Bosch. Kinderen vanaf acht jaar kunnen zelf ervaren hoe het was in de tijd van kwakzalvers en de builenpest. Een spannende en leerzame ervaring voor het hele gezin, direct gebaseerd op de bekende televisieserie.",
-      venue: "Theater aan de Parade",
-      timeLabel: "19:00",
-      day: "vrijdag"
-    },
-    {
-      id: "wg-2026-03-019",
-      slug: "opening-van-parc-ferme",
-      title: "OPENING VAN PARC FERMÉ",
-      description: "Ruby Soho nodigt iedereen uit voor de officiële opening van de tentoonstelling Parc Fermé op 6 maart. De inloop start om 19:00 uur, gevolgd door een officieel openingswoord om 20:00 uur. Iedereen is van harte welkom om als eerste deze nieuwe collectie te komen bewonderen. Na de opening blijft de expositie nog tot en met 11 april te bezoeken voor het publiek.",
-      venue: "Ruby Soho",
-      timeLabel: "19:00",
-      day: "vrijdag"
-    },
-    {
-      id: "wg-2026-03-020",
-      slug: "tribute-around-town",
-      title: "TRIBUTE AROUND TOWN",
+      id: "wg-2026-04-014",
+      slug: "ramsey-nasr-in-calefaxland",
+      title: "RAMSEY NASR IN CALEFAXLAND",
       description:
-        "De stad staat deze avond volledig in het teken van legendarische muziek tijdens Tribute Around Town. Verspreid over de binnenstad brengen bands een eerbetoon aan de grootste iconen uit de muziekgeschiedenis.",
-      detailsList: [
-        "Aretha Franklin (Dolce di Sione): 19:00-19:30 & 20:00-20:30",
-        "Classic Rock (Het Veulen): 19:30-20:10, 20:40-21:20 & 21:50-22:30",
-        "Nederpop (’t Pantoffeltje): 20:20-20:50 & 21:20-21:50",
-        "Queen (Reinders): 20:30-21:00 & 21:30-22:00",
-        "André Hazes (Tante Ted): 21:00-21:30 & 22:00-22:30",
-        "Beyoncé (Banier): 21:10-21:40 & 22:10-22:40",
-        "Top 2000 (De Basiliek): 21:20-21:50 & 22:20-22:50",
-        "Rolling Stones (Onder De Moriaan): 22:00-22:40, 23:10-23:50 & 00:20-01:00",
-        "Doe Maar (Taveerne): 22:10-22:40 & 23:10-23:40",
-        "Bruce Springsteen (De Smidse): 22:20-22:50 & 23:20-23:50",
-        "Guus Meeuwis (De Uilenburg): 22:30-23:00 & 23:30-00:00",
-        "Elvis Presley (De Druif): 20:40 & 22:40-23:10, 23:40-00:10",
-        "Coldplay (Plaats Royaal): 22:50-23:20 & 23:50-00:20",
-        "Soul & Disco (Bar Le Duc): 23:10-23:40 & 00:10-00:40",
-        "ABBA (De Carrousel): 23:30-00:00 & 00:30-01:00"
-      ],
-      venue: "Diverse locaties",
-      timeLabel: "19:00",
-      day: "vrijdag"
-    },
-    {
-      id: "wg-2026-03-021",
-      slug: "alabama",
-      title: "ALABAMA",
-      description: "Het Vlaamse gezelschap BERLIN keert terug naar de Verkadefabriek met maker Fien Leysen aan het roer. Na haar werk aan voorstellingen als “True Copy”, presenteert ze nu haar solovoorstelling ALABAMA. De show wordt omschreven als een roadmovie “down memory lane” in de vorm van documentair theater. Het is een verrassende en meeslepende ervaring die kenmerkend is voor het vernieuwende werk van dit gezelschap.",
-      venue: "Verkadefabriek",
+        "In deze vierde editie van Welkom in Calefax-land is iemand van buiten de muziekwereld te gast bij het rietkwintet Calefax. Ramsey Nasr is geen gewone muziekliefhebber meer, maar eerder een verzamelaar met een serieuze verslaving: zijn huis staat vol met klassieke cd's. Samen met Calefax ontstaat een avond vol liefde voor muziek, verhalen en onverwachte dwarsverbanden.",
+      venue: "Theater aan de Parade",
       timeLabel: "20:30",
       day: "vrijdag"
     },
     {
-      id: "wg-2026-03-022",
-      slug: "puls-tom-ford",
-      title: "PULS: TOM FORD",
-      description: "De Britse gitarist, zanger en producer Tom Ford brengt zijn unieke sound naar Willem Twee. Ford staat bekend om een gewaagde mix van jazz, postpunk en alternatieve popinvloeden. Hij is al ruim tien jaar een gevestigde naam binnen de UK jazzscene en werkte samen met artiesten als Reuben James en Jas Kayser. Laat je meeslepen door de energie en de diverse invloeden van dit veelzijdige talent.",
+      id: "wg-2026-04-015",
+      slug: "tumult",
+      title: "TUMULT!",
+      description:
+        "Deze speciale Tumult-editie in Willem Twee heeft een Gents tintje en is tegelijk de presentatie van het album van Fuzzy Bears, het avontuurlijke alter ego van De Beren Gieren. Wat begon als experiment met vintage synthesizers in de Willem Twee Studio's groeide uit tot een volwaardige uitbreiding van hun muzikale identiteit. Live vertaalt het trio die studio-elektronica naar een vooruitstrevende luisterervaring op het podium.",
       venue: "Willem Twee",
       timeLabel: "20:30",
       day: "vrijdag"
     },
     {
-      id: "wg-2026-03-023",
-      slug: "8-jaar-brasserie-pastis",
-      title: "8 JAAR BRASSERIE PASTIS",
-      description: "Brasserie Pastis viert een feestelijke mijlpaal: ze bestaan maar liefst acht jaar. Dit jubileum wordt groots gevierd met livemuziek van ABBA en een flinke dosis guilty pleasures. Zing mee met de grootste hits en help mee de dansvloer te vullen ter ere van acht jaar samen herinneringen maken in Den Bosch. Het belooft een energieke avond te worden voor alle gasten en vrienden van de brasserie.",
-      venue: "Brasserie Pastis",
-      timeLabel: undefined,
-      day: "vrijdag"
-    },
-    {
-      id: "wg-2026-03-024",
-      slug: "terug-in-de-tijd",
-      title: "TERUG IN DE TIJD",
-      description: "Na drie uitverkochte edities keert “Terug in de Tijd” terug in het Werkwarenhuis. Reis mee naar de hoogtijdagen van de Nederlandse hiphop met tracks van onder andere New Wave, Frenna en Ronnie Flex. De nacht staat volledig in het teken van meezingers, herinneringen en de allerlekkerste urban classics. Bereid je voor op een nacht vol nostalgie en energie op de dansvloer van deze industriële locatie.",
-      venue: "Van Aken Werkwarenhuis",
+      id: "wg-2026-04-016",
+      slug: "new-wave",
+      title: "NEW WAVE",
+      description:
+        "Na een uitverkochte editie in februari komt TNWE weer terug naar Onder de Moriaan. Verwacht een avond vol legendarische urban hits, meezingers en nostalgie alsof het weer 2016 is. Dit is er zo eentje waarbij de hele zaal vanaf de eerste tracks wakker is.",
+      venue: "Onder de Moriaan",
       timeLabel: "23:00",
       day: "vrijdag"
     },
     {
-      id: "wg-2026-03-025",
-      slug: "prikkelarm-bezoek",
-      title: "PRIKKELARM BEZOEK",
-      description: "Iedere eerste zaterdagochtend organiseert het Noordbrabants Museum een prikkelarme openstelling. Deze ochtend is speciaal voor bezoekers die moeite hebben met prikkels tijdens reguliere tijden. Er zijn minder bezoekers, het licht is aangepast en er is een speciale rustruimte ingericht. Zo kun je zorgeloos genieten van de vaste collectie in de Paleiszalen.",
-      venue: "Noordbrabants Museum",
-      timeLabel: "09:00",
+      id: "wg-2026-04-017",
+      slug: "black-limousine-stones-coverband",
+      title: "BLACK LIMOUSINE (STONES COVERBAND)",
+      description:
+        "Black Limousine is een Rolling Stones-coverband uit Nieuwegein en omstreken. Natuurlijk ontbreken klassiekers als Honky Tonk Woman, Jumping Jack Flash, Brown Sugar en Satisfaction niet. Tegelijkertijd hoor je ook relaxtere en minder vaak gespeelde nummers terug, waardoor het meer wordt dan een standaard coveravond. Verwacht vooral veel energie en een setlist die lekker doorrolt.",
+      venue: "Station Zuid",
+      timeLabel: "21:00",
+      day: "vrijdag"
+    },
+    {
+      id: "wg-2026-04-018",
+      slug: "workshop-eco-systeem-of-terrarium-maken-vrijdag",
+      title: "WORKSHOP ECO-SYSTEEM OF TERRARIUM MAKEN",
+      description:
+        "Ga lekker creatief aan de slag bij Werk aan de Winkel tijdens deze workshop. Je bouwt je eigen terrarium of eco-systeem en bent even helemaal weg van de drukte van de week. Een fijne keuze als je zin hebt in iets rustigs, groens en hands-on.",
+      venue: "Werk aan de Winkel",
+      timeLabel: "10:30",
+      day: "vrijdag"
+    },
+    {
+      id: "wg-2026-04-019",
+      slug: "jeroens-clan-juk",
+      title: "JEROENS CLAN • JUK",
+      description:
+        "Na succesvolle voorstellingen over hun verknipte vriendschap en hun labiele liefdeslevens stort Jeroens Clan zich in JUK op alles waar we met z'n allen onder gebukt gaan. Het levert cabaret op dat scherp, herkenbaar en ritmisch goed in elkaar zit. Voor wie zin heeft in humor met net wat meer onderlaag.",
+      venue: "Perron-3",
+      timeLabel: "20:30",
+      day: "vrijdag"
+    },
+    {
+      id: "wg-2026-04-020",
+      slug: "heroes-den-bosch-vs-lwd-basket",
+      title: "HEROES DEN BOSCH VS. LWD BASKET",
+      description:
+        "Vrijdagavond is basketbalavond in de Maaspoort. Heroes Den Bosch neemt het op tegen LWD Basket en kan alle support goed gebruiken. Een aanrader als je zin hebt in sport, sfeer en een volle zaal.",
+      venue: "Maaspoort",
+      timeLabel: "20:00",
+      day: "vrijdag"
+    },
+    {
+      id: "wg-2026-04-021",
+      slug: "fc-den-bosch-vs-fc-utrecht",
+      title: "FC DEN BOSCH VS FC UTRECHT",
+      description:
+        "Ook in het stadion valt er vrijdagavond genoeg te beleven. FC Den Bosch speelt thuis tegen FC Utrecht en dat betekent tribunes vol spanning, fanatiek meeleven en hopelijk een mooie avond voor de thuisclub. Kom het team supporten en pak die echte wedstrijdsfeer mee.",
+      venue: "FC Den Bosch Stadion",
+      timeLabel: "20:00",
+      day: "vrijdag"
+    },
+    {
+      id: "wg-2026-04-022",
+      slug: "jazz-night-met-trio-maaike-kitslaar",
+      title: "JAZZ NIGHT MET TRIO MAAIKE KITSLAAR",
+      description:
+        "Brasserie Ce verwelkomt zangeres Maaike Kitslaar tijdens een nieuwe editie van de Jazz Night. Met haar warme stem en verfijnde interpretaties van jazzklassiekers weet ze iedere ruimte te vullen met sfeer en muzikaliteit. Een mooie vrijdagavond voor wie rustig het weekend in wil glijden.",
+      venue: "Brasserie Ce",
+      timeLabel: "18:30",
+      day: "vrijdag"
+    },
+    {
+      id: "wg-2026-04-023",
+      slug: "dineren-met-live-muziek",
+      title: "DINEREN MET LIVE MUZIEK",
+      description:
+        "Bij TUUR draait vrijdag om een sfeervolle avond vol live muziek en culinaire verwennerij. Je schuift aan voor een combinatie van goed eten en een ontspannen soundtrack op de achtergrond. Ideaal voor wie van een avond uit zonder haast houdt.",
+      venue: "TUUR",
+      timeLabel: undefined,
+      day: "vrijdag"
+    },
+    {
+      id: "wg-2026-04-024",
+      slug: "karaoke-avond",
+      title: "KARAOKE AVOND",
+      description:
+        "In 't Opkikkertje staat weer een gezellige karaokeavond op de planning. Iedere eerste en derde vrijdag van de maand verandert de zaak na het diner in een plek waar je kunt meezingen, aanmoedigen en dansen. Eerst lekker eten, daarna het podium op of gewoon hard meedoen vanaf de vloer.",
+      venue: "'t Opkikkertje",
+      timeLabel: "21:30",
+      day: "vrijdag"
+    },
+    {
+      id: "wg-2026-04-025",
+      slug: "back-to-the-70-80-en-90",
+      title: "BACK TO THE '70, 80 EN 90",
+      description:
+        "Even terug naar toen bij Bossche Brouwers. Rudimentaal & Hank draaien de leukste platen uit de jaren '70, 80 en 90, zodat je zonder veel moeite de goede stemming te pakken hebt. Gratis entree, dus gewoon binnenlopen en genieten.",
+      venue: "Bossche Brouwers",
+      timeLabel: "22:00",
       day: "zaterdag"
     },
     {
-      id: "wg-2026-03-026",
-      slug: "workshop-eco-systeem-of-terrarium-maken",
+      id: "wg-2026-04-026",
+      slug: "h73-live-fifty-five",
+      title: "H73 LIVE! @ THEATER AAN DE PARADE | FIFTY FIVE",
+      description:
+        "Na het winkelen nog even een bandje kijken? H73 Live! is de muzikale zaterdagmiddagborrel in hartje Den Bosch. Iedere week staat er weer een ander bandje uit de regio op het podium. Loop binnen, bestel iets lekkers en ontdek nieuwe muziek zonder gedoe.",
+      venue: "Theater aan de Parade",
+      timeLabel: "16:00",
+      day: "zaterdag"
+    },
+    {
+      id: "wg-2026-04-027",
+      slug: "chained-to-the-bottom-of-the-ocean",
+      title: "CHAINED TO THE BOTTOM OF THE OCEAN",
+      description:
+        "Chained to the Bottom of the Ocean beweegt zich op het snijvlak van death doom en sludge. Trage composities, zware riffs en een allesoverheersend geluidsbeeld maken hun liveshows intens en fysiek. Voor liefhebbers van volume, gewicht en donkere klanklagen is dit een sterke zaterdagavond-optie.",
+      venue: "Willem Twee",
+      timeLabel: "20:30",
+      day: "zaterdag"
+    },
+    {
+      id: "wg-2026-04-028",
+      slug: "workshop-eco-systeem-of-terrarium-maken-zaterdag",
       title: "WORKSHOP ECO-SYSTEEM OF TERRARIUM MAKEN",
-      description: "Ga creatief aan de slag bij Werk aan de Winkel tijdens de workshop voor het maken van een terrarium. Tijdens deze sessie bouw je je eigen duurzame eco-systeem op in glas. Het is de ideale manier om even tot rust te komen en iets groens voor in huis te creëren.",
+      description:
+        "Ook op zaterdag kun je bij Werk aan de Winkel creatief aan de slag met een terrarium of eco-systeem. Een fijne workshop als je even iets met je handen wilt doen en met iets moois voor thuis weer naar buiten wilt lopen.",
       venue: "Werk aan de Winkel",
       timeLabel: "10:30",
       day: "zaterdag"
     },
     {
-      id: "wg-2026-03-027",
-      slug: "het-bossche-groen-doen-festival",
-      title: "HET BOSSCHE GROEN DOEN FESTIVAL",
-      description: "Bij de Boschgaard ontdek je tijdens dit festival hoe duurzaamheid concreet wordt toegepast in de stad. Meer dan dertig lokale initiatieven laten zien hoe je duurzaamheid praktisch en dichtbij huis kunt aanpakken. Bezoekers kunnen deelnemen aan workshops zoals bosbaden of yoga, zaden ruilen op de markt en advies krijgen over energieverbruik. Meer info.",
-      venue: "SG Boschgaard",
+      id: "wg-2026-04-029",
+      slug: "prikkelarm-museumbezoek",
+      title: "PRIKKELARM MUSEUMBEZOEK",
+      description:
+        "Iedere eerste zaterdagochtend van de maand organiseert het Noordbrabants Museum een prikkelarme openstelling. Tijdens deze uren zijn er minder bezoekers, is het lichtplan aangepast en is er een speciale rustruimte ingericht. Zo kun je op een rustige manier genieten van een deel van de vaste collectie in de Paleiszalen.",
+      venue: "Noord Brabantsmuseum",
+      timeLabel: "09:00",
+      day: "zaterdag"
+    },
+    {
+      id: "wg-2026-04-030",
+      slug: "chris-verlaan-ach-er-komen-geen-kindjes-van",
+      title: "CHRIS VERLAAN • ACH, ER KOMEN GEEN KINDJES VAN",
+      description:
+        "Cabaretier Chris Verlaan veroverde met eerdere programma's al veel publiek en brengt nu nieuw materiaal naar Perron-3. Met zijn unieke, autistische blik op het leven en zijn droge humor neemt hij je mee in verhalen die tegelijk herkenbaar en verrassend zijn. Een fijne keuze voor wie van slim en net even anders cabaret houdt.",
+      venue: "Perron-3",
+      timeLabel: "20:30",
+      day: "zaterdag"
+    },
+    {
+      id: "wg-2026-04-031",
+      slug: "rondleiding-den-food-bosch",
+      title: "RONDLEIDING",
+      description:
+        "Ben jij nieuwsgierig naar syntropische landbouw en de oogst uit het voedselbos? Tijdens deze maandelijkse rondleiding bij Den Food Bosch struin je samen door het bos en hoor je meer over successen, uitdagingen en lessen uit de praktijk. Koffie en thee staan klaar, en er valt in ieder seizoen wel iets verrassends te proeven.",
+      venue: "Voedselbos Den Food Bosch",
+      timeLabel: "10:00",
+      day: "zaterdag"
+    },
+    {
+      id: "wg-2026-04-032",
+      slug: "paas-kleurfeest",
+      title: "PAAS KLEURFEEST",
+      description:
+        "Winkelcentrum De Rompert pakt uit met een vrolijk Paas Kleurfeest. Kinderen kunnen eerder opgehaalde kleurplaten weer inleveren bij de paashazen en worden tijdens het evenement beloond met gezelligheid en lekkers. Een toegankelijke gezinsactiviteit voor de zaterdag overdag.",
+      venue: "Winkelcentrum de Rompert",
       timeLabel: "11:00",
       day: "zaterdag"
     },
     {
-      id: "wg-2026-03-028",
-      slug: "open-bordspelmarathon",
-      title: "OPEN BORDSPELMARATHON",
-      description: "De Vughtse Spellenclub viert haar eerste verjaardag met een open bordspelmarathon in De Elzenburg. Tussen 12:00 en middernacht is iedereen welkom om binnen te lopen voor een spelletje, van snelle kaartspellen tot uitgebreide bordspellen. Het evenement is laagdrempelig: ervaring of lidmaatschap is niet nodig om mee te doen. Een gezellige dag voor spelers uit de hele regio.",
-      venue: "De Elzenburg, Vught",
-      timeLabel: "12:00",
-      day: "zaterdag"
-    },
-    {
-      id: "wg-2026-03-029",
-      slug: "lunchconcert-peter-caelen-olsi-leka",
-      title: "LUNCHCONCERT: PETER CAELEN, OLSI LEKA",
-      description: "In Podium Azijnfabriek verzorgen Peter Caelen en Olsi Leka een prachtig lunchconcert. Laat je tijdens de middag meevoeren door de klanken van dit duo in een intieme setting. Kaartverkoop is alleen ter plekke mogelijk vlak voor aanvang van het optreden. Een aanrader voor liefhebbers van kamermuziek in het hart van de stad.",
-      venue: "Podium Azijnfabriek",
-      timeLabel: "12:30",
-      day: "zaterdag"
-    },
-    {
-      id: "wg-2026-03-030",
-      slug: "h73-live",
-      title: "H73 LIVE!",
-      description: "Kom na het winkelen naar H73 Live!, de wekelijkse muzikale zaterdagmiddagborrel bij Huis73. Elke week staat er een ander lokaal bandje op het podium, van pop en jazz tot singer-songwriter. Het is de ideale plek om met een drankje in de hand nieuwe muziek uit de stad te ontdekken. Toegang is laagdrempelig en de sfeer is altijd ontspannen.",
-      venue: "Theater aan de Parade",
-      timeLabel: "16:00",
-      day: "zaterdag"
-    },
-    {
-      id: "wg-2026-03-031",
-      slug: "opvliegers-op-safari",
-      title: "OPVLIEGERS: OP SAFARI!",
-      description: "De hartsvriendinnen Loes, Joke, Shirley en Moniek nemen je mee naar Zuid-Afrika in de comedy “Op Safari!”. Tijdens hun zoektocht naar The Big Five komen ze vooral zichzelf en de nodige strubbelingen van het leven tegen. Een swingende vriendinnencomedy over vriendschap, ouder worden en alles wat daarbij komt kijken.",
-      venue: "Theater aan de Parade",
-      timeLabel: "20:00",
-      day: "zaterdag"
-    },
-    {
-      id: "wg-2026-03-032",
-      slug: "femke-vernij-alle-dagen-heel-divers",
-      title: "FEMKE VERNIJ • ALLE DAGEN HEEL DIVERS",
-      description: "Femke Vernij brengt een eerlijke en muzikale voorstelling over haar leven met ADHD. Nadat ze zelf drie jaar geleden de diagnose kreeg, besloot ze hardnekkige misvattingen over de aandoening aan te pakken. De show is een (h)eerlijke inkijk in haar persoonlijke wereld vol humor en muziek.",
-      venue: "Perron-3",
-      timeLabel: "20:00",
-      day: "zaterdag"
-    },
-    {
-      id: "wg-2026-03-033",
-      slug: "zinnig-zuiden",
-      title: "ZINNIG ZUIDEN",
-      description: "Het World Skate Center biedt een podium aan de spoken word community Zinnig Zuiden. Spoken word is een performancekunst nauw verbonden met rap en hiphop, waarbij teksten tot leven komen op het toneel. Het is dé plek om kennis te maken met poëtische teksten die krachtig worden voorgedragen.",
-      venue: "World Skate Center",
-      timeLabel: "20:00",
-      day: "zaterdag"
-    },
-    {
-      id: "wg-2026-03-034",
-      slug: "queer-pub-met-puma-hilton",
-      title: "QUEER PUB MET PUMA HILTON",
-      description: "In De Carrousel geniet je van een avond vol “queer joy” en drag-energy van Puma Hilton. Deze queer pub night is een veilige plek waar je volledig jezelf kunt zijn, speciaal gericht op de community. Hoewel de focus ligt op queers tussen de 18 en 27 jaar, is iedereen die de community wil vieren welkom.",
-      venue: "De Carrousel",
-      timeLabel: "20:00",
-      day: "zaterdag"
-    },
-    {
-      id: "wg-2026-03-035",
-      slug: "maakt-niet-uit",
-      title: "MAAKT NIET UIT",
-      description: "Yunus Aktas brengt zijn scherpe en droge humor naar de Verkadefabriek met zijn show “Maakt niet uit”. Als winnaar van alle prijzen op het Cameretten Festival 2022 verovert hij in rap tempo de theaters. In zijn show put hij uit zijn achtergrond als zoon van Turkse gastarbeiders uit Barneveld. Verwacht een avond vol onverwachte wendingen en gevatte grappen.",
-      venue: "Verkadefabriek",
-      timeLabel: "20:30",
-      day: "zaterdag"
-    },
-    {
-      id: "wg-2026-03-036",
-      slug: "drukwerk",
-      title: "DRUKWERK",
-      description: "De iconische popband Drukwerk staat op het podium met al hun bekende hits zoals “Schijn een Lichie Op Mij”. Al decennia lang weten zij het publiek recht in het hart te raken met hun energieke optredens. De band staat garant voor een avond vol meezingers en een onvergetelijke sfeer.",
-      venue: "Theater aan de Parade",
-      timeLabel: "20:30",
-      day: "zaterdag"
-    },
-    {
-      id: "wg-2026-03-037",
-      slug: "paddington-trio",
-      title: "PADDINGTON TRIO",
-      description: "In de sfeervolle setting van Willem Twee verzorgt het Paddington Trio een klassiek concert. Geniet van hun muzikale samenspel en vakmanschap tijdens een ontspannen zaterdagavond. Een aanrader voor wie de dag wil afsluiten met hoogwaardige kamermuziek.",
-      venue: "Willem Twee",
-      timeLabel: "20:30",
-      day: "zaterdag"
-    },
-    {
-      id: "wg-2026-03-038",
-      slug: "reunie-kabberdoes",
-      title: "REÜNIE KABBERDOES",
-      description: "Bij De Keulse Kar vindt een speciale reünie plaats van Kabberdoes om het carnavalsgevoel nog eens op te roepen. Het is de ideale kans om elkaar weer te zien en lekker te dansen op nummers van toen. Een avond vol nostalgie en gezelligheid voor iedereen die carnaval ook zo leuk vond.",
-      venue: "De Keulse Kar",
+      id: "wg-2026-04-033",
+      slug: "boogie-nights",
+      title: "BOOGIE NIGHTS",
+      description:
+        "De veertiende editie van BOOGIE NIGHTS komt eraan bij Tapperij Het Veulen. Verwacht vintage soul, funky vibes, dance grooves, disco tunes en old school boogie woogie in een mix met clubkrakers. Tafeltjes aan de kant, discobol aan en dansen maar. Stilstaan is hier geen serieuze optie.",
+      venue: "Tapperij Het Veulen",
       timeLabel: "21:00",
       day: "zaterdag"
     },
     {
-      id: "wg-2026-03-039",
-      slug: "sidechick-queer-night",
-      title: "SIDECHICK QUEER NIGHT",
-      description: "Na het grote succes van de eerste editie komt Sidechick Queer Night weer terug Onder de Moriaan. Verwacht een nacht vol energie, de beste vibes en muziek die de queer community centraal stelt. Een feest waar je samen met gelijkgestemden de nacht viert in het hart van de stad.",
-      venue: "Onder De Moriaan",
-      timeLabel: "21:00",
-      day: "zaterdag"
-    },
-    {
-      id: "wg-2026-03-040",
-      slug: "chez-birthdee-danscafe",
-      title: "CHEZ BIRTHDEÉ DANSCAFÉ",
-      description: "Vier de verjaardag van CHEZ BIRTHDEÉ Danscafé tijdens deze feestelijke avond. Proost en dans je mee op deze bijzondere mijlpaal? De disco gaat aan en het belooft een energieke nacht te worden voor iedereen die van dansen houdt. Vanaf 21:00 uur ben je welkom om het feestje mee te vieren.",
-      venue: "Chez Birthdeé",
-      timeLabel: "21:00",
-      day: "zaterdag"
-    },
-    {
-      id: "wg-2026-03-041",
-      slug: "jengi-invites",
-      title: "JENGI INVITES",
-      description: "Bij de Clubkade nodigt Jengi diverse artiesten uit, waaronder Alec Dienaar en Renceau. Het belooft een nacht te worden vol dansbare muziek en energie die je niet stil laat staan. Een ideale bestemming voor wie de zaterdagnacht dansend doorbrengen.",
-      venue: "Clubkade",
-      timeLabel: "22:00",
-      day: "zaterdag"
-    },
-    {
-      id: "wg-2026-03-042",
-      slug: "bloom",
-      title: "BLOOM",
-      description: "In de industriële setting van het Werkwarenhuis komen muziek en beleving samen tijdens BLOOM. Met een line-up vol grote namen uit de house scene wordt er gezorgd voor een unieke energie. Laat je meeslepen door de beats in deze karakteristieke omgeving op de Tramkade.",
-      venue: "Van Aken Werkwarenhuis",
-      timeLabel: "22:00",
-      day: "zaterdag"
-    },
-    {
-      id: "wg-2026-03-043",
-      slug: "bloom-en-brunch",
-      title: "BLOOM & BRUNCH",
-      description: "Begin je zondagochtend stralend bij Stadscamping Overboord met Bloom & Brunch. Het is de ideale ochtend voor jezelf, je vriendinnen of familie om in een ontspannen sfeer de dag te starten. Geniet van een heerlijk verzorgde brunch aan het water en start de dag op een positieve manier.",
-      venue: "Stadscamping Overboord",
+      id: "wg-2026-04-034",
+      slug: "paasspeurtocht",
+      title: "PAASSPEURTOCHT",
+      description:
+        "Ook dit jaar organiseert SJV weer de jaarlijkse Paasspeurtocht in het centrum van Rosmalen. Het is een gezellige en actieve activiteit voor gezinnen die zin hebben om samen op pad te gaan. Trek eropuit en doe lekker mee.",
+      venue: "Driesprong Centrum, Rosmalen",
       timeLabel: "10:00",
-      day: "zondag"
+      day: "zaterdag"
     },
     {
-      id: "wg-2026-03-044",
-      slug: "designmarkt-drinks-en-draw",
-      title: "DESIGNMARKT, DRINKS & DRAW",
-      description: "Het Werkwarenhuis wordt omgetoverd tot een makers- en designmarkt waar je rechtstreeks van lokale ontwerpers koopt. Tegelijkertijd kun je aanschuiven bij “Drink & Draw” om samen te tekenen onder het genot van een drankje. Of je nu een stilleven natekent of je eigen project oppakt, materialen zijn aanwezig.",
-      venue: "Van Aken Werkwarenhuis",
-      timeLabel: "12:00",
-      day: "zondag"
+      id: "wg-2026-04-035",
+      slug: "fantasia-disneymarkt",
+      title: "FANTASIA DISNEYMARKT",
+      description:
+        "Beleef de magie en proef de sfeer op de Fantasia Disneymarkt in de Elzenburg in Vught. Het wordt een dag vol plezier voor jong en oud, met kraamhouders, winkels, cosplayers, attracties en foodtrucks. Ook zijn er glittertattoos, schmink, vlechten en loterijen voor kinderen en volwassenen. Een vrolijke dagtrip voor iedereen die zin heeft in een uitbundige familiesfeer.",
+      venue: "Jeugd- & Jongerencentrum Elzenburg, Vught",
+      timeLabel: "11:00",
+      day: "zaterdag"
     },
     {
-      id: "wg-2026-03-045",
-      slug: "den-bosch-free-tour",
-      title: "DEN BOSCH FREE TOUR",
-      description: "Ontdek de stad tijdens de Den Bosch Free Tour, die start bij de Drakenfontein. De wandeling voert langs de Sint-Janskathedraal en unieke tunnelkanalen, terwijl je meer leert over de hoofdstad van Brabant. Een interessante tour voor zowel bezoekers als inwoners die de stad beter willen leren kennen.",
-      venue: "Drakenfontein",
-      timeLabel: "12:00",
-      day: "zondag"
+      id: "wg-2026-04-036",
+      slug: "spring-of-colors",
+      title: "SPRING OF COLORS",
+      description:
+        "Kings of Colors organiseert zaterdag de vierde editie van Spring of Colors. De Hall of Fame bij Stadion De Vliert verandert in een groot openluchtatelier waar graffiti-kunstenaars uit het hele land live aan nieuwe kunstwerken werken. Toegang is gratis en je kunt van dichtbij zien hoe spuitbuskunst tot leven komt.",
+      venue: "De Hall of Fame bij Stadion De Vliert",
+      timeLabel: "10:00",
+      day: "zaterdag"
     },
     {
-      id: "wg-2026-03-046",
-      slug: "boozy-brunch",
-      title: "BOOZY BRUNCH",
-      description: "In Bar Wijnig kun je deelnemen aan een Boozy Brunch, compleet met bubbels en verfijnde hapjes. In samenwerking met Crivino worden er prachtige wijnpairings geserveerd, voorzien van een goed verhaal. Een heerlijke manier om je zondagmiddag door te brengen.",
-      venue: "Bar Wijnig",
-      timeLabel: "12:30",
-      day: "zondag"
-    },
-    {
-      id: "wg-2026-03-047",
-      slug: "gratis-instaprondleidingen-van-bauhaus-naar-mekka",
-      title: "GRATIS INSTAPRONDLEIDINGEN VAN BAUHAUS NAAR MEKKA",
-      description: "Het Design Museum biedt een fascinerende inkijk in het werk van dr. Mahmoud Bodo Rash. Als een van de belangrijkste architecten van de islamitische religieuze wereld bleef hij zelf vaak onbekend. Tijdens de rondleiding ontdek je zijn ontwerpen voor de pelgrimstocht in Mekka en Medina. De inleiding duurt een half uur, waarna je op eigen gelegenheid de rest van de tentoonstelling kunt verkennen.",
-      venue: "Design Museum",
-      timeLabel: "13:00",
-      day: "zondag"
-    },
-    {
-      id: "wg-2026-03-048",
-      slug: "proeverij-zuid-afrika",
-      title: "PROEVERIJ ZUID-AFRIKA",
-      description: "Wijn bij Stijn neemt je mee op ontdekkingsreis naar de wijnen van Zuid-Afrika. Na een recente zoektocht laten zij je proeven van hun nieuwste vondsten. Een unieke kans voor wijnliefhebbers om kennis te maken met nieuwe smaken uit dit indrukwekkende land.",
-      venue: "Wijn bij Stijn",
-      timeLabel: "13:00",
-      day: "zondag"
-    },
-    {
-      id: "wg-2026-03-049",
-      slug: "pubquiz-in-concert",
-      title: "PUBQUIZ IN CONCERT",
-      description: "Tijdens deze middag bij Bossche Brouwers zit je midden in een concert terwijl je met je team de pubquiz speelt. Een liveband speelt alle fragmenten en jij moet raden welke woorden er bewust worden weggelaten. Verwacht “outside-the-box” rondes en na afloop speelt de band nog even door om gezellig te dansen en te zingen.",
-      venue: "Bossche Brouwers",
-      timeLabel: "13:30",
-      day: "zondag"
-    },
-    {
-      id: "wg-2026-03-050",
-      slug: "internationale-vrouwendag-vrouw-kracht-en-zachtheid",
-      title: "INTERNATIONALE VROUWENDAG: VROUW, KRACHT EN ZACHTHEID",
-      description: "Bij Katrien staat deze dag in het teken van verwennerij en ontmoeting voor vrouwen. Het programma biedt onder andere een kleuranalyse door stylistes en een wandeldialoog door het Bossche Broek over zelfzorg. Daarnaast is er een kledingruil waarbij je miskopen een aanwinst voor een ander kunnen zijn. Een middag vol gezelligheid, nagels lakken en nieuwe connecties.",
-      venue: "Bij Katrien",
-      timeLabel: "14:30",
-      day: "zondag"
-    },
-    {
-      id: "wg-2026-03-051",
-      slug: "tango-salon",
-      title: "TANGO SALON",
-      description: "In het Werkwarenhuis kun je deelnemen aan een laagdrempelige tango-workshop voor beginners. De focus ligt op plezier, verbinding en samen bewegen op muziek in plaats van op moeilijke passen. Inloop is vanaf 14:30 uur, maar je kunt ook al eerder komen lunchen.",
-      venue: "Van Aken Werkwarenhuis",
-      timeLabel: "15:00",
-      day: "zondag"
-    },
-    {
-      id: "wg-2026-03-052",
-      slug: "the-rolling-stones-by-exile",
-      title: "THE ROLLING STONES (BY EXILE)",
-      description: "De Sunday Sessions Live in Podium Azijnfabriek brengen een krachtig eerbetoon aan The Rolling Stones door band Exile. Wees er snel bij, want voorgaande edities waren razendsnel uitverkocht. Een energieke middag vol klassieke rock voor een breed publiek.",
-      venue: "Podium Azijnfabriek",
-      timeLabel: "15:00",
-      day: "zondag"
-    },
-    {
-      id: "wg-2026-03-053",
-      slug: "new-blues-issues-blues",
-      title: "NEW BLUES ISSUES (BLUES)",
-      description: "Station Zuid verwelkomt New Blues Issues voor een middag vol onvervalste blues. De band combineert het genre met hun eigenzinnige muzikaliteit. Een sfeervol optreden voor iedereen die houdt van meeslepende gitaarklanken.",
-      venue: "Station Zuid",
-      timeLabel: "15:00",
-      day: "zondag"
-    },
-    {
-      id: "wg-2026-03-054",
-      slug: "open-stage-show-met-skyla-versai-en-vanessa-van-cartier",
-      title: "OPEN STAGE SHOW MET SKYLA VERSAI EN VANESSA VAN CARTIER",
-      description: "In Het Nest kun je kijken naar een open stage show met onder andere Skyla Versai en Vanessa van Cartier. Daarnaast zijn Lily Moan en Lady Aga aanwezig om te helpen bij repetities of advies te geven over drag. Een uitbundige en creatieve plek waar iedereen die van performance houdt welkom is.",
-      venue: "Het Nest",
-      timeLabel: "15:00",
-      day: "zondag"
-    },
-    {
-      id: "wg-2026-03-055",
-      slug: "predatory-void",
-      title: "PREDATORY VOID",
-      description: "Willem Twee presenteert Predatory Void, een band die ontstaat uit een samensmelting van uitersten. Met leden van onder andere Amenra en Oathbreaker brengt de band een intens geluid waarin shoegaze, doom en deathmetal elkaar raken. Hun muziek is rauw en meeslepend met gelaagde gitaren.",
-      venue: "Willem Twee",
-      timeLabel: "15:30",
-      day: "zondag"
-    },
-    {
-      id: "wg-2026-03-056",
-      slug: "eus-de-klassenmigrant",
-      title: "EUS – DE KLASSENMIGRANT",
-      description: "In dit theatercollege neemt Özcan Akyol je mee op zijn persoonlijke reis van de arbeidersklasse naar een nieuwe wereld. Met humor en scherpte vertelt hij over de kracht van onderwijs, boeken en doorzettingsvermogen. Een inspirerend verhaal over sociale mobiliteit en het belang van taal.",
-      venue: "Theater aan de Parade",
-      timeLabel: "16:00",
-      day: "zondag"
-    },
-    {
-      id: "wg-2026-03-057",
+      id: "wg-2026-04-037",
       slug: "high-beer",
-      title: "HIGH BEER",
-      description: "Bij Tappunt Zuid kun je elke zondag terecht voor een ultieme High Beer-ervaring. Ontdek een selectie van diverse speciaalbieren in een ontspannen setting. De ideale manier om samen met vrienden het weekend af te sluiten. Meer info.",
+      title: "HIGH BEER ELKE ZONDAG",
+      description:
+        "Ben je klaar voor een ultieme zondagse ervaring? Ontdek de High Beer bij Tappunt Zuid en maak van je zondagmiddag een relaxed biermoment. Een fijne tip voor wie het weekend rustig, gezellig en smaakvol wil afsluiten.",
       venue: "Tappunt Zuid",
       timeLabel: undefined,
       day: "zondag"
     },
     {
-      id: "wg-2026-03-058",
-      slug: "walk-en-talk-met-ernst-van-alphen",
-      title: "WALK & TALK MET ERNST VAN ALPHEN",
-      description: "Sluit je aan bij de Walk & Talk met hoogleraar Ernst van Alphen van Leiden University. Tijdens de wandeling wordt gesproken over de veranderende betekenis van mannelijkheid in de huidige tijd. Hij gaat in op de zoektocht naar identiteit bij jongens in een wereld waarin oude rolmodellen wegvallen.",
-      venue: "Noordbrabants Museum",
+      id: "wg-2026-04-038",
+      slug: "koffie-bij-de-piano",
+      title: "KOFFIE BIJ DE PIANO",
+      description:
+        "Met Koffie bij de Piano biedt Theater aan de Parade al 25 jaar een podium aan aanstormend pianotalent. Je geniet van intieme concerten door veelbelovende musici uit binnen- en buitenland. Extra leuk: bij ieder concert spreekt een jonge presentator ook met de musicus, zodat je niet alleen de muziek hoort maar ook de mens erachter leert kennen.",
+      venue: "Theater aan de Parade",
+      timeLabel: "11:00",
+      day: "zondag"
+    },
+    {
+      id: "wg-2026-04-039",
+      slug: "a-tribute-to-the-rolling-stones",
+      title: "A TRIBUTE TO THE ROLLING STONES",
+      description:
+        "Maak een reis terug in de tijd en beleef de grootste hits van The Rolling Stones. Stones Sessions neemt je mee langs de hoogtepunten uit de geschiedenis van de legendarische Britse rockband en brengt een meeslepend muzikaal eerbetoon aan de periode waarin hun meest iconische albums ontstonden. Een heerlijke zondagavond voor rockliefhebbers.",
+      venue: "Theater aan de Parade",
+      timeLabel: "20:30",
+      day: "zondag"
+    },
+    {
+      id: "wg-2026-04-040",
+      slug: "walk-talk-met-kees-rovers",
+      title: "WALK & TALK MET KEES ROVERS",
+      description:
+        "Kees Rovers werkt bij Rutgers en houdt zich bezig met de preventie van seksueel geweld, met een focus op mannelijkheid. Tijdens deze Walk & Talk deelt hij zijn blik op hoe ongeschreven regels rondom mannelijkheid voor iedereen voelbaar zijn en diepe consequenties kunnen hebben. Een inhoudelijke en actuele middag voor wie graag meedenkt.",
+      venue: "Noord Brabantsmuseum",
       timeLabel: undefined,
       day: "zondag"
+    },
+    {
+      id: "wg-2026-04-041",
+      slug: "storytrail-theaterwandeling",
+      title: "STORYTRAIL THEATERWANDELING",
+      description:
+        "Hou je van geschiedenis en sterke verhalen? Dan is de StoryTrail Theaterwandeling door Den Bosch echt iets voor jou. De StoryTrail-verteller neemt je mee langs eeuwenoude sagen en legenden, waardoor de binnenstad ineens een heel ander decor krijgt. Een leuke zondagmiddagtip voor locals en bezoekers.",
+      venue: "Den Bosch",
+      timeLabel: "14:00",
+      day: "zondag"
+    },
+    {
+      id: "wg-2026-04-042",
+      slug: "totale-uitverkoop-8-plus",
+      title: "TOTALE UITVERKOOP (8+)",
+      description:
+        "Wat begint als een doodnormale avond in een supermarkt, verandert al snel in een meeslepend gevecht tussen mensen en opdringerige boodschappen. Deze voorstelling in de Verkadefabriek is geschikt voor kinderen vanaf acht jaar en speelt slim met herkenbare situaties die steeds absurder worden.",
+      venue: "Verkadefabriek",
+      timeLabel: "15:00",
+      day: "maandag"
+    },
+    {
+      id: "wg-2026-04-043",
+      slug: "la-grange-bluesrock",
+      title: "LA GRANGE (BLUESROCK)",
+      description:
+        "Bluesrockband La Grange werd opgericht in 2005 en was jarenlang een vaste naam in de Nederlandse bluesscene. Na een time-out kwam de band weer terug, klaar om het podium opnieuw op te zoeken. Wie zin heeft in een rauwe maar toegankelijke middag vol bluesrock zit hier goed.",
+      venue: "Station Zuid",
+      timeLabel: "15:00",
+      day: "maandag"
+    },
+    {
+      id: "wg-2026-04-044",
+      slug: "gratis-zondagmiddagrondleiding",
+      title: "GRATIS ZONDAGMIDDAGRONDLEIDING",
+      description:
+        "Wil jij meer horen over een springlevende geschiedenis? Tijdens deze rondleiding door Ketahanan hoor je verhalen van veerkracht uit de Molukse geschiedenis in Nederland. Je ontdekt de diversiteit van de Molukse gemeenschap en ziet hoe nieuwe generaties vandaag richting geven aan de toekomst. Ondanks de naam valt deze editie op tweede paasdag.",
+      venue: "Noord Brabantsmuseum",
+      timeLabel: "12:00",
+      day: "maandag"
+    },
+    {
+      id: "wg-2026-04-045",
+      slug: "nationale-beker-finale-volleybal",
+      title: "NATIONALE BEKER FINALE VOLLEYBAL",
+      description:
+        "Tweede paasdag staat in de Maaspoort in het teken van topsport. De nationale bekerfinale volleybal brengt spanning, sfeer en veel supporters naar de stad. Kom ook supporten en maak van maandag een echte wedstrijddag.",
+      venue: "Maaspoort",
+      timeLabel: "11:00",
+      day: "maandag"
+    },
+    {
+      id: "wg-2026-04-046",
+      slug: "snuffelmarkt",
+      title: "SNUFFELMARKT",
+      description:
+        "De Snuffelmarkt in de Brabanthallen is een absolute must-visit voor elke snuffelaar, verzamelaar en koopjesjager. Verwacht kramen vol vondsten, tweedehands schatten en onverwachte aankopen waar je normaal niet op rekent. Een fijne paasmaandag-activiteit als je graag rondstruint.",
+      venue: "Brabanthallen",
+      timeLabel: "14:00",
+      day: "maandag"
     }
   ]
 };

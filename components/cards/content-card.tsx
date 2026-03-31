@@ -13,7 +13,7 @@ interface ContentCardProps {
 export function ContentCard({ item, priority = false }: ContentCardProps): React.JSX.Element {
   return (
     <article className="glass-surface group overflow-hidden rounded-editorial shadow-card transition hover:-translate-y-0.5">
-      <Link href={`/discover/${item.slug}`} className="block">
+      <Link href={`/ontdek/${item.slug}`} className="block">
         <div className="relative aspect-[4/3] overflow-hidden">
           <Image
             src={item.image}
@@ -34,7 +34,7 @@ export function ContentCard({ item, priority = false }: ContentCardProps): React
         ) : null}
 
         <h3 className="text-lg font-bold leading-tight text-brand-teal">
-          <Link href={`/discover/${item.slug}`} className="hover:text-brand-coral">
+          <Link href={`/ontdek/${item.slug}`} className="hover:text-brand-coral">
             {item.title}
           </Link>
         </h3>

@@ -5,8 +5,11 @@ import { ProductCard } from "@/components/cards/product-card";
 import { NewsletterCta } from "@/components/sections/newsletter-cta";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { homepageConfig } from "@/lib/config/homepage";
+import { getCategoryLabel } from "@/lib/content-labels";
 import { buildMetadata } from "@/lib/seo";
-import { commerceProvider, getContentRepository, themeRepository, weekendRepository } from "@/lib/repositories";
+import { commerceProvider, getContentRepository, weekendRepository } from "@/lib/repositories";
+import type { ContentItem, WeekendGuideDay, WeekendGuideEvent } from "@/lib/types";
+import { formatDate } from "@/lib/utils";
 
 export const metadata = buildMetadata({
   title: "Home",
@@ -28,25 +31,72 @@ function extractLeadSentence(text: string): string {
   return (firstSentence ?? text).trim();
 }
 
+function parseTimeValue(timeLabel?: string): number {
+  if (!timeLabel) return Number.POSITIVE_INFINITY;
+  const match = timeLabel.match(/(\d{1,2}):(\d{2})/);
+  if (!match) return Number.POSITIVE_INFINITY;
+  return Number(match[1]) * 60 + Number(match[2]);
+}
+
 function getHomeWeekendHighlights(): HomeWeekendHighlight[] {
   const guide = weekendRepository.getCurrentGuide();
-  const sections = weekendRepository.listGuideSections(guide.slug);
-  const orderedSections = sections.filter((section) => section.day !== "hele-weekend");
-  const sourceSections = orderedSections.length > 0 ? orderedSections : sections;
+  const dayOrder: WeekendGuideDay[] = ["donderdag", "vrijdag", "zaterdag", "zondag", "maandag", "hele-weekend"];
+  const dayLabels: Record<WeekendGuideDay, string> = {
+    "hele-weekend": "Hele weekend",
+    donderdag: "Donderdag",
+    vrijdag: "Vrijdag",
+    zaterdag: "Zaterdag",
+    zondag: "Zondag",
+    maandag: "Maandag"
+  };
 
-  return sourceSections.slice(0, 2).map((section) => {
-    const event = section.events[0];
+  const sortedEvents = [...guide.events].sort((first, second) => {
+    const dayDifference = dayOrder.indexOf(first.day) - dayOrder.indexOf(second.day);
+    if (dayDifference !== 0) return dayDifference;
+    return parseTimeValue(first.timeLabel) - parseTimeValue(second.timeLabel);
+  });
+
+  const uniquePerDay = new Map<WeekendGuideDay, WeekendGuideEvent>();
+  for (const event of sortedEvents) {
+    if (event.day === "hele-weekend") continue;
+    if (!uniquePerDay.has(event.day)) {
+      uniquePerDay.set(event.day, event);
+    }
+  }
+
+  const sourceEvents = [...uniquePerDay.entries()].slice(0, 2);
+
+  return sourceEvents.map(([day, event]) => {
     const meta = [event.timeLabel, event.venue].filter(Boolean).join(" · ");
 
     return {
-      id: `${section.day}-${event.id}`,
-      dayLabel: section.label,
+      id: `${day}-${event.id}`,
+      dayLabel: dayLabels[day],
       title: event.title,
       summary: extractLeadSentence(event.description),
       meta,
-      ctaHref: `/weekend-guide#${section.day}`
+      ctaHref: `/weekend-guide#${day}`
     };
   });
+}
+
+function resolveHomepageFeaturedItem(items: ContentItem[], fallbackItems: ContentItem[]): ContentItem | undefined {
+  const config = homepageConfig.featuredItem;
+
+  if (config) {
+    const configuredItem = items.find((item) => {
+      if (config.id) return item.id === config.id;
+      if (config.slug) return item.slug === config.slug;
+      if (config.sourceId) return item.sourceId === config.sourceId;
+      return false;
+    });
+
+    if (configuredItem) {
+      return configuredItem;
+    }
+  }
+
+  return fallbackItems[0];
 }
 
 export default async function HomePage(): Promise<React.JSX.Element> {
@@ -54,11 +104,11 @@ export default async function HomePage(): Promise<React.JSX.Element> {
   const featured = contentRepository.listFeatured(4);
   const heroItem = featured[0];
   const weekendHighlights = getHomeWeekendHighlights();
+  const allItems = contentRepository.listContent();
   const latest = contentRepository.listLatest(6);
   const products = commerceProvider.listProducts(true).slice(0, 3);
-
-  const seasonalMoment = themeRepository.listThemes("moment").find((item) => item.slug === "koningsdag") ?? themeRepository.listThemes("moment")[0];
-  const seasonalItems = seasonalMoment ? contentRepository.listContent({ moment: seasonalMoment.slug }).slice(0, 3) : [];
+  const highlightedItem = resolveHomepageFeaturedItem(allItems, latest);
+  const highlightedSupportingItems = latest.filter((item) => item.id !== highlightedItem?.id).slice(0, 2);
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-14 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
@@ -93,7 +143,7 @@ export default async function HomePage(): Promise<React.JSX.Element> {
               <div className="space-y-2 p-4">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-coral">{heroItem.editorialLabel}</p>
                 <h2 className="text-2xl font-bold leading-tight">
-                  <Link href={`/discover/${heroItem.slug}`}>{heroItem.title}</Link>
+                  <Link href={`/ontdek/${heroItem.slug}`}>{heroItem.title}</Link>
                 </h2>
                 <p className="text-sm text-brand-teal/75">{heroItem.excerpt}</p>
               </div>
@@ -137,27 +187,47 @@ export default async function HomePage(): Promise<React.JSX.Element> {
             <ContentCard key={item.id} item={item} priority={index < 2} />
           ))}
         </div>
-        <Link href="/discover" className="inline-flex text-sm font-semibold text-brand-teal hover:text-brand-coral">
+        <Link href="/ontdek" className="inline-flex text-sm font-semibold text-brand-teal hover:text-brand-coral">
           Ontdek Den Bosch →
         </Link>
       </section>
 
-      {seasonalMoment ? (
+      {highlightedItem ? (
         <section className="space-y-5">
           <SectionHeading
-            eyebrow={homepageConfig.sections.seasonalLabel}
-            title={`${seasonalMoment.title} in Den Bosch`}
-            description="Alles wat je nu wilt weten overzichtelijk bij elkaar."
+            eyebrow={homepageConfig.sections.highlightedLabel}
+            title="Wat nu speelt in Den Bosch"
+            description="Handmatig uitgelicht als we iets kiezen, en anders gewoon de nieuwste live post."
           />
           <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr]">
-            <Link href={`/moment/${seasonalMoment.slug}`} className="glass-surface rounded-editorial p-5 shadow-card">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-coral">Moment</p>
-              <h3 className="mt-1 text-2xl font-bold text-brand-teal">{seasonalMoment.title}</h3>
-              <p className="mt-2 text-sm text-brand-teal/75">{seasonalMoment.intro}</p>
-              <span className="mt-4 inline-flex text-sm font-semibold text-brand-teal">Bekijk alle tips →</span>
-            </Link>
+            <article className="glass-surface overflow-hidden rounded-editorial shadow-card">
+              <Link href={`/ontdek/${highlightedItem.slug}`} className="block">
+                <div className="relative aspect-[16/10]">
+                  <Image
+                    src={highlightedItem.image}
+                    alt={highlightedItem.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 55vw"
+                  />
+                </div>
+              </Link>
+              <div className="space-y-3 p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-coral">
+                  {highlightedItem.editorialLabel ?? homepageConfig.sections.highlightedLabel}
+                </p>
+                <h3 className="text-2xl font-bold text-brand-teal">
+                  <Link href={`/ontdek/${highlightedItem.slug}`}>{highlightedItem.title}</Link>
+                </h3>
+                <p className="text-sm text-brand-teal/75">{highlightedItem.excerpt}</p>
+                <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.14em] text-brand-teal/60">
+                  <span>{formatDate(highlightedItem.publishedAt)}</span>
+                  <span>{getCategoryLabel(highlightedItem.categories[0])}</span>
+                </div>
+              </div>
+            </article>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-              {seasonalItems.slice(0, 2).map((item) => (
+              {highlightedSupportingItems.map((item) => (
                 <ContentCard key={item.id} item={item} />
               ))}
             </div>

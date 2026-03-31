@@ -3,15 +3,13 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ContentCard } from "@/components/cards/content-card";
 import { buildMetadata } from "@/lib/seo";
-import { contentRepository, themeRepository } from "@/lib/repositories";
+import { getContentRepository, themeRepository } from "@/lib/repositories";
 import { resolveThemeHeroImage } from "@/lib/theme-hero-image";
+
+export const dynamic = "force-dynamic";
 
 interface ThemePageProps {
   params: Promise<{ slug: string }>;
-}
-
-export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
-  return themeRepository.listThemes("theme").map((item) => ({ slug: item.slug }));
 }
 
 export async function generateMetadata({ params }: ThemePageProps): Promise<Metadata> {
@@ -19,9 +17,10 @@ export async function generateMetadata({ params }: ThemePageProps): Promise<Meta
   const theme = themeRepository.getThemeBySlug(resolved.slug);
 
   if (!theme || theme.kind !== "theme") {
-    return buildMetadata({ title: "Thema niet gevonden", description: "Thema niet gevonden", path: "/discover", noIndex: true });
+    return buildMetadata({ title: "Thema niet gevonden", description: "Thema niet gevonden", path: "/ontdek", noIndex: true });
   }
 
+  const contentRepository = await getContentRepository();
   const items = contentRepository.listContent({ theme: theme.slug });
   const heroImage = resolveThemeHeroImage(theme, items);
 
@@ -41,6 +40,7 @@ export default async function ThemePage({ params }: ThemePageProps): Promise<Rea
     notFound();
   }
 
+  const contentRepository = await getContentRepository();
   const items = contentRepository.listContent({ theme: theme.slug });
   const heroImage = resolveThemeHeroImage(theme, items);
 

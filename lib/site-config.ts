@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Den Bosch City",
   description: "Den Bosch City: tips, weekendplannen en Bossche favorieten op één plek.",
-  domain: "https://denboschcity.nl",
+  domain: "https://denboschcity.com",
   locale: "nl-NL",
   contact: {
     company: "Den Bosch City",
@@ -139,5 +139,5 @@ export const siteConfig = {
       bio: "Onderdeel van het creatieve team van Den Bosch City."
     }
   ],
-  newsletterUrl: "https://denboschcity.nl/nieuwsbrief"
+  newsletterUrl: "https://denboschcity.com/nieuwsbrief"
 } as const;

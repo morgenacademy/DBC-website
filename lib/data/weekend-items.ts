@@ -10,7 +10,7 @@ export const weekendItems: WeekendItem[] = [
     location: "Uilenburg",
     summary: "Start met bites, eindig met livemuziek op loopafstand.",
     ctaLabel: "Bekijk route",
-    ctaHref: "/discover/what-to-do-this-weekend-den-bosch",
+    ctaHref: "/ontdek/what-to-do-this-weekend-den-bosch",
     image:
       "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=900&q=80"
   },
@@ -23,7 +23,7 @@ export const weekendItems: WeekendItem[] = [
     location: "Binnenstad",
     summary: "Perfecte combinatie van food stops en lokale winkels.",
     ctaLabel: "Naar shopping tips",
-    ctaHref: "/discover/local-boutiques-worth-visiting",
+    ctaHref: "/ontdek/local-boutiques-worth-visiting",
     image:
       "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=900&q=80"
   },
@@ -49,7 +49,7 @@ export const weekendItems: WeekendItem[] = [
     location: "Centrum + Paleiskwartier",
     summary: "Kindvriendelijk programma met rustige lunchspots.",
     ctaLabel: "Bekijk familie gids",
-    ctaHref: "/discover/family-friendly-activities-den-bosch",
+    ctaHref: "/ontdek/family-friendly-activities-den-bosch",
     image:
       "https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=900&q=80"
   },
@@ -62,7 +62,7 @@ export const weekendItems: WeekendItem[] = [
     location: "Korte Putstraat",
     summary: "Actuele tips voor lunch en early dinner.",
     ctaLabel: "Naar vegetarische tips",
-    ctaHref: "/discover/11-vegetarian-restaurants-den-bosch",
+    ctaHref: "/ontdek/11-vegetarian-restaurants-den-bosch",
     image:
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=900&q=80"
   },
@@ -75,7 +75,7 @@ export const weekendItems: WeekendItem[] = [
     location: "Binnendieze",
     summary: "Minder bekende route met 4 fijne tussenstops.",
     ctaLabel: "Bekijk hidden gems",
-    ctaHref: "/discover/hidden-gems-den-bosch",
+    ctaHref: "/ontdek/hidden-gems-den-bosch",
     image:
       "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80"
   }

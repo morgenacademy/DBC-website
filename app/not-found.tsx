@@ -6,7 +6,7 @@ export default function NotFound(): React.JSX.Element {
       <p className="font-display text-sm uppercase tracking-[0.24em] text-brand-coral">404</p>
       <h1 className="text-4xl font-bold text-brand-teal">Pagina niet gevonden</h1>
       <p className="max-w-lg text-sm text-brand-teal/70">Deze route bestaat niet of is verplaatst binnen het nieuwe Den Bosch City platform.</p>
-      <Link href="/discover" className="rounded-full bg-brand-coral px-5 py-2.5 text-sm font-semibold text-white">
+      <Link href="/ontdek" className="rounded-full bg-brand-coral px-5 py-2.5 text-sm font-semibold text-white">
         Ontdek Den Bosch
       </Link>
     </div>

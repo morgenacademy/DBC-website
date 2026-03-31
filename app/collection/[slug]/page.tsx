@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: CollectionPageProps): Promise
   const collection = collectionRepository.getCollectionBySlug(resolved.slug);
 
   if (!collection) {
-    return buildMetadata({ title: "Collectie niet gevonden", description: "Collectie niet gevonden", path: "/discover", noIndex: true });
+    return buildMetadata({ title: "Collectie niet gevonden", description: "Collectie niet gevonden", path: "/ontdek", noIndex: true });
   }
 
   return buildMetadata({

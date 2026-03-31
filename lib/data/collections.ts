@@ -11,7 +11,7 @@ export const collections: Collection[] = [
     heroImage:
       "https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=1400&q=80",
     ctaLabel: "Schrijf je in",
-    ctaHref: "https://denboschcity.nl/nieuwsbrief"
+    ctaHref: "https://denboschcity.com/nieuwsbrief"
   },
   {
     id: "co2",
@@ -46,7 +46,7 @@ export const collections: Collection[] = [
     channel: "editorial",
     heroImage:
       "https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1400&q=80",
-    ctaLabel: "Open discover",
-    ctaHref: "/discover?q=vegetarian"
+    ctaLabel: "Open ontdek",
+    ctaHref: "/ontdek?q=vegetarian"
   }
 ];
