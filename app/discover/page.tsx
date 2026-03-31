@@ -59,7 +59,7 @@ export default async function DiscoverPage({ searchParams }: DiscoverPageProps):
         <SectionHeading
           eyebrow="Ontdek"
           title="Ontdek Den Bosch"
-          description="Zoek op terras, brunch, hotspots of events en vind meteen iets leuks."
+          description="Van fijne terrassen en brunch tot winkels, cultuur en leuke tips voor later."
         />
 
         <form className="mt-6 grid gap-3 md:grid-cols-4" role="search" aria-label="Zoek en filter Ontdek">
@@ -116,10 +116,10 @@ export default async function DiscoverPage({ searchParams }: DiscoverPageProps):
 
           <div className="flex items-end gap-2 md:col-span-4">
             <button type="submit" className="rounded-full bg-brand-coral px-4 py-2 text-sm font-semibold text-white">
-              Zoek in Ontdek
+              Zoeken
             </button>
             <Link href="/ontdek" className="rounded-full border border-brand-teal/20 bg-white px-4 py-2 text-sm font-semibold text-brand-teal">
-              Reset
+              Wis filters
             </Link>
           </div>
         </form>

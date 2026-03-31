@@ -196,12 +196,11 @@ export default async function HomePage(): Promise<React.JSX.Element> {
       {highlightedItem ? (
         <section className="space-y-5">
           <SectionHeading
-            eyebrow={homepageConfig.sections.highlightedLabel}
-            title="Wat nu speelt in Den Bosch"
-            description="Handmatig uitgelicht als we iets kiezen, en anders gewoon de nieuwste live post."
+            title="Uitgelicht"
+            description="Tips die je nu niet wilt missen."
           />
-          <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr]">
-            <article className="glass-surface overflow-hidden rounded-editorial shadow-card">
+          <div className="grid items-start gap-5 lg:grid-cols-[1.2fr_1fr]">
+            <article className="glass-surface self-start overflow-hidden rounded-editorial shadow-card">
               <Link href={`/ontdek/${highlightedItem.slug}`} className="block">
                 <div className="relative aspect-[16/10]">
                   <Image
