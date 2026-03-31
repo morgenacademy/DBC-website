@@ -108,7 +108,7 @@ export default async function HomePage(): Promise<React.JSX.Element> {
         <SectionHeading
           eyebrow="Weekend Guide"
           title="Snel weten wat je dit weekend doet"
-          description="Twee actuele picks uit de gids van deze week. Open de Weekend Guide voor het complete overzicht per dag."
+          description="Twee fijne tips uit de gids van deze week."
         />
         <div className="grid gap-4 md:grid-cols-2">
           {weekendHighlights.map((highlight) => (
@@ -131,8 +131,8 @@ export default async function HomePage(): Promise<React.JSX.Element> {
       <section className="space-y-5">
         <SectionHeading
           eyebrow={homepageConfig.sections.discoverLabel}
-          title="Laatste tips en Instagram-gedreven stories"
-          description="Ontdek is je hoofdingang voor zoeken, terugvinden en bladeren door oudere content."
+          title="Laatste tips uit Den Bosch"
+          description="Nieuwe plekken, fijne adressen en tips om te bewaren voor later."
         />
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {latest.map((item, index) => (
@@ -149,14 +149,14 @@ export default async function HomePage(): Promise<React.JSX.Element> {
           <SectionHeading
             eyebrow={homepageConfig.sections.seasonalLabel}
             title={`${seasonalMoment.title} in Den Bosch`}
-            description="Thema&apos;s en momenten blijven beschikbaar als landingspagina's binnen Ontdek."
+            description="Alles wat je nu wilt weten overzichtelijk bij elkaar."
           />
           <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr]">
             <Link href={`/moment/${seasonalMoment.slug}`} className="glass-surface rounded-editorial p-5 shadow-card">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-coral">Moment</p>
               <h3 className="mt-1 text-2xl font-bold text-brand-teal">{seasonalMoment.title}</h3>
               <p className="mt-2 text-sm text-brand-teal/75">{seasonalMoment.intro}</p>
-              <span className="mt-4 inline-flex text-sm font-semibold text-brand-teal">Open moment pagina →</span>
+              <span className="mt-4 inline-flex text-sm font-semibold text-brand-teal">Bekijk alle tips →</span>
             </Link>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
               {seasonalItems.slice(0, 2).map((item) => (

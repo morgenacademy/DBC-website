@@ -9,7 +9,7 @@ import type { WeekendCategory } from "@/lib/types";
 
 export const metadata: Metadata = buildMetadata({
   title: "Ontdek",
-  description: "Ontdek is de centrale instagrid en zoekbare contenthub van Den Bosch City.",
+  description: "Vind de leukste tips, adressen en ideeën voor Den Bosch.",
   path: "/discover"
 });
 
@@ -38,7 +38,11 @@ export default async function DiscoverPage({ searchParams }: DiscoverPageProps):
   return (
     <div className="mx-auto w-full max-w-6xl space-y-8 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
       <section className="glass-surface rounded-[2rem] p-6 shadow-card sm:p-8">
-        <SectionHeading eyebrow="Ontdek" title="Ontdek Den Bosch" />
+        <SectionHeading
+          eyebrow="Ontdek"
+          title="Ontdek Den Bosch"
+          description="Zoek op waar je zin in hebt of blader door de nieuwste tips."
+        />
 
         <form className="mt-6 grid gap-3 md:grid-cols-4" role="search" aria-label="Zoek en filter Ontdek">
           <label className="md:col-span-2">
@@ -144,7 +148,7 @@ export default async function DiscoverPage({ searchParams }: DiscoverPageProps):
 
       <section className="space-y-4">
         <div className="flex items-end justify-between gap-4">
-          <h2 className="text-2xl font-bold text-brand-teal">{hasActiveFilters ? "Zoekresultaten" : "Laatste uit Ontdek"}</h2>
+          <h2 className="text-2xl font-bold text-brand-teal">{hasActiveFilters ? "Zoekresultaten" : "Nieuwste tips"}</h2>
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-brand-teal/60">
             {items.length} {items.length === 1 ? "resultaat" : "resultaten"}
           </p>
