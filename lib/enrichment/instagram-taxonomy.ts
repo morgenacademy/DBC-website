@@ -23,17 +23,13 @@ const CATEGORY_RULES: Array<TaxonomyRule<WeekendCategory>> = [
       "dinner",
       "restaurant",
       "restaurants",
-      "eten",
-      "eet",
-      "drinken",
       "koffie",
       "coffee",
       "cafe",
       "barista",
-      "menu",
-      "proeven",
       "cocktailbar",
-      "borrelplank"
+      "borrelplank",
+      "borrel"
     ]
   },
   {
@@ -184,25 +180,39 @@ function buildSearchText(caption: string, hashtags: string[]): string {
   return normalizeForMatch(`${caption} ${hashtags.join(" ")}`);
 }
 
-function matchesRule(searchText: string, keywords: string[]): boolean {
-  return keywords.some((keyword) => searchText.includes(normalizeForMatch(keyword)));
+function buildSearchTokens(searchText: string): Set<string> {
+  return new Set(searchText.split(" ").filter(Boolean));
 }
 
-function matchMany<T extends string>(rules: Array<TaxonomyRule<T>>, searchText: string): T[] {
-  return rules.filter((rule) => matchesRule(searchText, rule.keywords)).map((rule) => rule.value);
+function matchesRule(searchText: string, searchTokens: Set<string>, keywords: string[]): boolean {
+  return keywords.some((keyword) => {
+    const normalizedKeyword = normalizeForMatch(keyword);
+
+    if (!normalizedKeyword) return false;
+    if (normalizedKeyword.includes(" ")) {
+      return searchText.includes(normalizedKeyword);
+    }
+
+    return searchTokens.has(normalizedKeyword);
+  });
 }
 
-function matchFirstCategory(searchText: string): WeekendCategory[] {
-  const match = CATEGORY_RULES.find((rule) => matchesRule(searchText, rule.keywords));
+function matchMany<T extends string>(rules: Array<TaxonomyRule<T>>, searchText: string, searchTokens: Set<string>): T[] {
+  return rules.filter((rule) => matchesRule(searchText, searchTokens, rule.keywords)).map((rule) => rule.value);
+}
+
+function matchFirstCategory(searchText: string, searchTokens: Set<string>): WeekendCategory[] {
+  const match = CATEGORY_RULES.find((rule) => matchesRule(searchText, searchTokens, rule.keywords));
   return [match?.value ?? "local-tips"];
 }
 
 export function enrichInstagramTaxonomy(caption: string, hashtags: string[]): InstagramTaxonomyEnrichment {
   const searchText = buildSearchText(caption, hashtags);
+  const searchTokens = buildSearchTokens(searchText);
 
   return {
-    categories: matchFirstCategory(searchText),
-    themes: matchMany(THEME_RULES, searchText),
-    moments: matchMany(MOMENT_RULES, searchText)
+    categories: matchFirstCategory(searchText, searchTokens),
+    themes: matchMany(THEME_RULES, searchText, searchTokens),
+    moments: matchMany(MOMENT_RULES, searchText, searchTokens)
   };
 }

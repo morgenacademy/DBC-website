@@ -48,4 +48,30 @@ describe("enrichInstagramTaxonomy", () => {
       moments: []
     });
   });
+
+  it("does not misclassify hospitality content as food because of substring matches like 'weet'", () => {
+    expect(
+      enrichInstagramTaxonomy(
+        "Oke dit is zo’n plek wat je eigenlijk geheim zou willen houden: @uylenhofhotel. Ik weet het zeker: hier word je verliefd op. #hoteltip #uilenburg",
+        ["denbosch", "denboschcity", "hoteltip", "uilenburg"]
+      )
+    ).toEqual({
+      categories: ["local-tips"],
+      themes: [],
+      moments: []
+    });
+  });
+
+  it("does not misclassify bachelorette/date content as food because of substring matches like 'echte'", () => {
+    expect(
+      enrichInstagramTaxonomy(
+        "Breaking News: Wij krijgen twee Den Bosch City Bachelorettes. En zoals je van de echte The Bachelorette gewend bent: de rozen staan klaar. Zie jij jezelf al een Bossche bol delen tijdens een eerste date?",
+        []
+      )
+    ).toEqual({
+      categories: ["local-tips"],
+      themes: [],
+      moments: []
+    });
+  });
 });
