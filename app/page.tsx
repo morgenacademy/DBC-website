@@ -198,7 +198,7 @@ export default async function HomePage(): Promise<React.JSX.Element> {
           title="Laatste tips uit Den Bosch"
           description="Nieuwe plekken, fijne adressen en tips om te bewaren voor later."
         />
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:gap-5">
           {latest.map((item, index) => (
             <ContentCard key={item.id} item={item} priority={index < 2} />
           ))}
@@ -249,7 +249,7 @@ export default async function HomePage(): Promise<React.JSX.Element> {
               </div>
             </article>
 
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid grid-cols-2 gap-4">
               {highlightedSupportingItems.map((item) => (
                 <ContentCard key={item.id} item={item} />
               ))}

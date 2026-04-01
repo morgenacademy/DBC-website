@@ -159,7 +159,7 @@ export default async function DiscoverPage({ searchParams }: DiscoverPageProps):
             <h2 className="text-2xl font-bold text-brand-teal">{discoverConfig.sections.featuredTitle}</h2>
             <p className="mt-1 text-sm text-brand-teal/70">{discoverConfig.sections.featuredDescription}</p>
           </div>
-          <div className="grid gap-5 md:grid-cols-3">
+          <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:gap-5">
             {featured.map((item, index) => (
               <ContentCard key={item.id} item={item} priority={index < 2} />
             ))}
@@ -176,7 +176,7 @@ export default async function DiscoverPage({ searchParams }: DiscoverPageProps):
         </div>
 
         {items.length > 0 ? (
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:gap-5">
             {items.map((item, index) => (
               <ContentCard key={item.id} item={item} priority={index < 2} />
             ))}

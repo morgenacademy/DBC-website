@@ -30,34 +30,34 @@ export function ContentCard({ item, priority = false }: ContentCardProps): React
             priority={priority}
           />
           {isVideoPost ? (
-            <div className="absolute right-3 top-3 rounded-full bg-black/45 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-sm">
+            <div className="absolute right-2 top-2 rounded-full bg-black/45 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-sm sm:right-3 sm:top-3 sm:px-2.5 sm:py-1 sm:text-[10px]">
               Video
             </div>
           ) : null}
           {hasMultipleMedia ? (
-            <div className="absolute right-3 top-3 rounded-full bg-black/45 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-sm">
+            <div className="absolute right-2 top-2 rounded-full bg-black/45 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-sm sm:right-3 sm:top-3 sm:px-2.5 sm:py-1 sm:text-[10px]">
               {mediaCount} media
             </div>
           ) : null}
         </div>
       </Link>
 
-      <div className="flex flex-col gap-3 p-4">
+      <div className="flex flex-col gap-2 p-3 sm:gap-3 sm:p-4">
         {item.editorialLabel ? (
           <div className="flex flex-wrap items-center gap-2">
             <Pill label={item.editorialLabel} tone="accent" />
           </div>
         ) : null}
 
-        <h3 className="text-balance text-[1.05rem] font-bold leading-[1.15] text-brand-teal sm:text-lg" style={{ textWrap: "balance" }}>
+        <h3 className="text-balance text-[0.95rem] font-bold leading-[1.15] text-brand-teal sm:text-lg" style={{ textWrap: "balance" }}>
           <Link href={`/ontdek/${item.slug}`} className="hover:text-brand-coral">
             {displayTitle}
           </Link>
         </h3>
 
-        <p className="text-sm leading-relaxed text-brand-teal/75">{item.excerpt}</p>
+        <p className="text-[13px] leading-snug text-brand-teal/75 sm:text-sm sm:leading-relaxed">{item.excerpt}</p>
 
-        <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-brand-teal/55">
+        <div className="flex items-center justify-between text-[10px] font-semibold uppercase tracking-[0.12em] text-brand-teal/55 sm:text-xs sm:tracking-wide">
           <span>{formatDate(item.publishedAt)}</span>
           <span>{getCategoryLabel(item.categories[0])}</span>
         </div>

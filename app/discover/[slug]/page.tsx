@@ -169,7 +169,7 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
 
       <section className="space-y-4">
         <h2 className="text-2xl font-bold text-brand-teal">Gerelateerde content</h2>
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:gap-5">
           {related.map((relatedItem) => (
             <ContentCard key={relatedItem.id} item={relatedItem} />
           ))}

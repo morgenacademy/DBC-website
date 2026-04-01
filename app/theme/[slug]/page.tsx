@@ -60,7 +60,7 @@ export default async function ThemePage({ params }: ThemePageProps): Promise<Rea
         </div>
       </section>
 
-      <section className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <section className="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:gap-5">
         {items.map((item) => (
           <ContentCard key={item.id} item={item} />
         ))}
