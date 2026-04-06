@@ -28,6 +28,7 @@ function inferCategory(title: string): string {
   const lower = title.toLowerCase();
   if (lower.includes("hoodie")) return "Hoodies";
   if (lower.includes("sweatshirt")) return "Sweatshirts";
+  if (lower.includes("shirt") || lower.includes("tee")) return "T-shirts";
   if (lower.includes("kersttrui")) return "Kersttruien";
   return "Partner picks";
 }
