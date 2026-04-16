@@ -2,12 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { ContentCard } from "@/components/cards/content-card";
 import { ProductCard } from "@/components/cards/product-card";
+import { DiscoverSearchSection } from "@/components/sections/discover-search-section";
 import { NewsletterCta } from "@/components/sections/newsletter-cta";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { homepageConfig } from "@/lib/config/homepage";
 import { getCategoryLabel } from "@/lib/content-labels";
 import { buildMetadata } from "@/lib/seo";
-import { commerceProvider, getContentRepository, weekendRepository } from "@/lib/repositories";
+import { commerceProvider, getContentRepository, themeRepository, weekendRepository } from "@/lib/repositories";
 import type { ContentItem, WeekendGuideDay, WeekendGuideEvent } from "@/lib/types";
 import { formatDate } from "@/lib/utils";
 
@@ -110,6 +111,8 @@ export default async function HomePage(): Promise<React.JSX.Element> {
   const weekendHighlights = getHomeWeekendHighlights();
   const allItems = contentRepository.listContent();
   const latest = contentRepository.listLatest(6);
+  const themes = themeRepository.listThemes("theme").slice(0, 6);
+  const moments = themeRepository.listThemes("moment").slice(0, 4);
   const products = commerceProvider.listProducts(true).slice(0, 3);
   const heroItem = resolveHomepageFeaturedItem(allItems, latest);
   const highlightedItem = latest.find((item) => item.id !== heroItem?.id);
@@ -167,6 +170,8 @@ export default async function HomePage(): Promise<React.JSX.Element> {
           ) : null}
         </div>
       </section>
+
+      <DiscoverSearchSection themes={themes} moments={moments} />
 
       <section className="space-y-5">
         <SectionHeading

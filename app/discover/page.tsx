@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ContentCard } from "@/components/cards/content-card";
-import { SectionHeading } from "@/components/ui/section-heading";
+import { DiscoverSearchSection } from "@/components/sections/discover-search-section";
 import { discoverConfig, type DiscoverFeaturedItemConfig } from "@/lib/config/discover";
-import { getCategoryLabel } from "@/lib/content-labels";
 import { buildMetadata } from "@/lib/seo";
 import { getContentRepository, themeRepository } from "@/lib/repositories";
-import type { ContentItem, ContentRepository, WeekendCategory } from "@/lib/types";
+import type { ContentItem, ContentRepository } from "@/lib/types";
 
 export const metadata: Metadata = buildMetadata({
   title: "Ontdek",
@@ -19,8 +18,6 @@ export const dynamic = "force-dynamic";
 interface DiscoverPageProps {
   searchParams: Promise<{ q?: string; theme?: string; moment?: string; category?: string }>;
 }
-
-const categories: WeekendCategory[] = ["food", "events", "culture", "kids", "shopping", "nightlife", "local-tips"];
 
 function resolveFeaturedItems(contentRepository: ContentRepository): ContentItem[] {
   const items = contentRepository.listContent();
@@ -55,75 +52,14 @@ export default async function DiscoverPage({ searchParams }: DiscoverPageProps):
 
   return (
     <div className="mx-auto w-full max-w-6xl space-y-8 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
-      <section className="glass-surface rounded-[2rem] p-6 shadow-card sm:p-8">
-        <SectionHeading
-          eyebrow="Ontdek"
-          title="Ontdek Den Bosch"
-          description="Van fijne terrassen en brunch tot winkels, cultuur en leuke tips voor later."
-        />
-
-        <form className="mt-6 grid gap-3 md:grid-cols-4" role="search" aria-label="Zoek en filter Ontdek">
-          <label className="md:col-span-2">
-            <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.16em] text-brand-teal/60">Zoeken</span>
-            <input
-              type="search"
-              name="q"
-              defaultValue={params.q}
-              placeholder="bijv. vegetarisch, koningsdag, brunch"
-              className="h-11 w-full rounded-xl border border-brand-teal/20 bg-white px-3 text-sm"
-            />
-          </label>
-
-          <label>
-            <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.16em] text-brand-teal/60">Thema</span>
-            <select name="theme" defaultValue={params.theme ?? ""} className="h-11 w-full rounded-xl border border-brand-teal/20 bg-white px-3 text-sm">
-              <option value="">Alle</option>
-              {themes.map((theme) => (
-                <option key={theme.id} value={theme.slug}>
-                  {theme.title}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label>
-            <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.16em] text-brand-teal/60">Categorie</span>
-            <select
-              name="category"
-              defaultValue={params.category ?? ""}
-              className="h-11 w-full rounded-xl border border-brand-teal/20 bg-white px-3 text-sm"
-            >
-              <option value="">Alle</option>
-              {categories.map((category) => (
-                <option key={category} value={category}>
-                  {getCategoryLabel(category)}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label>
-            <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.16em] text-brand-teal/60">Moment</span>
-            <select name="moment" defaultValue={params.moment ?? ""} className="h-11 w-full rounded-xl border border-brand-teal/20 bg-white px-3 text-sm">
-              <option value="">Alle</option>
-              {moments.map((moment) => (
-                <option key={moment.id} value={moment.slug}>
-                  {moment.title}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <div className="flex items-end gap-2 md:col-span-4">
-            <button type="submit" className="rounded-full bg-brand-coral px-4 py-2 text-sm font-semibold text-white">
-              Zoeken
-            </button>
-            <Link href="/ontdek" className="rounded-full border border-brand-teal/20 bg-white px-4 py-2 text-sm font-semibold text-brand-teal">
-              Wis filters
-            </Link>
-          </div>
-        </form>
-      </section>
+      <DiscoverSearchSection
+        query={params.q}
+        theme={params.theme}
+        category={params.category}
+        moment={params.moment}
+        themes={themes}
+        moments={moments}
+      />
 
       <section className="space-y-3">
         <div>
