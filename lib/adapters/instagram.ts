@@ -4,6 +4,8 @@ import { slugify } from "@/lib/utils";
 import type {
   ContentItem,
   ContentItemDraft,
+  ContentStatus,
+  ContentType,
   InstagramIngestionAdapter,
   InstagramPostOverride,
   InstagramRawRecord,
@@ -17,7 +19,8 @@ export interface SupabaseContentRow {
   excerpt: string;
   caption: string;
   body: string[];
-  source_platform: "instagram" | "editorial";
+  content_type?: ContentType | null;
+  source_platform: "instagram" | "editorial" | "press";
   source_permalink?: string | null;
   source_id?: string | null;
   media_type: "image" | "carousel" | "reel";
@@ -25,6 +28,13 @@ export interface SupabaseContentRow {
   thumbnail: string;
   media_urls: string[];
   published_at: string;
+  first_published_at?: string | null;
+  last_material_update_at?: string | null;
+  relevance_start_at?: string | null;
+  relevance_end_at?: string | null;
+  evergreen_score?: number | null;
+  freshness_rank?: number | null;
+  status?: ContentStatus | null;
   searchable_text?: string | null;
   content_layer: "fast" | "evergreen" | "moment";
   categories: string[];
@@ -89,6 +99,7 @@ export function normalizeInstagramPost(raw: InstagramRawRecord, override: Instag
     excerpt: override.excerpt ?? truncateText(plainCaption, 160),
     caption: raw.caption,
     body: override.body ?? [plainCaption],
+    contentType: "instafirst_update",
     sourcePlatform: "instagram",
     sourcePermalink: raw.permalink,
     sourceId: raw.id,
@@ -125,6 +136,11 @@ export function mapSupabaseContentRowToContentItem(row: SupabaseContentRow): Con
     excerpt: row.excerpt,
     caption: row.caption,
     body: row.body,
+    contentType:
+      row.content_type ??
+      (row.source_platform === "instagram"
+        ? "instafirst_update"
+        : "eigen_post"),
     sourcePlatform: row.source_platform,
     sourcePermalink: row.source_permalink ?? undefined,
     sourceId: row.source_id ?? undefined,
@@ -133,6 +149,13 @@ export function mapSupabaseContentRowToContentItem(row: SupabaseContentRow): Con
     thumbnail: row.thumbnail,
     mediaUrls: row.media_urls,
     publishedAt: row.published_at,
+    firstPublishedAt: row.first_published_at ?? row.published_at,
+    lastMaterialUpdateAt: row.last_material_update_at ?? undefined,
+    relevanceStartAt: row.relevance_start_at ?? undefined,
+    relevanceEndAt: row.relevance_end_at ?? undefined,
+    evergreenScore: row.evergreen_score ?? undefined,
+    freshnessRank: row.freshness_rank ?? undefined,
+    status: row.status ?? "published",
     searchableText: row.searchable_text ?? undefined,
     contentLayer: row.content_layer,
     categories: row.categories as ContentItem["categories"],
@@ -162,6 +185,7 @@ export function mapContentItemToSupabaseRow(item: ContentItem): SupabaseContentR
     excerpt: item.excerpt,
     caption: item.caption,
     body: item.body,
+    content_type: item.contentType,
     source_platform: item.sourcePlatform,
     source_permalink: item.sourcePermalink ?? null,
     source_id: item.sourceId ?? null,
@@ -170,6 +194,13 @@ export function mapContentItemToSupabaseRow(item: ContentItem): SupabaseContentR
     thumbnail: item.thumbnail,
     media_urls: item.mediaUrls,
     published_at: item.publishedAt,
+    first_published_at: item.status === "published" ? item.firstPublishedAt ?? item.publishedAt : item.firstPublishedAt ?? null,
+    last_material_update_at: item.lastMaterialUpdateAt ?? null,
+    relevance_start_at: item.relevanceStartAt ?? null,
+    relevance_end_at: item.relevanceEndAt ?? null,
+    evergreen_score: item.evergreenScore,
+    freshness_rank: item.freshnessRank ?? null,
+    status: item.status,
     searchable_text: item.searchableText,
     content_layer: item.contentLayer,
     categories: item.categories,

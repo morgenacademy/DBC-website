@@ -13,6 +13,12 @@ describe("content repository", () => {
     expect(items.some((item) => item.slug === "koningsdag-den-bosch-2026")).toBe(true);
   });
 
+  it("kan filteren op content type", () => {
+    const guides = contentRepository.listContent({ contentType: "guide" });
+    expect(guides.map((item) => item.slug)).toContain("mei-in-den-bosch-maandgids");
+    expect(guides.every((item) => item.contentType === "guide")).toBe(true);
+  });
+
   it("geeft gerelateerde content terug", () => {
     const item = contentRepository.getContentBySlug("11-vegetarian-restaurants-den-bosch");
     expect(item).toBeDefined();

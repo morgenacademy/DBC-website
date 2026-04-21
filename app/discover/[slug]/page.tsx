@@ -130,6 +130,17 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
 
           {additionalMediaItems.length > 0 ? <ContentMediaCarousel title={item.title} mediaItems={additionalMediaItems} /> : null}
 
+          {item.seo?.googleMapsUrl ? (
+            <a
+              href={item.seo.googleMapsUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex rounded-full border border-brand-orange/25 bg-brand-orange px-4 py-2 text-sm font-semibold text-white"
+            >
+              Bekijk op Google Maps
+            </a>
+          ) : null}
+
           {item.sourcePermalink ? (
             <a
               href={item.sourcePermalink}

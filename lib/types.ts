@@ -1,4 +1,8 @@
-export type SourcePlatform = "instagram" | "editorial";
+export type SourcePlatform = "instagram" | "editorial" | "press";
+
+export type ContentType = "instafirst_update" | "guide" | "eigen_post";
+
+export type ContentStatus = "draft" | "review" | "published" | "archived";
 
 export type MediaType = "image" | "carousel" | "reel";
 
@@ -21,6 +25,7 @@ export interface SeoFields {
   ogImage?: string;
   canonicalPath?: string;
   noIndex?: boolean;
+  googleMapsUrl?: string;
 }
 
 export interface ContentItem {
@@ -30,6 +35,7 @@ export interface ContentItem {
   excerpt: string;
   caption: string;
   body: string[];
+  contentType: ContentType;
   sourcePlatform: SourcePlatform;
   sourcePermalink?: string;
   sourceId?: string;
@@ -38,6 +44,13 @@ export interface ContentItem {
   thumbnail: string;
   mediaUrls: string[];
   publishedAt: string;
+  firstPublishedAt?: string;
+  lastMaterialUpdateAt?: string;
+  relevanceStartAt?: string;
+  relevanceEndAt?: string;
+  evergreenScore: number;
+  freshnessRank?: number;
+  status: ContentStatus;
   searchableText: string;
   contentLayer: ContentLayer;
   categories: WeekendCategory[];
@@ -56,9 +69,32 @@ export interface ContentItem {
   seo?: SeoFields;
 }
 
-export type ContentItemDraft = Omit<ContentItem, "thumbnail" | "mediaUrls" | "searchableText" | "manualTags" | "featured"> & {
+export type ContentItemDraft = Omit<
+  ContentItem,
+  | "contentType"
+  | "thumbnail"
+  | "mediaUrls"
+  | "firstPublishedAt"
+  | "lastMaterialUpdateAt"
+  | "relevanceStartAt"
+  | "relevanceEndAt"
+  | "evergreenScore"
+  | "freshnessRank"
+  | "status"
+  | "searchableText"
+  | "manualTags"
+  | "featured"
+> & {
+  contentType?: ContentType;
   thumbnail?: string;
   mediaUrls?: string[];
+  firstPublishedAt?: string;
+  lastMaterialUpdateAt?: string;
+  relevanceStartAt?: string;
+  relevanceEndAt?: string;
+  evergreenScore?: number;
+  freshnessRank?: number;
+  status?: ContentStatus;
   searchableText?: string;
   manualTags?: string[];
   featured?: boolean;
@@ -158,6 +194,8 @@ export interface ContentFilters {
   category?: WeekendCategory | string;
   moment?: string;
   type?: ContentLayer | string;
+  contentType?: ContentType | string;
+  status?: ContentStatus | "all";
 }
 
 export interface DateRange {

@@ -23,6 +23,14 @@ export class InMemoryContentRepository implements ContentRepository {
 
   listContent(filters: ContentFilters = {}): ContentItem[] {
     const filtered = this.items.filter((item) => {
+      if (filters.status && filters.status !== "all" && item.status !== filters.status) {
+        return false;
+      }
+
+      if (!filters.status && item.status !== "published") {
+        return false;
+      }
+
       if (filters.category && !item.categories.includes(filters.category as ContentItem["categories"][number])) {
         return false;
       }
@@ -39,6 +47,10 @@ export class InMemoryContentRepository implements ContentRepository {
         return false;
       }
 
+      if (filters.contentType && item.contentType !== filters.contentType) {
+        return false;
+      }
+
       if (filters.q) {
         const indexInput = item.searchableText || createSearchIndexInput(item);
         return queryMatchesIndex(indexInput, filters.q);
@@ -51,7 +63,7 @@ export class InMemoryContentRepository implements ContentRepository {
   }
 
   getContentBySlug(slug: string): ContentItem | undefined {
-    return this.items.find((item) => item.slug === slug);
+    return this.items.find((item) => item.slug === slug && item.status === "published");
   }
 
   searchContent(query: string, filters: Omit<ContentFilters, "q"> = {}): ContentItem[] {
@@ -82,11 +94,11 @@ export class InMemoryContentRepository implements ContentRepository {
   }
 
   listFeatured(limit = 6): ContentItem[] {
-    return this.items.filter((item) => item.isFeatured).sort(byFeatured).slice(0, limit);
+    return this.items.filter((item) => item.status === "published" && item.isFeatured).sort(byFeatured).slice(0, limit);
   }
 
   listLatest(limit = 8): ContentItem[] {
-    return [...this.items].sort(byNewest).slice(0, limit);
+    return this.items.filter((item) => item.status === "published").sort(byNewest).slice(0, limit);
   }
 }
 

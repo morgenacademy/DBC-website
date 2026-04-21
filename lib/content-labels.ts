@@ -18,7 +18,8 @@ const categoryLabels: Record<WeekendCategory, string> = {
 
 const sourcePlatformLabels: Record<SourcePlatform, string> = {
   instagram: "Instagram",
-  editorial: "Redactie"
+  editorial: "Redactie",
+  press: "Pers"
 };
 
 const mediaTypeLabels: Record<MediaType, string> = {

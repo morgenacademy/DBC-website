@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { truncateText } from "@/lib/adapters/instagram";
+import { normalizeInstagramPost, truncateText } from "@/lib/adapters/instagram";
 
 function hasLoneSurrogate(value: string): boolean {
   for (let index = 0; index < value.length; index += 1) {
@@ -33,5 +33,23 @@ describe("instagram adapter truncateText", () => {
     expect(truncated.includes("b")).toBe(false);
     expect(hasLoneSurrogate(truncated)).toBe(false);
     expect(parsed.truncated).toBe(truncated);
+  });
+});
+
+describe("instagram adapter normalization", () => {
+  it("marks ingested Instagram records as instafirst updates", () => {
+    const item = normalizeInstagramPost({
+      id: "178-test",
+      permalink: "https://www.instagram.com/p/test/",
+      caption: "Nieuwe tip in Den Bosch #denbosch",
+      media_type: "IMAGE",
+      media_url: "https://example.com/image.jpg",
+      timestamp: "2026-04-01T10:00:00.000Z"
+    });
+
+    expect(item.contentType).toBe("instafirst_update");
+    expect(item.sourcePlatform).toBe("instagram");
+    expect(item.firstPublishedAt).toBe(item.publishedAt);
+    expect(item.status).toBe("published");
   });
 });

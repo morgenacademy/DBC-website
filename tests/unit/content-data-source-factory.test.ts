@@ -20,6 +20,7 @@ describe("content datasource factory", () => {
 
   it("valt terug op mock data als supabase mode niet volledig geconfigureerd is", () => {
     const source = createContentDataSourceFromEnvSync({
+      NODE_ENV: "test",
       CONTENT_DATA_SOURCE: "supabase"
     });
     const items = source.listContentItems();
@@ -65,6 +66,7 @@ describe("content datasource factory", () => {
     ]);
 
     const source = createContentDataSourceFromEnvSync({
+      NODE_ENV: "test",
       CONTENT_DATA_SOURCE: "supabase",
       SUPABASE_URL: "https://example.supabase.co",
       SUPABASE_ANON_KEY: "anon-key",
@@ -75,6 +77,7 @@ describe("content datasource factory", () => {
     expect(items).toHaveLength(1);
     expect(items[0].slug).toBe("supabase-ingested-item");
     expect(items[0].sourcePlatform).toBe("instagram");
+    expect(items[0].contentType).toBe("instafirst_update");
     expect(items[0].searchableText).toContain("supabase");
   });
 
@@ -121,6 +124,7 @@ describe("content datasource factory", () => {
     vi.stubGlobal("fetch", mockFetch);
 
     const source = await createContentDataSourceFromEnv({
+      NODE_ENV: "test",
       CONTENT_DATA_SOURCE: "supabase",
       SUPABASE_URL: "https://example.supabase.co",
       SUPABASE_ANON_KEY: "anon-key"
@@ -129,6 +133,7 @@ describe("content datasource factory", () => {
     const items = source.listContentItems();
     expect(items).toHaveLength(1);
     expect(items[0].slug).toBe("live-row");
+    expect(items[0].contentType).toBe("instafirst_update");
   });
 
   it("valt terug op mock als live supabase read faalt", async () => {
@@ -140,6 +145,7 @@ describe("content datasource factory", () => {
     vi.stubGlobal("fetch", mockFetch);
 
     const source = await createContentDataSourceFromEnv({
+      NODE_ENV: "test",
       CONTENT_DATA_SOURCE: "supabase",
       SUPABASE_URL: "https://example.supabase.co",
       SUPABASE_ANON_KEY: "anon-key"
