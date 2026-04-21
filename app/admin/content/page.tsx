@@ -66,13 +66,14 @@ export default async function AdminContentPage({ searchParams }: AdminContentPag
       </header>
 
       <div className="overflow-hidden rounded-editorial border border-brand-teal/15 bg-white shadow-card">
-        <table className="w-full min-w-[720px] text-left text-sm">
+        <table className="w-full min-w-[840px] text-left text-sm">
           <thead className="bg-brand-sand/60 text-xs uppercase tracking-[0.14em] text-brand-teal/60">
             <tr>
               <th className="px-4 py-3">Title</th>
               <th className="px-4 py-3">Type</th>
               <th className="px-4 py-3">Status</th>
               <th className="px-4 py-3">Published</th>
+              <th className="px-4 py-3">Public link</th>
               <th className="px-4 py-3">Action</th>
             </tr>
           </thead>
@@ -85,6 +86,16 @@ export default async function AdminContentPage({ searchParams }: AdminContentPag
                   <td className="px-4 py-3 text-brand-teal/75">{item.status}</td>
                   <td className="px-4 py-3 text-brand-teal/75">{formatDate(item.publishedAt)}</td>
                   <td className="px-4 py-3">
+                    {item.status === "published" ? (
+                      <Link href={`/ontdek/${item.slug}`} className="font-semibold text-brand-orange">
+                        View
+                        <span className="mt-1 block max-w-[18rem] truncate text-xs font-medium text-brand-teal/55">/ontdek/{item.slug}</span>
+                      </Link>
+                    ) : (
+                      <span className="text-brand-teal/45">Niet live</span>
+                    )}
+                  </td>
+                  <td className="px-4 py-3">
                     <Link href={`/admin/content/${item.id}${tokenQuery(adminToken)}`} className="font-semibold text-brand-orange">
                       Edit
                     </Link>
@@ -93,7 +104,7 @@ export default async function AdminContentPage({ searchParams }: AdminContentPag
               ))
             ) : (
               <tr>
-                <td colSpan={5} className="px-4 py-8 text-center text-sm font-semibold text-brand-teal/70">
+                <td colSpan={6} className="px-4 py-8 text-center text-sm font-semibold text-brand-teal/70">
                   Nog geen Guides of Eigen posts. Maak je eerste item via New content.
                 </td>
               </tr>
