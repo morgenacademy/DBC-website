@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { loginContentAdminAction } from "@/app/admin/content/actions";
+import { getExpectedAdminToken, isAllowedAdminToken, resolveAdminToken } from "@/app/admin/content/auth";
 import { getContentRepository } from "@/lib/repositories";
 import { formatDate } from "@/lib/utils";
 
@@ -8,15 +10,6 @@ interface AdminContentPageProps {
   searchParams: Promise<{ token?: string }>;
 }
 
-function getExpectedAdminToken(): string | null {
-  return process.env.CONTENT_ADMIN_TOKEN ?? process.env.ADMIN_CONTENT_TOKEN ?? null;
-}
-
-function isAllowed(token: string): boolean {
-  const expectedToken = getExpectedAdminToken();
-  return !expectedToken || token === expectedToken;
-}
-
 function tokenQuery(token: string): string {
   return token ? `?token=${encodeURIComponent(token)}` : "";
 }
@@ -24,11 +17,12 @@ function tokenQuery(token: string): string {
 function AccessForm(): React.JSX.Element {
   return (
     <section className="mx-auto max-w-md px-4 py-16">
-      <form className="space-y-4 rounded-editorial border border-brand-teal/15 bg-white p-5 shadow-card">
+      <form action={loginContentAdminAction} className="space-y-4 rounded-editorial border border-brand-teal/15 bg-white p-5 shadow-card">
         <h1 className="text-2xl font-bold text-brand-teal">Content editor</h1>
+        <input name="username" type="text" defaultValue="Den Bosch City" autoComplete="username" className="sr-only" tabIndex={-1} aria-hidden="true" />
         <label className="space-y-2 text-sm font-semibold text-brand-teal">
           Admin token
-          <input name="token" type="password" className="w-full rounded-xl border border-brand-teal/20 px-3 py-2" />
+          <input name="token" type="password" autoComplete="current-password" className="w-full rounded-xl border border-brand-teal/20 px-3 py-2" />
         </label>
         <button className="rounded-full bg-brand-orange px-5 py-2 text-sm font-semibold text-white">Open editor</button>
       </form>
@@ -38,9 +32,10 @@ function AccessForm(): React.JSX.Element {
 
 export default async function AdminContentPage({ searchParams }: AdminContentPageProps): Promise<React.JSX.Element> {
   const resolvedSearchParams = await searchParams;
-  const adminToken = resolvedSearchParams.token ?? "";
+  const adminToken = await resolveAdminToken(resolvedSearchParams.token);
+  const linkToken = resolvedSearchParams.token && isAllowedAdminToken(resolvedSearchParams.token) ? adminToken : "";
 
-  if (!isAllowed(adminToken)) {
+  if (!isAllowedAdminToken(adminToken)) {
     return <AccessForm />;
   }
 
@@ -58,8 +53,8 @@ export default async function AdminContentPage({ searchParams }: AdminContentPag
           {!getExpectedAdminToken() ? <p className="mt-2 text-sm text-brand-orange">Geen admin token ingesteld; editor is open in deze omgeving.</p> : null}
         </div>
         <Link
-          href={`/admin/content/new${tokenQuery(adminToken)}`}
-          className="inline-flex rounded-full bg-brand-orange px-5 py-2 text-sm font-bold text-white shadow-card ring-1 ring-brand-orange/20 transition hover:bg-brand-teal"
+          href={`/admin/content/new${tokenQuery(linkToken)}`}
+          className="inline-flex rounded-full bg-brand-teal px-5 py-2 text-sm font-bold text-white shadow-card ring-1 ring-brand-teal/20 transition hover:bg-brand-orange"
         >
           New content
         </Link>
@@ -96,7 +91,7 @@ export default async function AdminContentPage({ searchParams }: AdminContentPag
                     )}
                   </td>
                   <td className="px-4 py-3">
-                    <Link href={`/admin/content/${item.id}${tokenQuery(adminToken)}`} className="font-semibold text-brand-orange">
+                    <Link href={`/admin/content/${item.id}${tokenQuery(linkToken)}`} className="font-semibold text-brand-orange">
                       Edit
                     </Link>
                   </td>

@@ -4,7 +4,7 @@ export const weekendGuideEdition: WeekendGuideEdition = {
   id: "weekend-2026-04-23-26",
   slug: "weekend-23-tm-26-april-2026",
   title: "Weekend Guide",
-  periodLabel: "23 t/m 26 april",
+  periodLabel: "23 t/m 27 april",
   introTitle: "Weekend Guide",
   introBody:
     "Een nieuw weekend in Den Bosch staat klaar. Van donderdag tot en met zondag vind je hier de fijnste tips voor theater, muziek, kids, proeverijen, sportieve plannen en relaxed rondstruinen in de stad.",
@@ -428,6 +428,28 @@ export const weekendGuideEdition: WeekendGuideEdition = {
       venue: "Station Zuid",
       timeLabel: "15:00",
       day: "zondag"
+    },
+    {
+      id: "wg-2026-04-043",
+      slug: "koningsnacht-in-den-bosch",
+      title: "KONINGSNACHT IN DEN BOSCH",
+      description:
+        "Zondagavond wordt Den Bosch alvast oranje. Voor het volledige overzicht van Koningsnacht, locaties, feestjes en praktische tips verwijzen we naar de aparte Koningsnacht & Koningsdag-guide.",
+      venue: "Den Bosch",
+      timeLabel: "zondagavond",
+      day: "zondag",
+      sourceLink: "https://dbc-website.netlify.app/ontdek/koningsnacht-koningsdag-dit-doe-je-in-den-bosch"
+    },
+    {
+      id: "wg-2026-04-044",
+      slug: "koningsdag-in-den-bosch",
+      title: "KONINGSDAG IN DEN BOSCH",
+      description:
+        "Maandag viert Den Bosch Koningsdag. Voor alle activiteiten, vrijmarkten, feestjes en tips verwijzen we naar de aparte Koningsnacht & Koningsdag-guide.",
+      venue: "Den Bosch",
+      timeLabel: "maandag",
+      day: "maandag",
+      sourceLink: "https://dbc-website.netlify.app/ontdek/koningsnacht-koningsdag-dit-doe-je-in-den-bosch"
     }
   ]
 };

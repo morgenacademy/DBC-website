@@ -18,6 +18,8 @@ function toTextareaBody(item: ContentItem | undefined): string {
 export function ContentForm({ adminToken, item, defaultContentType = "eigen_post" }: ContentFormProps): React.JSX.Element {
   const contentType = item?.contentType === "guide" || item?.contentType === "eigen_post" ? item.contentType : defaultContentType;
   const extraMediaUrls = item ? item.mediaUrls.filter((url) => url !== item.image) : [];
+  const primarySaveIntent = item?.status === "published" ? "save" : "draft";
+  const primarySaveLabel = item?.status === "published" ? "Save" : "Save draft";
 
   return (
     <form action={saveContentItemAction} className="space-y-6 rounded-editorial border border-brand-teal/15 bg-white p-5 shadow-card">
@@ -151,8 +153,8 @@ export function ContentForm({ adminToken, item, defaultContentType = "eigen_post
       </div>
 
       <div className="flex flex-wrap gap-3">
-        <button name="intent" value="draft" className="rounded-full border border-brand-teal/25 bg-white px-5 py-2 text-sm font-semibold text-brand-teal">
-          Save draft
+        <button name="intent" value={primarySaveIntent} className="rounded-full border border-brand-teal/25 bg-white px-5 py-2 text-sm font-semibold text-brand-teal">
+          {primarySaveLabel}
         </button>
         <button name="intent" value="publish" className="rounded-full bg-brand-orange px-5 py-2 text-sm font-semibold text-white">
           Publish

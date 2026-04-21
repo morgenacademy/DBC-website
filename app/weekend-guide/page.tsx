@@ -103,6 +103,14 @@ export default function WeekendGuidePage(): React.JSX.Element {
                       ))}
                     </ul>
                   ) : null}
+                  {event.sourceLink ? (
+                    <a
+                      href={event.sourceLink}
+                      className="mt-4 inline-flex rounded-full bg-brand-teal px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-orange"
+                    >
+                      Bekijk het overzicht
+                    </a>
+                  ) : null}
                 </article>
               ))}
             </div>

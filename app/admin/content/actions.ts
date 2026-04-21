@@ -2,12 +2,12 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { getStoredAdminToken, isAllowedAdminToken, storeAdminToken } from "@/app/admin/content/auth";
 import { finalizeContentItem } from "@/lib/content-item-factory";
 import { mapContentItemToSupabaseRow } from "@/lib/adapters/instagram";
 import { slugify, unique } from "@/lib/utils";
 import type { ContentItemDraft, ContentStatus, ContentType, WeekendCategory } from "@/lib/types";
 
-const ADMIN_TOKEN_ENV_KEYS = ["CONTENT_ADMIN_TOKEN", "ADMIN_CONTENT_TOKEN"];
 const DEFAULT_CONTENT_TABLE = "content_items";
 const DEFAULT_MEDIA_BUCKET = "content-media";
 
@@ -27,20 +27,13 @@ function normalizeSupabaseUrl(rawUrl: string): string {
   return rawUrl.replace(/\/+$/, "");
 }
 
-function getExpectedAdminToken(): string | null {
-  for (const key of ADMIN_TOKEN_ENV_KEYS) {
-    const value = process.env[key];
-    if (value) return value;
-  }
-
-  return null;
-}
-
-function assertAdminToken(token: string): void {
-  const expectedToken = getExpectedAdminToken();
-  if (expectedToken && token !== expectedToken) {
+async function assertAdminToken(token: string): Promise<string> {
+  const resolvedToken = token || (await getStoredAdminToken());
+  if (!isAllowedAdminToken(resolvedToken)) {
     throw new Error("Geen toegang tot de content editor.");
   }
+
+  return resolvedToken;
 }
 
 function getSupabaseWriteConfig(): { url: string; key: string; table: string; mediaBucket: string } {
@@ -115,8 +108,7 @@ async function upsertContentItem(draft: ContentItemDraft): Promise<void> {
 }
 
 export async function saveContentItemAction(formData: FormData): Promise<void> {
-  const adminToken = getString(formData, "adminToken");
-  assertAdminToken(adminToken);
+  await assertAdminToken(getString(formData, "adminToken"));
 
   const now = new Date().toISOString();
   const title = getString(formData, "title");
@@ -196,5 +188,12 @@ export async function saveContentItemAction(formData: FormData): Promise<void> {
   revalidatePath("/");
   revalidatePath("/ontdek");
   revalidatePath(`/ontdek/${slug}`);
-  redirect(`/admin/content?token=${encodeURIComponent(adminToken)}`);
+  redirect("/admin/content");
+}
+
+export async function loginContentAdminAction(formData: FormData): Promise<void> {
+  const adminToken = getString(formData, "token");
+  await assertAdminToken(adminToken);
+  await storeAdminToken(adminToken);
+  redirect("/admin/content");
 }
