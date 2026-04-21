@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { Fragment } from "react";
 import { notFound } from "next/navigation";
 import { ContentCard } from "@/components/cards/content-card";
 import { ContentMediaCarousel } from "@/components/media/content-media-carousel";
@@ -15,6 +16,56 @@ export const dynamic = "force-dynamic";
 
 interface ContentDetailPageProps {
   params: Promise<{ slug: string }>;
+}
+
+function getContentTypeLabel(contentType: string): string {
+  if (contentType === "guide") return "Guide";
+  if (contentType === "eigen_post") return "Eigen post";
+  return "Instafirst";
+}
+
+function renderBodyBlocks(paragraphs: string[]): React.ReactNode[] {
+  const blocks: React.ReactNode[] = [];
+  let listItems: string[] = [];
+
+  const flushList = (): void => {
+    if (listItems.length === 0) return;
+
+    blocks.push(
+      <ul key={`list-${blocks.length}`} className="list-disc space-y-2 pl-5">
+        {listItems.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    );
+    listItems = [];
+  };
+
+  paragraphs.forEach((paragraph) => {
+    const trimmed = paragraph.trim();
+
+    if (trimmed.startsWith("- ")) {
+      listItems.push(trimmed.slice(2).trim());
+      return;
+    }
+
+    flushList();
+
+    if (trimmed.startsWith("## ")) {
+      blocks.push(
+        <h2 key={trimmed} className="pt-4 text-2xl font-bold leading-tight text-brand-teal">
+          {trimmed.slice(3).trim()}
+        </h2>
+      );
+      return;
+    }
+
+    blocks.push(<p key={trimmed}>{trimmed}</p>);
+  });
+
+  flushList();
+
+  return blocks.length > 0 ? blocks : [<Fragment key="empty" />];
 }
 
 export async function generateMetadata({ params }: ContentDetailPageProps): Promise<Metadata> {
@@ -52,6 +103,7 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
     excerpt: item.excerpt,
     body: item.body
   });
+  const contentTypeLabel = getContentTypeLabel(item.contentType);
   const detailRows = [
     item.themes.length > 0
       ? {
@@ -84,6 +136,9 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
       {heroMedia ? (
         <section className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
           <header className="space-y-4">
+            <span className="inline-flex w-fit rounded-full bg-brand-orange px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-white">
+              {contentTypeLabel}
+            </span>
             <h1 className="text-balance text-4xl font-bold leading-tight text-brand-teal sm:text-5xl">{item.title}</h1>
             {showExcerpt ? <p className="max-w-2xl text-lg text-brand-teal/75">{item.excerpt}</p> : null}
             <div className="flex flex-wrap gap-4 text-xs font-semibold uppercase tracking-[0.16em] text-brand-teal/55">
@@ -114,6 +169,9 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
         </section>
       ) : (
         <header className="space-y-4">
+          <span className="inline-flex w-fit rounded-full bg-brand-orange px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-white">
+            {contentTypeLabel}
+          </span>
           <h1 className="text-balance text-4xl font-bold leading-tight text-brand-teal sm:text-5xl">{item.title}</h1>
           {showExcerpt ? <p className="max-w-3xl text-lg text-brand-teal/75">{item.excerpt}</p> : null}
           <div className="flex flex-wrap gap-4 text-xs font-semibold uppercase tracking-[0.16em] text-brand-teal/55">
@@ -124,9 +182,7 @@ export default async function ContentDetailPage({ params }: ContentDetailPagePro
 
       <section className="grid items-start gap-8 lg:grid-cols-[2fr_1fr]">
         <div className="space-y-4 text-base leading-relaxed text-brand-teal/90">
-          {bodyParagraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
+          {renderBodyBlocks(bodyParagraphs)}
 
           {additionalMediaItems.length > 0 ? <ContentMediaCarousel title={item.title} mediaItems={additionalMediaItems} /> : null}
 
