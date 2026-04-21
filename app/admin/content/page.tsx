@@ -57,7 +57,10 @@ export default async function AdminContentPage({ searchParams }: AdminContentPag
           <h1 className="text-3xl font-bold text-brand-teal">Content editor</h1>
           {!getExpectedAdminToken() ? <p className="mt-2 text-sm text-brand-orange">Geen admin token ingesteld; editor is open in deze omgeving.</p> : null}
         </div>
-        <Link href={`/admin/content/new${tokenQuery(adminToken)}`} className="rounded-full bg-brand-orange px-5 py-2 text-sm font-semibold text-white">
+        <Link
+          href={`/admin/content/new${tokenQuery(adminToken)}`}
+          className="inline-flex rounded-full bg-brand-orange px-5 py-2 text-sm font-bold text-white shadow-card ring-1 ring-brand-orange/20 transition hover:bg-brand-teal"
+        >
           New content
         </Link>
       </header>
@@ -74,19 +77,27 @@ export default async function AdminContentPage({ searchParams }: AdminContentPag
             </tr>
           </thead>
           <tbody className="divide-y divide-brand-teal/10">
-            {items.map((item) => (
-              <tr key={item.id}>
-                <td className="px-4 py-3 font-semibold text-brand-teal">{item.title}</td>
-                <td className="px-4 py-3 text-brand-teal/75">{item.contentType === "guide" ? "Guide" : "Eigen post"}</td>
-                <td className="px-4 py-3 text-brand-teal/75">{item.status}</td>
-                <td className="px-4 py-3 text-brand-teal/75">{formatDate(item.publishedAt)}</td>
-                <td className="px-4 py-3">
-                  <Link href={`/admin/content/${item.id}${tokenQuery(adminToken)}`} className="font-semibold text-brand-orange">
-                    Edit
-                  </Link>
+            {items.length > 0 ? (
+              items.map((item) => (
+                <tr key={item.id}>
+                  <td className="px-4 py-3 font-semibold text-brand-teal">{item.title}</td>
+                  <td className="px-4 py-3 text-brand-teal/75">{item.contentType === "guide" ? "Guide" : "Eigen post"}</td>
+                  <td className="px-4 py-3 text-brand-teal/75">{item.status}</td>
+                  <td className="px-4 py-3 text-brand-teal/75">{formatDate(item.publishedAt)}</td>
+                  <td className="px-4 py-3">
+                    <Link href={`/admin/content/${item.id}${tokenQuery(adminToken)}`} className="font-semibold text-brand-orange">
+                      Edit
+                    </Link>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={5} className="px-4 py-8 text-center text-sm font-semibold text-brand-teal/70">
+                  Nog geen Guides of Eigen posts. Maak je eerste item via New content.
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
