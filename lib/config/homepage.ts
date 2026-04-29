@@ -18,6 +18,6 @@ export const homepageConfig = {
     shopLabel: "Shop"
   },
   featuredItem: {
-    slug: "twee-bachelorettes-helemaal-ready-voor-de-show-en-nu-nog-de-mannen"
+    slug: "kom-mee-vlucht-naar-buiten-toe-camping-koffietent-een-ontmoetingsple"
   } as HomepageFeaturedItemConfig
 } as const;
